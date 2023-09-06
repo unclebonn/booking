@@ -1,0 +1,37 @@
+.ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+    color: white;
+}
+
+.sidebar-container {
+
+    /* .ant-menu-root{
+    top: 0;
+    left: 0;
+    width: 300px;
+    min-width: 215px;
+    height: 100vh;
+    position: sticky;
+    background: linear-gradient(#b0bdc3, #487f9e, #91d5ff);
+    border-bottom-right-radius: 50px;
+    }
+    .ant-menu-item{
+        padding: 3em;
+        padding-left: 2em;
+        display: flex;
+        color: #FFFFFF;
+        list-style: none;
+        text-decoration: none;
+        align-items: center;
+        justify-content: flex-start;
+        cursor: pointer;
+    }*/
+    .ant-menu-title-content {
+        font-size: small;
+        font-weight: 600;
+        margin-left: 15px;
+    }
+
+    i.ant-menu-submenu-arrow {
+        display:none;
+    }
+}

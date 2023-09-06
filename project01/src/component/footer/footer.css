@@ -1,0 +1,13 @@
+.footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(133, 180, 216);
+    color: white;
+  }
+
+  .App-link {
+    color: rgb(112, 76, 182);
+  }

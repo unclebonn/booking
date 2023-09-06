@@ -1,0 +1,24 @@
+.user-customerdetail {
+    margin: 1em;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    gap:15px;
+    overflow: auto;
+    width: 100%;
+}
+.personal-information{
+    background-color: rgb(223, 184, 184);
+    border: none;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    overflow: auto;
+    width: 300px;
+    height: fit-content;
+}

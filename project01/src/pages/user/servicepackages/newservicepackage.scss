@@ -1,0 +1,28 @@
+.user-services {
+    margin: 1em;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: auto;
+    width: 100%;
+
+    .newservice-form {
+        padding: 10px 40px;
+    }
+
+    .ant-row {
+
+        .ant-col-24 {
+
+            h1 {
+                font-size: 35px;
+            }
+
+        }
+
+    }
+}

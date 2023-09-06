@@ -1,0 +1,166 @@
+.user-employlist {
+    margin: 1em;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: auto;
+    width: 100%;
+
+    .user-services--form {
+        box-shadow: 3px 6px 20px 5px rgba(0, 0, 0, 0.25);
+        padding: 50px;
+        border-radius: 10px;
+    }
+
+
+    .item-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 150px;
+        gap: 5px;
+    }
+
+
+    .bonus-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .item-title {
+        display: flex;
+        flex: 1;
+        align-items: flex-start;
+        max-width: 100%;
+    }
+
+
+
+
+
+    .dashboard-content-header3 {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        font-size: 16px !important;
+
+        .text-bold {
+
+
+            .ant-select-selection-item {
+                font-weight: bold !important;
+                font-size: 14px !important;
+            }
+        }
+    }
+
+
+
+    .dashboard-content-header2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+
+        .dashboard-content-header2-left {
+            display: flex;
+            justify-content: left;
+            gap: 20px;
+
+
+            button {
+                width: 10vw !important;
+            }
+        }
+
+        .dashboard-content-header2-right {
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+            gap: 20px;
+
+            .dashboard-content-search {
+                font-weight: 400;
+                line-height: 1.4em;
+                letter-spacing: 0.009em;
+                box-sizing: border-box;
+                cursor: text;
+                display: inline-flex;
+                -webkit-box-align: center;
+                align-items: center;
+                position: relative;
+                background-color: transparent;
+                font-size: 0.875rem;
+                border-radius: 2rem;
+                border: 1px solid gray;
+                width: 300px;
+
+
+                .dashboard-content-input {
+                    font-style: inherit;
+                    font-variant: inherit;
+                    font-weight: inherit;
+                    font-stretch: inherit;
+                    line-height: inherit;
+                    font-family: inherit;
+                    letter-spacing: inherit;
+                    border: 0px;
+                    box-sizing: content-box;
+                    background: none transparent;
+                    margin: 0px;
+                    display: block;
+                    min-width: 0px;
+                    width: 100%;
+                    font-size: 0.75rem;
+                    padding: 0.625rem;
+                    border-radius: 16px;
+
+
+                }
+            }
+
+            .dashboard-content-search:focus {
+                outline: #0891e0 auto 1px;
+
+            }
+        }
+    }
+
+}
+
+.ant-modal .ant-modal-content {
+    padding: 40px 43px !important;
+}
+
+.ant-popconfirm {
+    z-index: 1000 !important;
+}
+
+.recover-table {
+    height: 500px;
+    overflow-y: scroll;
+
+    .item-content-recover {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+
+.modal-dialog{
+    max-width: 100%;
+}
+
+.col-form-label{
+    text-align: left;
+}
+.ant-space{
+    display: flex;
+}

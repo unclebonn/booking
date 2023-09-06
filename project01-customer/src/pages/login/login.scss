@@ -1,0 +1,198 @@
+/*body {
+    background-image: linear-gradient(135deg, #fff 10%, #ccc 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: "Open Sans", sans-serif;
+    color: #333333;
+
+}*/
+
+@media (max-width: 480px) {
+    .box-form {
+        display: block;
+        padding: 20px;
+        text-align: center;
+        align-content: center;
+        align-items: center;
+    }
+}
+
+
+// login form
+.login {
+    display: flex;
+    text-align: left;
+    justify-content: center;
+    padding-top: 50px;
+
+    .box-form {
+        margin: 0 auto;
+        width: 30vw;
+        background: #FFFFFF;
+        margin: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        /*flex: 1 1 100%;*/
+        align-items: stretch;
+        /*justify-content: space-between;*/
+        border-radius: 10px;
+        box-shadow: 3px 2px 20px 10px #1d3fae85;
+        padding: 40px;
+        text-align: left;
+        justify-content: center;
+        max-width: 500px;
+
+        input {
+            margin-top: 5px !important;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            //border-bottom: 2px solid #B0B3B9;
+        }
+
+        .remember-me--forget-password {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remember-me--forget-password input {
+            margin: 0;
+            margin-right: 7px;
+            width: auto;
+        }
+
+        .login-form-button {
+            font-size: 15px;
+            border-radius: 3px;
+            box-shadow: 0px 2px 10px 0px #487f9e;
+        }
+
+      
+
+
+        .login-form-button .circle-loading {
+            animation: circular 1.5s infinite
+        }
+
+        .login-form-button button {
+            background: none;
+            border: 0;
+            outline: 0;
+            padding-right: 10px;
+            color: whitesmoke;
+        }
+
+        .switch2 {
+            border-radius: 23px;
+            border: 1px solid #e6e6e6;
+            background: white;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            position: relative;
+            margin: 0 20px;
+            padding: 9px 6px;
+            box-sizing: border-box;
+            margin: 30px;
+
+
+            &::after {
+                transition: left .2s ease;
+                position: absolute;
+                top: 50%;
+                transform: translate(0%, -50%);
+                left: 0;
+                display: block;
+                content: "";
+                background: linear-gradient(to right, #b0bdc3, #487f9e, #91d5ff);
+                width: 50%;
+                height: 100%;
+                border-radius: 23px;
+            }
+
+            >span {
+                color: black;
+                width: 50%;
+                display: inline-block;
+                text-align: center;
+                letter-spacing: .5px;
+                position: relative;
+                z-index: 5;
+                font-size: 20px;
+                top: -2px;
+                /*text-transform: uppercase;*/
+            }
+
+            .active {
+                color: white;
+                transition: .2s;
+            }
+
+            &.checked {
+                &::after {
+                    left: 50%;
+                }
+            }
+        }
+
+    }
+
+    @keyframes circular {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /*
+label {
+    display: block;
+    position: relative;
+    margin-left: 30px;
+}
+
+label::before {
+    content: ' \f00c';
+    position: absolute;
+    font-family: FontAwesome;
+    background: transparent;
+    border: 3px solid #70F570;
+    border-radius: 4px;
+    color: transparent;
+    left: -30px;
+    transition: all 0.2s linear;
+}
+
+label:hover::before {
+    font-family: FontAwesome;
+    content: ' \f00c';
+    color: #fff;
+    cursor: pointer;
+    background: #70F570;
+}
+
+label:hover::before .text-checkbox {
+    background: #70F570;
+}
+
+label span.text-checkbox {
+    display: inline-block;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+label input[type="checkbox"] {
+    display: none;
+}*/
+
+
+}

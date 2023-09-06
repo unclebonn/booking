@@ -1,0 +1,101 @@
+/* .header {
+  position: fixed;
+} */
+
+.dashbord-header-container {
+  padding: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  z-index: 1000;
+  position: relative;
+}
+
+.dashbord-header-btn {
+  padding: 0.5em 1em;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 8px;
+  text-transform: uppercase;
+  border: 1px solid #015C92;
+  background-color: #547385;
+  margin-right: 20px;
+}
+
+/* .dashbord-header-btn:hover {
+  color: #015C92;
+  border: 1px solid #015C92;
+  background-color: #F0F2F5;
+} */
+
+.dashbord-header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.dashbord-header-icon {
+  width: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.dashbord-header-avatar {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.dashbord-header-container .dashboard-header-setting>.dashboard-header-setting--menu {
+  position: absolute;
+  right: 10px;
+  top:5px;
+  z-index: 10;
+  background: linear-gradient(to left, #608094, #7792a3, #12608f);
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dashboard-header-setting>.dashboard-header-setting--menu .ant-menu-item {
+  color: white;
+}
+
+.dashboard-header-setting>.dashboard-header-setting--menu .ant-menu-item-selected {
+  color: black !important;
+}
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-float infinite 3s ease-in-out;
+  }
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: #a3d1ec !important;
+}
+
+.ant-dropdown-menu-submenu-title:hover {
+  background-color: none !important;
+}
+
+.ant-dropdown-menu-submenu-title {
+  padding: 0 !important;
+}
+
+.ant-menu-root {
+  height: auto;
+}
+
+.ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+  color: white !important;
+}
+
