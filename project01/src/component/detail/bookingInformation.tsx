@@ -112,14 +112,14 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
         },
         {
             title: 'Giao dịch viên',
-            dataIndex: 'salesEmployee',
-            render: (record) => <a>{record?.salesEmployee?.name}</a>,
+            //dataIndex: 'salesEmployee',
+            render: (record) => record?.salesEmployee?.name,
 
         },
         {
             title: 'Khách hàng',
-            dataIndex: 'customer',
-            render: (record) => <a>{record?.customer?.name}</a>,
+            //dataIndex: 'customer',
+            render: (record) => record?.customer?.name,
 
         },];
 

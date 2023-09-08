@@ -149,13 +149,13 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
         {
             title: 'Giao dịch viên',
             dataIndex: 'salesEmployee',
-            render: (record) => <a>{record?.salesEmployee?.name}</a>,
+            render: (record) => record?.salesEmployee?.name,
 
         },
         {
             title: 'Khách hàng',
             dataIndex: 'customer',
-            render: (record) => <a>{record?.customer?.name}</a>,
+            render: (record) => record?.customer?.name,
 
         },];
 
