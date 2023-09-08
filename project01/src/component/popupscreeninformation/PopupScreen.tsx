@@ -41,7 +41,6 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
         setFileAvatar(null)
     }
 
-
     const handleOk = () => {
         form
             .validateFields()
@@ -55,7 +54,15 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
                 updateInformation(values)
                     .then((res) => {
                         if (res.status == 200) {
-                            cookies.set("token", { ...cookies.get("token"), information: res.data.loginUser ? res.data.loginUser : res.data.loginCustomer }, { path: "/", maxAge: 7200 }) // ve nha sua cai nay
+                            const updateInformation = {
+                                "name": res.data.loginUser.name,
+                                "citizenId": res.data.loginUser.citizenId,
+                                "email": res.data.loginUser.email,
+                                "phoneNumber": res.data.loginUser.phoneNumber,
+                                "filePath": res.data.loginUser.filePath
+
+                            }
+                            cookies.set("token", { ...cookies.get("token"), information: { ...data, ...updateInformation } }, { path: "/", maxAge: 7200 })
                             message.success(res.data.message)
                             setLoading(false)
                         }

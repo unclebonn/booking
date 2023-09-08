@@ -94,8 +94,8 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                     value: 'Đã thanh toán',
                 },
                 {
-                    text: 'Đang xử lí',
-                    value: 'Đang xử lí',
+                    text: 'Đang xử lý',
+                    value: 'Đang xử lý',
                 },
                 {
                     text: 'Đã hủy',

@@ -164,7 +164,7 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
         }
         return (
             <List size="small" bordered>
-                {data?.users.map((d) => {
+                {data?.users?.map((d) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <List.Item style={{ textAlign: "left", width: "100%" }}>{d.name}{d.phoneNumber ? " - " + d.phoneNumber : ""}</List.Item>
@@ -228,8 +228,8 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                             }</Divider>
                         {isChangeRoles ? changeRoles() :
                             <List size="small" bordered>
-                                {data?.roles.length != 0 ?
-                                    data.roles.map((d) => {
+                                {data?.roles?.length != 0 ?
+                                    data.roles?.map((d) => {
                                         return <List.Item style={{ textAlign: "left", width: "100%" }}>{d.normalizedName}</List.Item>
                                     })
                                     : <List.Item style={{ textAlign: "left" }}>Không có</List.Item>}
@@ -255,8 +255,8 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                                 )}</Divider>
                         {isChangeEmployees ? changeEmployees() :
                             <List size="small" bordered>
-                                {data?.users.length != 0 ?
-                                    data?.users.map((d) =>
+                                {data?.users?.length != 0 ?
+                                    data?.users?.map((d) =>
                                         <List.Item style={{ textAlign: "left" }}> {d.name}{d.phoneNumber ? " - " + d.phoneNumber : ""}</List.Item>
                                     ) : <List.Item style={{ textAlign: "left" }}>Không có</List.Item>}
                             </List>}
