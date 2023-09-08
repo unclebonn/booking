@@ -157,7 +157,6 @@ export default function Booking() {
     ];
 
     data?.map((dataTemp, index) => {
-        const date = new Date(dataTemp.bookingDate);
         dataListShow.push({
             id: dataTemp.id,//index
             key: index,
@@ -177,12 +176,13 @@ export default function Booking() {
         });
     });
 
-    const __handleSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.value !== '') {
+    const __handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value
+
+        if (value !== "") {
             let search_results = all_data.filter((item) => {
                 if (item.customer.name.toLowerCase().includes(event.target.value.toLowerCase())) return item.customer.name.toLowerCase()
             });
-
             setData(search_results);
         }
         else {
@@ -294,7 +294,7 @@ export default function Booking() {
         }
         return fetch_Api(api_link)
     }
-
+    
     return (
         <>
             <Modal
@@ -307,7 +307,7 @@ export default function Booking() {
                     <Col span={24}>
                         <Link to={"createbooking"}>
                             <Button style={{ width: "100%" }} type='default' size='large'>
-                                Thêm dịch vụ
+                                Thêm booking
                             </Button>
                         </Link>
                     </Col>
@@ -409,10 +409,10 @@ export default function Booking() {
             <div className='user-bookinglist'>
                 <div className='dashboard-content-header1'>
                     <div className='dashboard-content-header2'>
-                        <h2>Danh sách giao dịch</h2>
-                        <Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/giao-dich")}>
-                            Trở về
-                        </Button>
+                        <h2>Danh sách booking</h2>
+                        {allPermission && <Button type="primary" className="btnAdd" onClick={() => navigate("/managerdashboard/giao-dich")}>
+                            Xem tất cả
+                        </Button>}
                     </div>
                     <hr
                         style={{
@@ -446,7 +446,7 @@ export default function Booking() {
                             <input
                                 type='text'
                                 onChange={e => __handleSearch(e)}
-                                placeholder='Tên khách hàng..'
+                                placeholder='Tên khách hàng...'
                                 className='dashboard-content-input'
                             />
                         </div>
@@ -496,4 +496,11 @@ export default function Booking() {
         </>
     );
 };
+
+
+
+
+
+
+
 

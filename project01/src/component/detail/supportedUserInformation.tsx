@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { Row, Col, Button, Rate, Carousel, Descriptions, Radio, Tabs, Table, Space, Popconfirm, message, Input } from 'antd';
+import { Row, Col, Button, Rate, Carousel, Descriptions, Radio, Tabs, Table, Space, Popconfirm, message, Avatar, Input } from 'antd';
 import { PlusCircleTwoTone, MinusCircleTwoTone, SearchOutlined } from '@ant-design/icons';
 import type { InputRef, RadioChangeEvent } from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
@@ -12,20 +12,19 @@ import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import fetch_Api from '../../utils/api_function';
 import api_links from '../../utils/api_links';
 import { havePermission } from '../../utils/permission_proccess';
-import { FilterConfirmProps } from 'antd/es/table/interface';
 import Highlighter from 'react-highlight-words';
+import { FilterConfirmProps } from 'antd/es/table/interface';
 
 interface DataType {
     key: React.Key;
     id: string;
     name: string;
-    /*contact: string;
-    status: string;*/
+    phoneNumber: string;
+    filePath: string;
 }
-
 type DataIndex = keyof DataType;
 
-export default function SupportedCustomerInformation({ api_link }: { api_link: string }) {
+export default function SupportedUserInformation({ api_link }: { api_link: string }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState<CustomerListState>();
@@ -33,8 +32,8 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
     //var cookies = new Cookies()
     //var token = cookies.get("token")?.token;
 
-    const addPermission = havePermission("Customer", "write");
-    const deletePermission = havePermission("Customer", "delete");
+    const addPermission = havePermission("User", "write");
+    const deletePermission = havePermission("User", "delete");
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -120,7 +119,7 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
                 deletePermission &&
                 <Popconfirm
                     className="ant-popconfirm"
-                    title="Xoá khách hàng"
+                    title="Xoá nhân viên"
                     description="Bạn có chắc chắn xoá không ?"
                     onConfirm={() => {
                         handleDelete(record.id)
@@ -131,14 +130,25 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
                 >
                     <Button size={"small"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
                 </Popconfirm>,
-            align: 'center',
+            align:'center',
             width: '20px',
         },
         {
+            title: '',
+            dataIndex: 'filePath',
+            align:'center',
+            render: (record) =>
+            record.filePath&&<Avatar size="large" src={record.filePath} />
+},
+        {
             title: 'Tên',
             dataIndex: 'name',
-            sorter: (a, b) => a.name > b.name ? 1 : -1,
+            sorter: (a, b) => a.name > b.name ? 1:-1,
             ...getColumnSearchProps('name'),
+        },
+        {
+            title: 'Liên hệ',
+            dataIndex: 'phoneNumber',
         },
 
     ];
@@ -146,8 +156,8 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
         key: dataTemp.id,//index
         id: String(dataTemp.id),
         name: dataTemp.name,
-        /*contact: dataTemp.phoneNumber ? dataTemp.phoneNumber : (dataTemp.email ? dataTemp.email : ""),
-        status: dataTemp.isBlocked ? "Đã khóa" : "Đang hoạt động",*/
+        phoneNumber: dataTemp.phoneNumber??"",
+        filePath: dataTemp.filePath??"",
     }));
 
 
@@ -156,12 +166,12 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
             url: api_link + '/' + id,
             method: 'GET',
         }).then(data => {
-            setData(data.data.customers);
+            setData(data.data.managedUsers);
         })
     }, [id]);
 
     const handleTableRowClick = (record: DataType) => {
-        navigate("../khach-hang/detail/" + record.id);
+        navigate("../nhan-vien/detail/"+record.id);
     }
     const handleDelete = (id: string) => {
         fetch_Api({
@@ -175,7 +185,7 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
                         url: api_link + '/' + id,
                         method: 'GET',
                     }).then(data => {
-                        setData(data.data.customers);
+                        setData(data.data.managedUsers);
                     })
                 }
             })
@@ -184,10 +194,10 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
             })
     }
     return (
-        <div className="supportedcustomer-information">
-            {addPermission && <Link to={"../khach-hang"}>
+        <div className="supporteduser-information">
+            {addPermission && <Link to={"../nhan-vien"}>
                 <Button style={{ width: "100%" }} type='default' size='large'>
-                    + Thêm khách hàng
+                    + Thêm nhân viên
                 </Button>
             </Link>}
             <Table columns={columns} dataSource={dataListShow}
@@ -197,4 +207,3 @@ export default function SupportedCustomerInformation({ api_link }: { api_link: s
         </div>
     );
 };
-

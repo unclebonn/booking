@@ -238,7 +238,7 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                                 <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
                             </Popconfirm>
                             : <></>}
-                            {editPermission && record?.bookingStatus === "Pending" && <Link to={"/dashboard/giao-dich/updatebooking"} state={record}>
+                            {editPermission && record?.bookingStatus === "Pending" && <Link to={"../giao-dich/updatebooking"} state={record}>
                                     <Button size={"large"} style={{width:"100%"}}><FontAwesomeIcon icon={faPenToSquare} /></Button>
                                 </Link>}
                     </Space.Compact>
@@ -307,7 +307,7 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
             </Modal>
 
             <div className="booking-information">
-            {addPermission && <Link to={"/dashboard/giao-dich/createbooking"}>
+            {addPermission && <Link to={"../giao-dich/createbooking"}>
                             <Button style={{ width: "100%" }} type='default' size='large'>
                                 + Thêm booking
                             </Button>

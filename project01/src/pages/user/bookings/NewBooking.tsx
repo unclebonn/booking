@@ -315,7 +315,7 @@ export default function NewBooking() {
     ////////////////////// GET API ///////////////////////////////
     const getAllCustomer = () => {
         const api_link = {
-            url: api_links.user.superAdmin.getAllCustomer,
+            url: api_links.user.saleAdmin.getUserCustomer,
             method: "GET"
         }
         return fetch_Api(api_link)

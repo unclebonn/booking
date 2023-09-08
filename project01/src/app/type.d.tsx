@@ -293,7 +293,7 @@ export type CustomerState = {
   "isBlocked": boolean,
   "bookings"?: [],
   "vouchers"?: [],
-  "filePath": string,
+  "filePath": string | null,
 };
 
 export type CustomerListState = CustomerState[];
