@@ -54,8 +54,8 @@ export default function NewBooking() {
     const [tempMoney, setTempMoney] = useState<string>("")
     const [totalMoney, setTotalMoney] = useState<number>(0)
     const [moneyDiscount, setMoneyDiscount] = useState<number | undefined>(0)
+    const { RangePicker } = DatePicker
 
-    console.log(startDateTime);
 
 
     useEffect(() => {
@@ -125,17 +125,15 @@ export default function NewBooking() {
         values.TotalPrice = totalMoney
 
 
-        console.log(values);
-
-        // createNewBooking(values)
-        //     .then((res) => {
-        //         if (res.status === 201) {
-        //             message.success("Tạo thành công")
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         message.error(error.message)
-        //     })
+        createNewBooking(values)
+            .then((res) => {
+                if (res.status === 201) {
+                    message.success("Tạo thành công")
+                }
+            })
+            .catch((error) => {
+                message.error(error.message)
+            })
 
 
     }
@@ -263,16 +261,16 @@ export default function NewBooking() {
 
     }
 
-    const handleStartTime = (value: DatePickerProps['value'] | RangePickerProps['value'],
-        dateString: string,
-    ) => {
-        setStartDateTime(dateString)
+    const handleDateTime = (value: RangePickerProps['value'], datestring: [string, string]) => {
+        setStartDateTime(datestring[0])
+        setEndDateTime(datestring[1])
+
     }
-    const handleEndTime = (value: DatePickerProps['value'] | RangePickerProps['value'],
-        dateString: string,
-    ) => {
-        setEndDateTime(dateString)
-    }
+    // const handleEndTime = (value: DatePickerProps['value'] | RangePickerProps['value'],
+    //     dateString: string,
+    // ) => {
+    //     setEndDateTime(dateString)
+    // }
 
 
     const disabledDate: RangePickerProps['disabledDate'] = (current) => {
@@ -315,7 +313,7 @@ export default function NewBooking() {
     ////////////////////// GET API ///////////////////////////////
     const getAllCustomer = () => {
         const api_link = {
-            url: api_links.user.superAdmin.getAllCustomer,
+            url: api_links.user.saleAdmin.getUserCustomer,
             method: "GET"
         }
         return fetch_Api(api_link)
@@ -476,7 +474,7 @@ export default function NewBooking() {
                 >
                     {/* customer */}
                     <Row >
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 rules={[
                                     { required: true, message: "Vui lòng nhập tên khách hàng" },
@@ -507,7 +505,7 @@ export default function NewBooking() {
                     </Row>
                     {/* service package */}
                     <Row >
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 rules={[
                                     { required: true, message: "Vui lòng nhập tên dịch vụ" },
@@ -539,7 +537,7 @@ export default function NewBooking() {
                     </Row>
                     {/* booking title */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 rules={[
                                     { min: 5, max: 50, message: "Vui lòng nhập trên 5 hoặc dưới 50 ký tự" },
@@ -553,7 +551,7 @@ export default function NewBooking() {
                     </Row>
                     {/* booking status */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 rules={[
                                     { required: true, message: "Vui lòng chọn trạng thái" }
@@ -578,7 +576,7 @@ export default function NewBooking() {
                     </Row>
                     {/* price detail  */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 label="Chi tiết giá tiền"
                                 name="PriceDetails"
@@ -590,7 +588,7 @@ export default function NewBooking() {
                     </Row>
                     {/* note */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 label="Ghi chú"
                                 name="Note"
@@ -602,7 +600,7 @@ export default function NewBooking() {
                     </Row>
                     {/* description */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 label="Miêu tả"
                                 name="Descriptions"
@@ -614,7 +612,7 @@ export default function NewBooking() {
                     </Row>
                     {/* start date time */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item
                                 label="Thời gian bắt đầu"
                                 name="StartDateTime"
@@ -624,30 +622,31 @@ export default function NewBooking() {
                                 ]}
 
                             >
-                                <DatePicker showTime onChange={handleStartTime}
-                                //  disabledDate={disabledDate} 
-                                // disabledTime={disabledDateTime}
+                                <RangePicker
+                                    showTime
+                                    onChange={handleDateTime}
+                                    disabledDate={disabledDate}
                                 />
                             </Form.Item>
                         </Col>
                     </Row>
                     {/* end date time */}
-                    <Row>
-                        <Col span={10}>
+                    {/* <Row>
+                        <Col span={12}>
                             <Form.Item
                                 label="Thời gian kết thúc"
                                 name="EndDateTime"
                             >
-                                <DatePicker showTime onChange={handleEndTime}
+                                <RangePicker showTime 
                                 // disabledDate={disabledDate}  
                                 />
                             </Form.Item>
                         </Col>
-                    </Row>
+                    </Row> */}
                     {/* voucher */}
                     {
                         servicePackage && customerVoucher.length !== 0 ? <Row gutter={[8, 0]}>
-                            <Col span={10}>
+                            <Col span={12}>
                                 <Form.Item
                                     label="Voucher áp dụng"
                                     name="VoucherIds"
@@ -681,13 +680,13 @@ export default function NewBooking() {
 
                     {/* price service package */}
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <div style={{ display: "flex", margin: "0px 0px 20px 0px" }}>
                                 <div>
                                     <label htmlFor="name">Tiền gói dịch vụ: </label>
 
                                 </div>
-                                <div style={{ flexGrow: 1, marginLeft: "10px" }}>
+                                <div style={{ flexGrow: 1, marginLeft: "12px" }}>
                                     <Input required type="number" min={1} onChange={handlePriceServicePackage} />
                                 </div>
                             </div>
@@ -721,7 +720,7 @@ export default function NewBooking() {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={10}>
+                        <Col span={12}>
                             <Form.Item>
                                 <Button htmlType="submit" type="primary">Tạo dịch vụ</Button>
                             </Form.Item>

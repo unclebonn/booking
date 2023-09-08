@@ -279,7 +279,7 @@ export type BookingState = {
 export type BookingListState = BookingState[];
 
 export type CustomerState = {
-  "id": number | string,
+  "id": string,
   "name": string,
   "email": string | null,
   "normalizedEmail": string | null,

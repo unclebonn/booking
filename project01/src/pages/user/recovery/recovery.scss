@@ -1,0 +1,25 @@
+.user-recovery {
+    margin: 1em;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: auto;
+    width: 100%;
+
+    .recover-table {
+        height: 500px;
+        overflow-y: scroll;
+        position: absolute;
+        top: 10vh;
+
+        .item-content-recover {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+    }
+}

@@ -61,20 +61,17 @@ export default function ServicePackage() {
             .catch((reason) => {
                 //console.log(reason);
             })
-        getAllDeleteServicePackages()
-            .then((res) => {
-                if (res.status === 200) {
-                    setDataRecover(res.data)
-                }
-            })
-            .catch((error) => {
-                //console.log(error);
+        // getAllDeleteServicePackages()
+        //     .then((res) => {
+        //         if (res.status === 200) {
+        //             setDataRecover(res.data)
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         //console.log(error);
 
-            })
+        //     })
     }, []);
-
-    // ======================================= use to render the format of the table ===============================================
-    // quantity of column, title of column...
 
     const handleDelete = (e: number) => {
         deleteServicePackages(e)
@@ -96,27 +93,25 @@ export default function ServicePackage() {
             })
     }
 
-
-    // not yet
-    const handleRecover = (recordId: number) => {
-        const recoverData = dataRecover.filter((data) => data.id !== recordId)
-        recoverServicePackage(recordId)
-            .then((res_re) => {
-                if (res_re.status === 200) {
-                    setDataRecover(recoverData)
-                    message.success(res_re.data.message)
-                    getAllServicePackages()
-                        .then((res) => {
-                            if (res.status === 200) {
-                                setAllData(res.data)
-                            }
-                        })
-                }
-            })
-            .catch((error) => {
-                message.error(error.message)
-            })
-    }
+    // const handleRecover = (recordId: number) => {
+    //     const recoverData = dataRecover.filter((data) => data.id !== recordId)
+    //     recoverServicePackage(recordId)
+    //         .then((res_re) => {
+    //             if (res_re.status === 200) {
+    //                 setDataRecover(recoverData)
+    //                 message.success(res_re.data.message)
+    //                 getAllServicePackages()
+    //                     .then((res) => {
+    //                         if (res.status === 200) {
+    //                             setAllData(res.data)
+    //                         }
+    //                     })
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             message.error(error.message)
+    //         })
+    // }
 
 
     const columns: ColumnsType<DataType> = [
@@ -164,34 +159,34 @@ export default function ServicePackage() {
         },
     ];
 
-    const columnsRecover: ColumnsType<DataType> = [
-        {
-            title: 'Lựa chọn',
-            dataIndex: 'id',
-            render: (text, record, index) =>
-                <div className="item-content-recover">
-                    <span>{record.id}</span>
-                </div>
+    // const columnsRecover: ColumnsType<DataType> = [
+    //     {
+    //         title: 'Lựa chọn',
+    //         dataIndex: 'id',
+    //         render: (text, record, index) =>
+    //             <div className="item-content-recover">
+    //                 <span>{record.id}</span>
+    //             </div>
 
-        },
-        {
-            title: 'Gói dịch vụ',
-            dataIndex: 'servicePackageName',
-            render: (text, record, index) =>
-                <div className="item-content-recover">
-                    <a style={{ fontWeight: "bold" }}>{record.servicePackageName}</a>
-                    <p>Nội dung: {record.description}</p>
-                </div>
-        },
-        {
-            title: 'Miêu tả',
-            dataIndex: 'description',
-            render: (text, record) =>
-                <div className="item-content-recover">
-                    <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
-                </div>
-        },
-    ]
+    //     },
+    //     {
+    //         title: 'Gói dịch vụ',
+    //         dataIndex: 'servicePackageName',
+    //         render: (text, record, index) =>
+    //             <div className="item-content-recover">
+    //                 <a style={{ fontWeight: "bold" }}>{record.servicePackageName}</a>
+    //                 <p>Nội dung: {record.description}</p>
+    //             </div>
+    //     },
+    //     {
+    //         title: 'Miêu tả',
+    //         dataIndex: 'description',
+    //         render: (text, record) =>
+    //             <div className="item-content-recover">
+    //                 <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
+    //             </div>
+    //     },
+    // ]
 
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -296,7 +291,6 @@ export default function ServicePackage() {
 
     // ====================================================================
 
-    // not yet
     const handleTableRowClick = (record: DataType) => {
         setAddFormInformationService(!addFormInformationService)
         setRecord(record)
@@ -323,7 +317,7 @@ export default function ServicePackage() {
                 </Row>
             </Modal>
 
-            <Modal
+            {/* <Modal
                 width="40vw"
                 style={{ top: "5vh" }}
                 open={addFormRecover}
@@ -349,7 +343,7 @@ export default function ServicePackage() {
             >
                 <Table className='recover-table' columns={columnsRecover} dataSource={dataRecover} />
 
-            </Modal>
+            </Modal> */}
 
 
             <Modal

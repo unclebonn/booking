@@ -113,6 +113,18 @@ function UMenuNew() {
         >
           Vouchers
         </Menu.Item>}
+      {readVoucherTypePermission &&
+        <Menu.Item
+          key="khoi-phuc"
+          icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faMoneyBills} />}
+          style={{
+            padding: '2em',
+            textAlign: 'left',
+          }}
+        >
+          Khôi phục
+        </Menu.Item>}
+
       {/*<Menu.Item
         key="vouchers-customer"
         icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faMoneyBills} />}

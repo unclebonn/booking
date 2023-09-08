@@ -85,29 +85,29 @@ export default function Customers() {
             ),
         },
     ];
-    const columnsRecover: ColumnsType<DataType> = [
-        {
-            title: 'Tên khách hàng',
-            dataIndex: 'name',
-        },
-        {
-            title: 'Thông tin',
-            dataIndex: 'contact',
-            render: (_, record) =>
-                <div>
-                    {record.citizenId && "CCCD/CMND: " + record.citizenId}<br />
-                    {record.phoneNumber ? "ĐT: " + record.phoneNumber : record.email ? "Email: " + record.email : ""}
-                </div>
-        },
-        {
-            title: 'Thao tác',
-            dataIndex: 'action',
-            render: (text, record) =>
-                <div className="item-content-recover">
-                    <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
-                </div>
-        },
-    ];
+    // const columnsRecover: ColumnsType<DataType> = [
+    //     {
+    //         title: 'Tên khách hàng',
+    //         dataIndex: 'name',
+    //     },
+    //     {
+    //         title: 'Thông tin',
+    //         dataIndex: 'contact',
+    //         render: (_, record) =>
+    //             <div>
+    //                 {record.citizenId && "CCCD/CMND: " + record.citizenId}<br />
+    //                 {record.phoneNumber ? "ĐT: " + record.phoneNumber : record.email ? "Email: " + record.email : ""}
+    //             </div>
+    //     },
+    //     {
+    //         title: 'Thao tác',
+    //         dataIndex: 'action',
+    //         render: (text, record) =>
+    //             <div className="item-content-recover">
+    //                 <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
+    //             </div>
+    //     },
+    // ];
 
     useEffect(() => {
         fetch_Api({
@@ -248,24 +248,11 @@ export default function Customers() {
         }, 1.5)
     }
 
-    const handleRecover = (recordId: string) => {
-        fetch_Api({
-            url: "http://bevm.e-biz.com.vn/api/Customers/restore-customer/" + recordId,
-            method: "PATCH",
-        })
-            .then((res_re) => {
-                if (res_re.status === 200) {
-                    message.success(res_re.data.message)
-                }
-            })
-            .catch((error) => {
-                message.error(error.message)
-            })
-    }
+   
 
     return (
         <React.Fragment>
-            <Modal
+            {/* <Modal
                 //width="80vw"
                 style={{ top: "5vh" }}
                 open={addFormRecover}
@@ -275,7 +262,7 @@ export default function Customers() {
                 }}
                 footer={[]}>
                 <Table className='recover-table' columns={columnsRecover} dataSource={dataRecover} />
-            </Modal>
+            </Modal> */}
 
             <div className='user-customerlist'>
                 {!addForm && <>
@@ -355,8 +342,8 @@ export default function Customers() {
                         />
                     </div>
 
-                    {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                        : <Table columns={columns} dataSource={dataListShow} />}
+                    {/* {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                        : <Table columns={columns} dataSource={dataListShow} />} */}
                 </>}
 
                 {addForm && <><div className='dashboard-content-header2'>

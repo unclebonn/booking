@@ -105,15 +105,15 @@ export default function Service() {
             .catch((error) => {
                 //console.log(error);
             })
-        getAllDeleteService()
-            .then((res) => {
-                if (res.status === 200) {
-                    setDataRecover(res.data)
-                }
-            })
-            .catch((error) => {
-                //console.log(error);
-            })
+        // getAllDeleteService()
+        //     .then((res) => {
+        //         if (res.status === 200) {
+        //             setDataRecover(res.data)
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         //console.log(error);
+        //     })
 
     }, [])
 
@@ -166,25 +166,25 @@ export default function Service() {
             })
     }
 
-    const handleRecover = (recordId: number) => {
-        const recoverData = dataRecover.filter((data) => data.id !== recordId)
-        recoverService(recordId)
-            .then((res_re) => {
-                if (res_re.status === 200) {
-                    setDataRecover(recoverData)
-                    message.success(res_re.data.message)
-                    getAllService()
-                        .then((res) => {
-                            if (res.status === 200) {
-                                setAllData(res.data)
-                            }
-                        })
-                }
-            })
-            .catch((error) => {
-                message.error(error.message)
-            })
-    }
+    // const handleRecover = (recordId: number) => {
+    //     const recoverData = dataRecover.filter((data) => data.id !== recordId)
+    //     recoverService(recordId)
+    //         .then((res_re) => {
+    //             if (res_re.status === 200) {
+    //                 setDataRecover(recoverData)
+    //                 message.success(res_re.data.message)
+    //                 getAllService()
+    //                     .then((res) => {
+    //                         if (res.status === 200) {
+    //                             setAllData(res.data)
+    //                         }
+    //                     })
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             message.error(error.message)
+    //         })
+    // }
 
     const handleDelete = (e: number) => {
         deleteService(e)
@@ -257,34 +257,34 @@ export default function Service() {
         setUpdateBtn(!updateBtn)
     }
 
-    const columnsRecover: ColumnsType<DataType> = [
-        {
-            title: 'Lựa chọn',
-            dataIndex: 'id',
-            render: (text, record, index) =>
-                <div className="item-content-recover">
-                    <span>{record.id}</span>
-                </div>
+    // const columnsRecover: ColumnsType<DataType> = [
+    //     {
+    //         title: 'Lựa chọn',
+    //         dataIndex: 'id',
+    //         render: (text, record, index) =>
+    //             <div className="item-content-recover">
+    //                 <span>{record.id}</span>
+    //             </div>
 
-        },
-        {
-            title: 'Gói dịch vụ',
-            dataIndex: 'servicePackageName',
-            render: (text, record, index) =>
-                <div className="item-content-recover">
-                    <a style={{ fontWeight: "bold" }}>{record.serviceName}</a>
-                    <p>Nội dung: {record.description}</p>
-                </div>
-        },
-        {
-            title: 'Miêu tả',
-            dataIndex: 'description',
-            render: (text, record) =>
-                <div className="item-content-recover">
-                    <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
-                </div>
-        },
-    ]
+    //     },
+    //     {
+    //         title: 'Gói dịch vụ',
+    //         dataIndex: 'servicePackageName',
+    //         render: (text, record, index) =>
+    //             <div className="item-content-recover">
+    //                 <a style={{ fontWeight: "bold" }}>{record.serviceName}</a>
+    //                 <p>Nội dung: {record.description}</p>
+    //             </div>
+    //     },
+    //     {
+    //         title: 'Miêu tả',
+    //         dataIndex: 'description',
+    //         render: (text, record) =>
+    //             <div className="item-content-recover">
+    //                 <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
+    //             </div>
+    //     },
+    // ]
 
     //////////////////////////////// GET API //////////////////////////////////////
     const getAllService = () => {
@@ -354,7 +354,7 @@ export default function Service() {
                 </Row>
             </Modal>
 
-            <Modal
+            {/* <Modal
                 width="40vw"
                 style={{ top: "5vh" }}
                 open={addFormRecover}
@@ -380,7 +380,7 @@ export default function Service() {
             >
                 <Table className='recover-table' columns={columnsRecover} dataSource={dataRecover} />
 
-            </Modal>
+            </Modal> */}
             <div className="user-services">
                 <div className="dashboard-content-header1">
                     <h2>Danh sách loại dịch vụ</h2>

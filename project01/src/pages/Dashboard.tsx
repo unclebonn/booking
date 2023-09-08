@@ -42,6 +42,8 @@ import CustomerDetail from './manager/allcustomers/customer-detail';
 import EmployeeDetail from './manager/allemployee/employee-detail';
 import handlePermission from '../utils/permission_proccess';
 import Unauthorized from './Unauthorized';
+import Recovery from '../component/recovery/Recovery';
+import { RecoveryPage } from './user/recovery/Recovery';
 
 export default function Dashboard() {
   useEffect(() => {
@@ -123,9 +125,10 @@ export default function Dashboard() {
               {/*<Route path="employee" element={<Employees />} />
           <Route path="employee/role" element={<Role />} />
           <Route path="employee/detail/:id" element={<EmployeeDetail />} />
-              <Route path="giao-dich" element={<Booking />} />*/}
+        <Route path="giao-dich" element={<Booking />} />*/}
               <Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
               <Route path="giao-dich/createbooking" element={<NewBooking />} />
+              <Route path="khoi-phuc" element={<RecoveryPage />} />
 
             </Routes>
 
