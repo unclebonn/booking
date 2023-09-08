@@ -8,7 +8,8 @@ import PersonalInformation from '../../../component/detail/personalInformation';
 
 import BookingInformation from '../../../component/detail/bookingInformation';
 import VoucherInformation from '../../../component/detail/voucherInformation';
-import {SupportedCustomerInformation} from '../../../component/detail/supportedCustomerInformation';
+import SupportedCustomerInformation from '../../../component/detail/supportedCustomerInformation';
+import SupportedUserInformation from '../../../component/detail/supportedUserInformation';
 
 const tab_item=[
       {
@@ -25,11 +26,18 @@ const tab_item=[
         api_link={api_links.user.saleAdmin.getUserVoucher}
         isCustomer={false}/>,
       },
-      /*{
+      {
         label: `Khách hàng`,
         key: '3',
-        children: <SupportedCustomerInformation/>,
-      }*/
+        children: <SupportedCustomerInformation
+        api_link={api_links.user.superAdmin.blockUser}/>,
+      },
+      {
+        label: `Nhân viên`,
+        key: '4',
+        children: <SupportedUserInformation
+        api_link={api_links.user.superAdmin.blockUser}/>,
+      }
     ]
     
 export default function EmployeeDetail() {
@@ -48,13 +56,14 @@ export default function EmployeeDetail() {
         <div className='user-detail'>
        <PersonalInformation
        api_link={api_links.user.superAdmin.blockUser}/>
+        <div className='detail-right'>
        <Tabs
         defaultActiveKey="1"
         type="card"
         size={"middle"}
         items={tab_item}
       />
-       
+               </div>
         </div>
     );
 };

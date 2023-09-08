@@ -10,6 +10,9 @@
     overflow: auto;
     width: 100%;
 }
+.detail-right {
+    width: 100%;
+}
 .personal-information{
     background-color:rgb(224 233 238);
     border: none;
@@ -23,7 +26,7 @@
     height: fit-content;
 }
 
-.business-information{
+.booking-information, .supportedcustomer-information, .supporteduser-information, .voucher-information{
     background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 10px;

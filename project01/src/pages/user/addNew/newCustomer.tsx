@@ -164,7 +164,7 @@ function Add() {
     };
 
     const onFinish = (values: any) => {
-        // //console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
         // register.CitizenId = values.citizenId;
         // register.ConfirmPassword = values.confirm;
         // register.Email = values.email;
@@ -176,7 +176,7 @@ function Add() {
         //register.TwoFactorEnabled = null;
         // register.IsBlocked = null;
         // values.employeeList?.map((d: { employeename: string; }) => register.SalesEmployeeIds.push(d.employeename));
-        // //console.log('Received register: ', register);
+        // console.log('Received register: ', register);
 
         formData.append("CitizenId", values.citizenId ?? "");
         formData.append("ConfirmPassword", values.confirm);
@@ -191,26 +191,26 @@ function Add() {
         formData.append("Avatar", values.upload?.[0].originFileObj);
         //console.log(formData.get("CitizenId"));
 
-        // axios({
-        //     url: api_links.user.superAdmin.createNewCustomer,
-        //     method: "post",
-        //     headers: {
-        //         "Authorization": `Bearer  ${token}`,
-        //         "Content-Type": "multipart/form-data",//"application/x-www-form-urlencoded",
-        //     },
-        //     data: formData,
-        // }).then((response) => {
-        //     if (response.status == 200) {
-        //         form.resetFields();
-        //         message.success("Đã thêm khách hàng " + register.Name + ". Tiếp tục thêm khách hàng hoặc nhấn Cancel để trở về.");
-        //     }
-        //     setjsonData(response.data);
-        // })
-        //     .catch((error) => {
-        //         setjsonData(error.response.data);
-        //         //console.log(error.response.data);
-        //     }
-        //     );
+         axios({
+             url: api_links.user.superAdmin.createNewCustomer,
+             method: "post",
+             headers: {
+                 "Authorization": `Bearer  ${token}`,
+                 "Content-Type": "multipart/form-data",//"application/x-www-form-urlencoded",
+             },
+             data: formData,
+         }).then((response) => {
+             if (response.status == 200) {
+                 form.resetFields();
+                 message.success("Đã thêm khách hàng " + register.Name + ". Tiếp tục thêm khách hàng hoặc nhấn Cancel để trở về.");
+             }
+             setjsonData(response.data);
+         })
+             .catch((error) => {
+                 setjsonData(error.response.data);
+                 //console.log(error.response.data);
+             }
+             );
     };
 
     return (

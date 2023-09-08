@@ -182,7 +182,7 @@ function Add() {
         formData.append("Name", values.username);
         formData.append("Password", values.password);
         formData.append("PhoneNumber", values.phone??"");
-        formData.append("ManagerId", values.managername);
+        values.managername && formData.append("ManagerId", values.managername);
         values.roleList?.map((d: { roleid: string; }) => formData.append("RoleIds",d.roleid));
         formData.append("Avatar", values.upload?.[0].originFileObj);
         //console.log('Received formdata: ', formData.getAll('ManagerId'));

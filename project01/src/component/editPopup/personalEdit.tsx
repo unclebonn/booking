@@ -10,6 +10,8 @@ import { Rule } from 'antd/lib/form';
 import { UserState } from "../../app/type.d";
 import { PlusOutlined } from "@ant-design/icons";
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 interface DataType {
     id: string,
@@ -30,29 +32,42 @@ interface DataType {
     }[],
 
     //only User
-    userName: string,
-    salesManager: {
+    //userName: string,
+    managers: {
         id: string,
         name: string,
         phoneNumber: string,
-    },
+    }[],
+    managedUsers: {
+        id: string,
+        name: string,
+        phoneNumber: string | null,
+        filePath: string | null
+    }[],
     roles: {
         id: string,
         normalizedName: string,
+        isManager: boolean,
     }[],
+    customers: {
+        id: string,
+        name: string,
+    }[],
+    permission?: string[] | null,
 };
 
 export default function PersonalInformationPopupScreen({ isPopup, setPopup, data, componentDisabled, setComponentDisabled }: { isPopup?: boolean, setPopup?: any, data?: DataType, componentDisabled?: boolean, setComponentDisabled?: any }) {
-
+    const { id } = useParams();
     // watch value in form
     const [form] = Form.useForm();
     const [checkForm] = Form.useForm();
+    const formData = new FormData();
     //const [componentDisabled, setComponentDisabled] = useState(data?.isBlocked );
     //var componentDisabled = data?.isBlocked ?? false;
     //get data
     const cookies = new Cookies()
     //const data = cookies.get("token")?.information
-    const role = cookies.get("token")?.role
+    const token = cookies.get("token")?.token
 
     const handleCancel = () => {
         form.resetFields();
@@ -94,29 +109,36 @@ export default function PersonalInformationPopupScreen({ isPopup, setPopup, data
         form
             .validateFields()
             .then((values) => {
-                //console.log(values);
-                //console.log(data);
-                const api_link = role.normalizedName == "Customer" ? api_links.user.customer.updateInformation : api_links.user.superAdmin.updateInformationForUser
-                api_link.data = values
-                api_link.token = cookies.get("token").token
+                formData.append("CitizenId", values.citizenId ?? null);
+                values.email && formData.append("Email", values.email);
+                formData.append("Name", values.name);
+                values.phoneNumber && formData.append("PhoneNumber", values.phoneNumber);
+                formData.append("Avatar", values.upload?.[0].originFileObj);
+                //console.log(formData.get("PhoneNumber"));
+
+                const api_link = data?.roles ? "http://bevm.e-biz.com.vn/api/Users/" : "http://bevm.e-biz.com.vn/api/Customers/"
 
                 // thay doi thong tin ca nhan
                 // chua co api
-                fetch_Api({
-                    url: api_link + '/',
-                    method: 'GET',
-
+                axios({
+                    url: api_link + id,
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer  ${token}`,
+                        "Content-Type": "multipart/form-data",//"application/x-www-form-urlencoded",
+                    },
+                    data: formData,
+                }).then((response) => {
+                    if (response.status == 200) {
+                        message.success(response.data.message)
+                        setPopup(false);
+                    }
                 })
-                    .then((res) => {
-                        if (res.status == 200) {
-                            message.success(res.data.message)
-                            setPopup(false);
-                        }
-                    })
-                    .catch((reason) => {
+                    .catch((error) => {
                         message.error("Dữ liệu không đổi")
-
-                    })
+                        //console.log(error.response.data);
+                    }
+                    );
             })
             .catch((info) => {
                 //console.log('Validate Failed:', info);

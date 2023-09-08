@@ -300,9 +300,9 @@ export default function Employees() {
                     <div className='dashboard-content-header1'>
                         <div className='dashboard-content-header2'>
                             <h2>Danh sách nhân viên</h2>
-                            <Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/nhan-vien")}>
+                            {/*<Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/nhan-vien")}>
                                 Trở về
-                            </Button>
+                </Button>*/}
                         </div>
                         <hr
                             style={{

@@ -149,13 +149,13 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
         {
             title: 'Giao dịch viên',
             dataIndex: 'salesEmployee',
-            render: (record) => <a>{record?.salesEmployee?.name}</a>,
+            render: (record) => record?.salesEmployee?.name,
 
         },
         {
             title: 'Khách hàng',
             dataIndex: 'customer',
-            render: (record) => <a>{record?.customer?.name}</a>,
+            render: (record) => record?.customer?.name,
 
         },];
 
@@ -205,7 +205,7 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
             url: api_link + '/' + id,
             method: 'GET',
         }).then(data => {
-            console.log(data.data)
+            //console.log(data.data)
             setData(data.data);
         })
     }, [id]);
@@ -290,7 +290,7 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
                         >
                             <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
                         </Popconfirm>}
-                        {editPermission && <Link to={"/dashboard/vouchers-customer/createvoucherextension"} state={record}>
+                        {editPermission && <Link to={"../vouchers-customer/createvoucherextension"} state={record}>
                                     <Button size={"large"} style={{width:"100%"}}><FontAwesomeIcon icon={faPenToSquare} /></Button>
                                 </Link>}
                     </Space.Compact>
@@ -358,7 +358,7 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
             </Modal>
         
         <div className="voucher-information">
-            {addPermission && <Link to={"/dashboard/vouchers-customer/createvouchercustomer"}>
+            {addPermission && <Link to={"../vouchers-customer/createvouchercustomer"}>
                             <Button style={{ width: "100%" }} type='default' size='large'>
                                 + Thêm voucher khách hàng
                             </Button>

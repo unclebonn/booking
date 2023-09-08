@@ -26,6 +26,8 @@ import handlePermission from '../utils/permission_proccess';
 import Unauthorized from './Unauthorized';
 import UpdateBooking from './manager/allbookings/UpdateBooking';
 import NewBooking from './manager/allbookings/NewBooking';
+import VoucherExtension from './manager/allvouchers/VoucherExtension';
+import NewVoucherCustomer from './manager/allvouchers/NewVoucherCustomer';
 
 export default function ManagerDashboard() {
 
@@ -36,24 +38,23 @@ export default function ManagerDashboard() {
   const r = useSelector(selectRole);
   const cookies = new Cookies();
   //const sidebar_menu = (cookies.get("token")?.role.id == "0") ? sidebar_menu_customer : sidebar_menu_user;
-  
+
   const permission = handlePermission(cookies.get("token")?.information.permission);
   const path = window.location.pathname;
 
-  console.log(permission.Customer.read);
-  
   if (cookies.get("token")?.token == undefined) {
     return (<Navigate replace to="/login" />)
   }
 
-  const unauthorized:boolean=
-  ((path == "/managerdashboard/khach-hang" && !permission.Customer.all)
-    || (path == "/managerdashboard/nhan-vien" && !permission.User.all)
-    || (path == "/managerdashboard/giao-dich" && !permission.Booking.all)
-    || (path == "/dashboard/khach-hang" && !permission.Customer.read)
-    || (path == "/dashboard/nhan-vien" && !permission.User.read)
-    || (path == "/dashboard/giao-dich" && !permission.Booking.read)
-  ) ? true:false;
+  const unauthorized: boolean =
+    ((path.includes("/managerdashboard/khach-hang") && !permission.Customer.all)
+      || (path.includes("/managerdashboard/nhan-vien") && !permission.User.all)
+      || (path.includes("/managerdashboard/giao-dich") && !permission.Booking.all)
+      || (path.includes("/managerdashboard/vouchers") && !permission.Voucher.all)
+      || (path.includes("/dashboard/khach-hang") && !permission.Customer.read)
+      || (path.includes("/dashboard/nhan-vien") && !permission.User.read)
+      || (path.includes("/dashboard/giao-dich") && !permission.Booking.read)
+    ) ? true : false;
 
   return (
     <div className='dashboard-container'>
@@ -61,27 +62,28 @@ export default function ManagerDashboard() {
       <div className='dashboard-body'>
         {isMenu && <UMenuNew />}
         {unauthorized ?
-    <Unauthorized/>
-    :<Routes>
-          <Route path="*" element={<div></div>} />
-          <Route path="khach-hang" element={<AllCustomers />} />
-          <Route path="khach-hang/detail/:id" element={<CustomerDetail />} />
-          {/*<Route path="goi-dich-vu" element={<AllServicePackages />} />
+          <Unauthorized />
+          : <Routes>
+            <Route path="*" element={<div></div>} />
+            <Route path="khach-hang" element={<AllCustomers />} />
+            <Route path="khach-hang/detail/:id" element={<CustomerDetail />} />
+            {/*<Route path="goi-dich-vu" element={<AllServicePackages />} />
           <Route path="goi-dich-vu/tao-moi" element={<NewServicePackage />} />
           <Route path="goi-dich-vu/cap-nhat" element={<UpdateServicePackage />} />
           <Route path="loai-dich-vu" element={<AllServices />} />
           <Route path="loai-dich-vu/tao-moi" element={<NewService />} />
           <Route path="vouchers" element={<AllVouchers />} />
           <Route path="vouchers/tao-moi" element={<Newvoucher />} />
-  <Route path="vouchers/cap-nhat" element={<UpdateVoucher />} />*/}
-          <Route path="nhan-vien" element={<AllEmployees />} />
-          <Route path="nhan-vien/role" element={<Role />} />
-          <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />
-          <Route path="giao-dich" element={<AllBooking />} />
-          <Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
-          <Route path="giao-dich/createbooking" element={<NewBooking />} />
-
-        </Routes>}
+          <Route path="vouchers/cap-nhat" element={<UpdateVoucher />} />*/}
+            <Route path="nhan-vien" element={<AllEmployees />} />
+            <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />
+            {/*<Route path="nhan-vien/role" element={<Role />} />
+          <Route path="giao-dich" element={<AllBooking />} />*/}
+            <Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
+            <Route path="giao-dich/createbooking" element={<NewBooking />} />
+            <Route path="vouchers-customer/createvoucherextension" element={<VoucherExtension />} />
+          <Route path="vouchers-customer/createvouchercustomer" element={<NewVoucherCustomer />} />
+          </Routes>}
       </div>
     </div>
   );

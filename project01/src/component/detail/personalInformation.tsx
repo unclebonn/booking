@@ -13,6 +13,7 @@ import { faSquareCheck, faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import AssignSupportersPopupScreen from '../editPopup/assignSupportersPopup';
 import PersonalInformationPopupScreen from '../editPopup/personalEdit';
 import { havePermission } from '../../utils/permission_proccess';
+import AssignManagerPopupScreen from '../editPopup/assignManager';
 
 interface DataType {
     id: string,
@@ -33,16 +34,28 @@ interface DataType {
     }[],
 
     //only User
-    userName: string,
-    salesManager: {
+    //userName: string,
+    managers: {
         id: string,
         name: string,
         phoneNumber: string,
-    },
+    }[],
+    managedUsers: {
+        id: string,
+        name: string,
+        phoneNumber: string | null,
+        filePath: string | null
+    }[],
+    customers: {
+        id: string,
+        name: string,
+    }[],
     roles: {
         id: string,
         normalizedName: string,
-    }[],
+        isManager: boolean,
+    }[],  
+    permission?: string[] | null,
 };
 
 export default function PersonalInformation({ api_link }: { api_link: string }) {
@@ -75,7 +88,7 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
             }).then(data => {
                 setCV(data.data);
             });
-    }, [id, isChangeInformation,isChangeRoles,isAddChangeEmployees]);
+    }, [id, isChangeInformation, isChangeRoles, isAddChangeEmployees, isChangeManager]);
 
     var isDelete: boolean;
     const changeRoles = () => {
@@ -155,12 +168,12 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                 .catch((reason) => {
                     message.error("Dữ liệu không đổi")
                 })
-                fetch_Api({
-                    url: api_link + '/' + id,
-                    method: 'GET',
-                }).then(data => {
-                    setData(data.data);
-                })
+            fetch_Api({
+                url: api_link + '/' + id,
+                method: 'GET',
+            }).then(data => {
+                setData(data.data);
+            })
         }
         return (
             <List size="small" bordered>
@@ -187,7 +200,7 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
     return (
         <React.Fragment>
             <div className="detail-left">
-            {cookies.get("token").role.isManager && <AssignSupportersPopupScreen
+                {cookies.get("token").role.isManager && <AssignSupportersPopupScreen
                     isPopup={isAddChangeEmployees}
                     setPopup={setIsAddChangeEmployees}
                     customerId={id} />}
@@ -199,6 +212,10 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                     componentDisabled={componentDisabled}
                     setComponentDisabled={setComponentDisabled}
                 />
+                <AssignManagerPopupScreen
+                    isPopup={isChangeManager}
+                    setPopup={setIsChangeManager}
+                    customerId={id} />
 
                 <div className="personal-information">
                     {data?.isBlocked && <Tag color="orange" style={{ width: "fit-content" }}>Tài khoản đã bị khóa</Tag>}
@@ -218,7 +235,7 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                     <img src={data?.filePath} />
                 </div>
 
-                {data?.userName ?
+                {data?.roles ?
 
                     <div className="more-information">
                         <Divider orientation="left">Chức vụ&ensp;
@@ -237,13 +254,14 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                         }
                         <Divider orientation="left">Quản lý&ensp;
                             {editPermission &&
-                                <FontAwesomeIcon size='sm' icon={faPenToSquare} onClick={() => console.log("checked")} style={{ cursor: "pointer" }} />
+                                <FontAwesomeIcon size='sm' icon={faPenToSquare} onClick={() => setIsChangeManager(true)} style={{ cursor: "pointer" }} />
                             }
                         </Divider>
                         <List size="small" bordered>
-                            {data?.salesManager ?
-                                <List.Item style={{ textAlign: "left" }}> {data.salesManager.name}{data.salesManager.phoneNumber ? " - " + data.salesManager.phoneNumber : ""}</List.Item>
-                                : <List.Item style={{ textAlign: "left" }}>Không có</List.Item>}
+                            {data?.managers?.length != 0 ?
+                                data?.managers?.map((d) =>
+                                    <List.Item style={{ textAlign: "left" }}> {d.name}{d.phoneNumber ? " - " + d.phoneNumber : ""}</List.Item>
+                                ) : <List.Item style={{ textAlign: "left" }}>Không có</List.Item>}
                         </List>
                     </div>
                     :

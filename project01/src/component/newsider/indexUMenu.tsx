@@ -70,6 +70,13 @@ function UMenuNew() {
           Khách hàng
         </Menu.Item>
       }
+      {readUserPermission && <Menu.Item
+        key="nhan-vien"
+        icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faIdCard} />}
+        style={{
+          padding: '2em',
+          textAlign: 'left',
+        }}>Nhân viên</Menu.Item>}
       <SubMenu
         style={{
           textAlign: 'left',
@@ -106,7 +113,7 @@ function UMenuNew() {
         >
           Vouchers
         </Menu.Item>}
-      <Menu.Item
+      {/*<Menu.Item
         key="vouchers-customer"
         icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faMoneyBills} />}
         style={{
@@ -115,14 +122,7 @@ function UMenuNew() {
         }}
       >
         Vouchers khách hàng
-      </Menu.Item>
-      {readUserPermission && <Menu.Item
-        key="nhan-vien"
-        icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faIdCard} />}
-        style={{
-          padding: '2em',
-          textAlign: 'left',
-        }}>Nhân viên</Menu.Item>}
+      </Menu.Item>}
       {readBookingPermission && <Menu.Item
         key="giao-dich"
         icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faCalendarCheck} />}
@@ -130,7 +130,7 @@ function UMenuNew() {
           padding: '2em',
           textAlign: 'left',
         }}>Giao dịch
-      </Menu.Item>}
+      </Menu.Item>*/}
     </Menu>
 
   );

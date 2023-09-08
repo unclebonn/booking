@@ -82,14 +82,14 @@ export default function NewVoucherCustomer() {
     /////////////////////////// GET API ////////////////////////////
     const getAllCustomer = () => {
         const api_link = {
-            url: api_links.user.saleAdmin.getUserCustomer,
+            url: api_links.user.superAdmin.getAllCustomer,
             method: "GET"
         }
         return fetch_Api(api_link)
     }
     const getCustomer = (customerId: string) => {
         const api_link = {
-            url: `${api_links.user.saleAdmin.getUserCustomer}/${customerId}`,
+            url: `${api_links.user.superAdmin.getCustomer.url}${customerId}`,
             method: "GET"
         }
         return fetch_Api(api_link)

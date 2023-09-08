@@ -12,7 +12,7 @@ import Services from './pages/user/servicepackages/ServicePackage';
 import Vouchers from './pages/user/vouchers/Vouchers';
 import Employees from './pages/user/employee/Employee';
 //import BookDetail from './pages/Productdetail/product-detail';
-import CustomerDetail from './pages/user/customers/detail/customer-detail';
+//import CustomerDetail from './pages/user/customers/detail/customer-detail';
 
 //Importing Bootstrap 5
 import PopupScreen from './component/popupscreeninformation/PopupScreen';

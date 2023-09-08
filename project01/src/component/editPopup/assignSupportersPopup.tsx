@@ -56,32 +56,34 @@ export default function AssignSupportersPopupScreen({ isPopup, setPopup, custome
     const role = cookies.get("token")?.role
 
     useEffect(() => {
-        fetch_Api({
-            url: api_links.user.superAdmin.getAllRole,
-            method: 'GET',
-            data: undefined
-        }).then(data => {
-            setCV(data.data);
-        });
-        if (window.location.pathname.includes("managerdashboard")) {
+        if (cookies.get("token").role.isManager) {
             fetch_Api({
-                url: api_links.user.superAdmin.getAllUser,
+                url: api_links.user.superAdmin.getAllRole,
                 method: 'GET',
                 data: undefined
             }).then(data => {
-                setNV(data.data);
-                setFilterNV(data.data);
+                setCV(data.data);
             });
-        }
-        else {
-            fetch_Api({
-                url: api_links.user.saleAdmin.getUserUser,
-                method: 'GET',
-                data: undefined
-            }).then(data => {
-                setNV(data.data);
-                setFilterNV(data.data);
-            });
+            if (window.location.pathname.includes("managerdashboard")) {
+                fetch_Api({
+                    url: api_links.user.superAdmin.getAllUser,
+                    method: 'GET',
+                    data: undefined
+                }).then(data => {
+                    setNV(data.data);
+                    setFilterNV(data.data);
+                });
+            }
+            else {
+                fetch_Api({
+                    url: api_links.user.saleAdmin.getUserUser,
+                    method: 'GET',
+                    data: undefined
+                }).then(data => {
+                    setNV(data.data);
+                    setFilterNV(data.data);
+                });
+            }
         }
     }, []);
 
@@ -99,6 +101,7 @@ export default function AssignSupportersPopupScreen({ isPopup, setPopup, custome
                     "UserId": v.employeename,
                     "IsDeleted": false,
                 }))
+                console.log(d)
                 fetch_Api({
                     url: "http://bevm.e-biz.com.vn/api/Customers/assign-supporters/" + customerId,
                     method: 'PATCH',
@@ -112,6 +115,7 @@ export default function AssignSupportersPopupScreen({ isPopup, setPopup, custome
                         }
                     })
                     .catch((reason) => {
+                        console.log(reason)
                         message.error("Dữ liệu không đổi")
                     })
             })

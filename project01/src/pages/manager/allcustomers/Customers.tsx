@@ -282,9 +282,9 @@ export default function Customers() {
                     <div className='dashboard-content-header1'>
                         <div className='dashboard-content-header2'>
                             <h2>Danh sách khách hàng</h2>
-                            <Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/khach-hang")}>
+                            {/*<Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/khach-hang")}>
                                 Trở về
-                            </Button>
+                </Button>*/}
                             </div>
                         <hr
                             style={{
