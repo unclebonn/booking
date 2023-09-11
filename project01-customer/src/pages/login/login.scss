@@ -9,16 +9,33 @@
 }*/
 
 @media (max-width: 480px) {
-    .box-form {
+    .login {
+        display: flex;
+        text-align: left;
+        justify-content: center;
+        padding-top: 50px;
+        
+        .box-form {
         display: block;
         padding: 20px;
         text-align: center;
         align-content: center;
         align-items: center;
+        
+    }
+
+    input {
+        margin-top: 5px !important;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        //border-bottom: 2px solid #B0B3B9;
     }
 }
+}
 
-
+@media only screen and (min-width: 600px) {
 // login form
 .login {
     display: flex;
@@ -194,5 +211,5 @@ label input[type="checkbox"] {
     display: none;
 }*/
 
-
+}
 }

@@ -42,6 +42,7 @@ function CMenuNew() {
         fontSize: 'medium',
         fontWeight: '600',
       }}
+      className='sidebarmenu'
 
     >
       <Menu.Item
