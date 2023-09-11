@@ -160,3 +160,11 @@ h6 {
   overflow: unset;
   text-overflow: unset;
 }
+
+@media only screen and (max-width: 600px) {
+  .customer-profile, .customer-voucher, .customer-history {
+    max-width: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+  }
+
+}
