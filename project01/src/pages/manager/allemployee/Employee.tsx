@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './stylesEmployee.css';
+import './stylesEmployee.scss';
 import Add from './addNew';
 import { LoginPermissionState, UserListState } from '../../../app/type.d';
-import { Button, Table, Space, Divider, Select, message, Modal } from 'antd';
+import { Button, Table, Space, Divider, Select, message, Modal, Input, List } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
@@ -46,6 +46,27 @@ export default function Employees() {
     const deletePermission = havePermission("Customer", "delete");
     const restorePermission = havePermission("Customer", "restore");
 
+
+    useEffect(() => {
+        document.title = "Nhân viên"
+        fetch_Api({
+            url: api_links.user.superAdmin.getAllUser,
+            method: 'GET',
+            data: undefined
+        })
+            .then(data => {
+                setAllData(data.data);
+                setData(data.data);
+            })
+
+        fetch_Api({
+            url: "http://bevm.e-biz.com.vn/api/Users/all-deleted-users",
+            method: 'GET',
+        })
+            .then(data => {
+                setDataRecover(data.data);
+            })
+    }, [addForm, addFormRecover, deleteForm]);
     const columns: ColumnsType<DataType> = [
         {
             title: 'Tên Nhân Viên',
@@ -128,25 +149,7 @@ export default function Employees() {
         },
     ];
 
-    useEffect(() => {
-        fetch_Api({
-            url: api_links.user.superAdmin.getAllUser,
-            method: 'GET',
-            data: undefined
-        })
-            .then(data => {
-                setAllData(data.data);
-                setData(data.data);
-            })
 
-        fetch_Api({
-            url: "http://bevm.e-biz.com.vn/api/Users/all-deleted-users",
-            method: 'GET',
-        })
-            .then(data => {
-                setDataRecover(data.data);
-            })
-        }, [addForm, addFormRecover, deleteForm]);
 
     data?.map((dataTemp, index) => dataListShow.push({
         key: dataTemp.id,//index
@@ -234,7 +237,7 @@ export default function Employees() {
         })
             .then(data => {
                 //console.log(data.data);
-                setDeleteForm(!deleteForm);            
+                setDeleteForm(!deleteForm);
             })
         message.destroy('openloading');
         message.success({
@@ -255,8 +258,9 @@ export default function Employees() {
                 method: 'delete',
             })
                 .then(data => {
-                //console.log(data.data);
-                setDeleteForm(!deleteForm);                })
+                    //console.log(data.data);
+                    setDeleteForm(!deleteForm);
+                })
         })
         message.destroy('openloading');
         message.success({
@@ -297,13 +301,13 @@ export default function Employees() {
             <div className='user-employlist'>
 
                 {!addForm && <>
-                    <div className='dashboard-content-header1'>
-                        <div className='dashboard-content-header2'>
+                    <Space className='dashboard-content-header1'>
+                        <Space className='dashboard-content-header2'>
                             <h2>Danh sách nhân viên</h2>
                             {/*<Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/nhan-vien")}>
                                 Trở về
                 </Button>*/}
-                        </div>
+                        </Space>
                         <hr
                             style={{
                                 borderTop: '1px solid black',
@@ -311,8 +315,8 @@ export default function Employees() {
                                 opacity: '.25',
                             }}
                         />
-                    </div>
-                    <div className='dashboard-content-header2'>
+                    </Space>
+                    <Space className='dashboard-content-header2' wrap>
                         <div className='dashboard-content-header2-left'>
                             {addPermission && <Button type="primary" className="btnAdd" onClick={() => setAddForm(!addForm)}>
                                 Thêm
@@ -326,30 +330,30 @@ export default function Employees() {
                                 onClick={() => //openNotification(placement)
                                 { handleDeleteMulti(); setSelectedRowKeys([]) }}
                             >
-                                Xóa
+                                Xóa {`${selectedRowKeys.length ? selectedRowKeys.length : ""} nhân viên`}
                             </Button>}
-                            {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>}
+                            {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                             {/*<Button type='primary' className="btnRole" onClick={() => navigate('role')}>
                             Phân quyền
                         </Button>*/}
                         </div>
 
                         <div className='dashboard-content-header2-right'>
-                            <div className='dashboard-content-search'>
-                                <input
-                                    type='text'
-                                    onChange={e => __handleSearch(e)}
-                                    placeholder='Tên nhân viên...'
-                                    className='dashboard-content-input'
-                                />
-                            </div>
+                            {/* <Space className='dashboard-content-search'> */}
+                            <Input
+                                type='text'
+                                onChange={e => __handleSearch(e)}
+                                placeholder='Tên nhân viên...'
+                                className='dashboard-content-input'
+                            />
+                            {/* </Space> */}
                         </div>
-                    </div>
+                    </Space>
 
-                    <div className='dashboard-content-header3'>
-                        <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
+                    <Space className='dashboard-content-header3'>
+                        {/* <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
                             {hasSelected ? `Đã chọn ${selectedRowKeys.length}` : ''}
-                        </span>
+                        </span> */}
                         <Button
                             size='large'
                             type="default"
@@ -374,17 +378,52 @@ export default function Employees() {
                                 { value: 'name', label: 'Tên' },
                             ]}
                         />
+                    </Space>
+
+                    <div className='displayDataTable'>
+                        {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                            : <Table columns={columns} dataSource={dataListShow} />}
                     </div>
 
-                    {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                        : <Table columns={columns} dataSource={dataListShow} />}
+
+                    <List
+                        className='displayDataTable--responsive'
+                        bordered
+                        itemLayout='vertical'
+                        dataSource={dataListShow}
+                        pagination={{
+                            align:"end",
+                            position:"bottom"
+                        }}
+                        renderItem={(item) => (
+                            <List.Item
+                                key={item.id}
+                                extra={
+                                    <Space size="small">
+                                        <Button size={"middle"} onClick={() => navigate("detail/" + item.id)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                        {deletePermission && <Button size={"middle"} onClick={() => handleDelete1(item.id, item.name)}><FontAwesomeIcon icon={faTrashCan} /></Button>}
+                                    </Space>
+                                }
+                            >
+                                <List.Item.Meta
+                                    title={<a style={{ color: "#1677ff" }} onClick={() => navigate("detail/" + item.id)}>{item.name}</a>}
+                                    description={`Thông tin liên hệ: ${item.contact}`}
+                                />
+                                <div className='roleEmployee'>
+                                    {`Chức vụ: ${item.level}`}
+                                </div>
+                            </List.Item>
+                        )}
+
+                    />
                 </>
+
                 }
 
-                {addForm && <><div className='dashboard-content-header2'>
+                {addForm && <><Space className='dashboard-content-header2'>
                     <h2>Thông tin nhân viên</h2>
                     <Button className="btn btn-primary"
-                        onClick={() => setAddForm(!addForm)}>Cancel</Button></div>
+                        onClick={() => setAddForm(!addForm)}>Cancel</Button></Space>
                     <Add />
                 </>}
             </div>

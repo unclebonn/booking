@@ -78,7 +78,7 @@ h6 {
   font-weight: 700;
 }
 
-.dashboard-content-search {
+/* .dashboard-content-search {
   font-weight: 400;
   line-height: 1.4em;
   letter-spacing: 0.009em;
@@ -93,7 +93,7 @@ h6 {
   border-radius: 2rem;
   border: 1px solid gray;
   width: 300px;
-}
+} */
 
 .dashboard-content-search:focus {
   outline: #2D83B5 auto 1px;
@@ -101,23 +101,13 @@ h6 {
 }
 
 .dashboard-content-input {
-  font-style: inherit;
-  font-variant: inherit;
-  font-weight: inherit;
-  font-stretch: inherit;
-  line-height: inherit;
-  font-family: inherit;
-  letter-spacing: inherit;
-  border: 0px;
-  box-sizing: content-box;
-  background: none transparent;
   margin: 0px;
   display: block;
-  min-width: 0px;
   width: 100%;
   font-size: 0.75rem;
   padding: 0.625rem;
   border-radius: 16px;
+  border: 1px solid grey !important;
 
 
 }
@@ -129,10 +119,7 @@ h6 {
 }
 
 .dashboard-content-header2-right {
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-  gap: 20px;
+  width: 25vw;
 }
 
 /* .dashboard-content-header3 span {
@@ -159,4 +146,12 @@ h6 {
 .ant-menu-inline.ant-menu-root .ant-menu-item>.ant-menu-title-content {
   overflow: unset;
   text-overflow: unset;
+}
+
+
+/* responsive for phone */
+@media only screen and (min-width:280px) and (max-width:480px){
+  .dashboard-content-header2-right {
+    width: 100% !important;
+  }
 }

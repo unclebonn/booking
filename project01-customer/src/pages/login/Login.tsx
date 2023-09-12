@@ -60,6 +60,11 @@ export default function Login() {
   // const loginLink = checked === "/login/nhanvien" ? userLoginAPI : customerLoginAPI;
   const loginLink = customerLoginAPI;
 
+
+  useEffect(() => {
+    document.title="Quản lý thành viên"
+  },[])
+
   const errorMessage = () => {
     if (errorMessage2) {
       if (typeof Object.values(errorMessage2)[0] == "string") {

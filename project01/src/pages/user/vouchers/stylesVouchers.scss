@@ -63,63 +63,51 @@
 
 
     .dashboard-content-header2 {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 20px;
+        // width: 100%;
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-between;
+        // gap: 20px;
 
         .dashboard-content-header2-left {
-            display: flex;
-            justify-content: left;
-            gap: 20px;
+            // display: flex;
+            // justify-content: left;
+            // gap: 20px;
 
 
-            button {
-                width: 10vw !important;
-            }
+            // button {
+            //     width: 10vw !important;
+            // }
         }
 
         .dashboard-content-header2-right {
-            display: flex;
-            flex-direction: row;
-            justify-content: right;
-            gap: 20px;
+            width: 25vw;
 
             .dashboard-content-search {
-                font-weight: 400;
-                line-height: 1.4em;
-                letter-spacing: 0.009em;
-                box-sizing: border-box;
-                cursor: text;
-                display: inline-flex;
-                -webkit-box-align: center;
-                align-items: center;
-                position: relative;
-                background-color: transparent;
-                font-size: 0.875rem;
-                border-radius: 2rem;
-                border: 1px solid gray;
-                width: 300px;
+                // font-weight: 400;
+                // line-height: 1.4em;
+                // letter-spacing: 0.009em;
+                // box-sizing: border-box;
+                // cursor: text;
+                // display: inline-flex;
+                // -webkit-box-align: center;
+                // align-items: center;
+                // position: relative;
+                // background-color: transparent;
+                // font-size: 0.875rem;
+                // border-radius: 2rem;
+                // border: 1px solid gray;
+                // width: 300px;
 
 
                 .dashboard-content-input {
-                    font-style: inherit;
-                    font-variant: inherit;
-                    font-weight: inherit;
-                    font-stretch: inherit;
-                    line-height: inherit;
-                    font-family: inherit;
-                    letter-spacing: inherit;
-                    border: 0px;
-                    box-sizing: content-box;
-                    background: none transparent;
                     margin: 0px;
                     display: block;
-                    min-width: 0px;
                     width: 100%;
                     font-size: 0.75rem;
                     padding: 0.625rem;
                     border-radius: 16px;
+                    border: 1px solid grey !important;
 
 
                 }
@@ -153,18 +141,73 @@
     }
 }
 
-.uservoucher-record {
-    background-color: rgb(249, 217, 222);
-    padding: 20px;
-    border-radius: 10px;
 
-    .coupon-con {
-        width: 100%;
+.modalVoucher {
+    width: 65vw !important;
+    .uservoucher-record {
+        background-color: rgb(249, 217, 222);
+        padding: 20px;
+        border-radius: 10px;
+
+        .coupon-con {
+            width: 100%;
+        }
+
+
+
+        .userservice-record--information {
+            flex-grow: 1;
+        }
+    }
+}
+
+
+@media only screen and (min-width:"280px") and (max-width:"825px") {
+    .modalVoucher{
+        width: unset !important;
+    }
+    .user-vouchers {
+        .displayDataTable {
+            display: none;
+        }
+
+        .displayDataTable--responsive {
+            display: block;
+        }
+
     }
 
+    .uservoucher-record {
+        display: flex;
+        flex-direction: column;
 
-
-    .userservice-record--information {
-        flex-grow: 1;
+        .coupon-left {
+            display: none;
+            div {
+                >img {
+                    width: 100%;
+                }
+            }
+        }
     }
+
+}
+
+@media only screen and (min-width:"826px") and (max-width:"1024px") {
+    .user-vouchers {
+        .displayDataTable {
+            display: block;
+        }
+
+        .displayDataTable--responsive {
+            display: none;
+        }
+
+    }
+
+    .uservoucher-record {
+        display: flex;
+        flex-direction: column;
+    }
+
 }

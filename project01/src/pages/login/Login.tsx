@@ -14,7 +14,8 @@ import {
   selectRole,
   selectInformation,
   selectPermission,
-  selectLogin
+  selectLogin,
+  selectErrorServer
 } from './loginSlice';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
@@ -36,7 +37,9 @@ export default function Login() {
   const token = useAppSelector(selectToken);
   const information = useSelector(selectInformation);
   const role = useSelector(selectRole);
-  const permission = useSelector(selectPermission);
+  const errorServer = useSelector(selectErrorServer);
+
+
   //const loginSelect = useSelector(selectLogin);
   //const permissionDone= handlePermission(permission?permission:[]);
 
@@ -60,6 +63,14 @@ export default function Login() {
   // const loginLink = checked === "/login/nhanvien" ? userLoginAPI : customerLoginAPI;
   const loginLink = userLoginAPI;
 
+  useEffect(() => {
+    document.title = "Quản lý nhân viên"
+    if (cookies.get("token")?.token !== undefined) {
+      navigate('/dashboard/khach-hang');
+      //return 
+    }
+  }, [])
+
   const errorMessage = () => {
     if (errorMessage2) {
       if (typeof Object.values(errorMessage2)[0] == "string") {
@@ -80,11 +91,13 @@ export default function Login() {
     cookies.set("token", storeCookieData, { path: '/', maxAge: 7200 })  // set cookies for 30 minutes
   }
 
-  // Navigate to dashboard page if login successful
   if (cookies.get("token")?.token !== undefined) {
     navigate('/dashboard/khach-hang');
     //return 
   }
+
+  // Navigate to dashboard page if login successful
+
 
   return (
     <div className="login">
@@ -117,11 +130,18 @@ export default function Login() {
               {isSuccess ? <FontAwesomeIcon className='circle-loading' icon={faSpinner} /> : "Đăng nhập"}
             </Button>
             {(errorMessage()) &&
-              <span style={{
+              <p style={{
                 color: "red",
-                textAlign: "center",
+                textAlign: "left",
                 fontSize: "13px"
-              }}><br /> {errorMessage()}</span>
+              }}><br /> {errorMessage()}</p>
+            }
+            {
+              errorServer?.includes("Failed to fetch") ? <p style={{
+                color: "red",
+                textAlign: "left",
+                fontSize: "13px"
+              }}><br />Lỗi máy chủ vui lòng thử lại sau</p> : ""
             }
           </Form.Item>
 

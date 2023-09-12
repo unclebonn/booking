@@ -4,7 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import Cookies from 'universal-cookie';
 import api_links from '../../../utils/api_links';
 import fetch_Api from '../../../utils/api_function';
-import { Button, Col, Modal, Row, Space, Tag, message, Table, Popconfirm, Divider, Select } from 'antd';
+import { Button, Col, Modal, Row, Space, Tag, message, Table, Popconfirm, Divider, Select, Input, List } from 'antd';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
@@ -57,6 +57,7 @@ export default function Services() {
     var token = cookies.get("token")?.token;
 
     useEffect(() => {
+        document.title = "Vouchers"
         getAllVoucherTypes()
             .then((res) => {
                 if (res.status === 200) {
@@ -167,8 +168,8 @@ export default function Services() {
                 <div className="item-content">
                     <a style={{ fontWeight: "bold" }}>{record?.typeName}</a>
                     <span>
-                        Giá trị: {record?.percentageDiscount ? `${record?.percentageDiscount}%` : `${record?.valueDiscount.toLocaleString("vi-VN",{style:"currency",currency:"VND"})}`}
-                        {record?.maximumValueDiscount ? (` ( Tối đa: ${record.maximumValueDiscount?.toLocaleString("vi-VN",{style:"currency",currency:"VND"})} )`) : ""}
+                        Giá trị: {record?.percentageDiscount ? `${record?.percentageDiscount}%` : `${record?.valueDiscount.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`}
+                        {record?.maximumValueDiscount ? (` ( Tối đa: ${record.maximumValueDiscount?.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} )`) : ""}
 
                     </span>
                 </div>
@@ -335,7 +336,7 @@ export default function Services() {
 
 
     // ====================================================================
-    
+
     const handleTableRowClick = (record: DataType) => {
         setAddFormInformationService(!addFormInformationService)
         setRecord(record)
@@ -401,15 +402,16 @@ export default function Services() {
 
 
             <Modal
+                className='modalVoucher'
                 open={addFormInformationService}
                 onCancel={() => setAddFormInformationService(!addFormInformationService)}
                 footer={[]}
-                width="65vw"
+            // width="65vw"
             >
                 <Space size={[25, 0]} direction='horizontal' className='uservoucher-record' align='center'>
                     <Space.Compact className='coupon-left' direction='vertical'>
                         <div>
-                            <img src={record?.image} alt="image" width="250px" />
+                            <img src={record?.image} alt="image" width="100%" />
                         </div>
                         {deletePermission && <Popconfirm
                             className="ant-popconfirm"
@@ -430,20 +432,19 @@ export default function Services() {
                         <Divider orientation='left'>Thông tin</Divider>
                         <Space direction='vertical' className='uservoucher-record--information'>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Tên gói khuyến mãi: </span>
-                                <span>{record?.typeName}</span>
+                                <span style={{ color: "#0958d9" }}>Tên gói khuyến mãi: <span style={{ color: "black" }}>{record?.typeName}</span> </span>
                             </Space>
                             <Space>
-                                <span style={{ color: "#0958d9", display: "inline-block", width: "4vw" }}>Điều kiện: </span>
-                                <span>{record?.conditionsAndPolicies}</span>
+                                <span style={{ color: "#0958d9" }}>Điều kiện: <span style={{ color: "black" }}>{record?.conditionsAndPolicies}</span></span>
+
                             </Space>
                             <Space>
                                 <span style={{ color: "#0958d9" }}>Giá trị: </span>
-                                <span>{record?.commonPrice.toLocaleString("vi-VN",{style:"currency",currency:"VND"})}</span>
+                                <span>{record?.commonPrice.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</span>
                             </Space>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Số lượng khuyến mãi còn lại: </span>
-                                <span>{record?.availableNumberOfVouchers}</span>
+                                <span style={{ color: "#0958d9" }}>Số lượng khuyến mãi còn lại: <span style={{ color: "black" }}>{record?.availableNumberOfVouchers}</span></span>
+
                             </Space>
                             <Space>
                                 {record?.percentageDiscount ?
@@ -454,14 +455,14 @@ export default function Services() {
                                     :
                                     <>
                                         <span style={{ color: "#0958d9" }}>Giảm giá: </span>
-                                        <span>{record?.valueDiscount.toLocaleString("vi-VN",{style:"currency",currency:"VND"})}</span>
+                                        <span>{record?.valueDiscount.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}</span>
                                     </>
 
                                 }
                             </Space>
                             <Space>
                                 <span style={{ color: "#0958d9" }}>Giảm giá tối đa: </span>
-                                <span>{record?.maximumValueDiscount ? record?.maximumValueDiscount.toLocaleString("vi-VN",{style:"currency",currency:"VND"}) : "0"}</span>
+                                <span>{record?.maximumValueDiscount ? record?.maximumValueDiscount.toLocaleString("vi-VN", { style: "currency", currency: "VND" }) : "0"}</span>
                             </Space>
                         </Space>
                     </Space.Compact>
@@ -469,7 +470,7 @@ export default function Services() {
             </Modal>
 
             <div className="user-vouchers">
-                <div className="dashboard-content-header1">
+                <Space className="dashboard-content-header1">
                     <h2>Danh sách voucher</h2>
 
                     <hr
@@ -479,8 +480,8 @@ export default function Services() {
                             opacity: '.25',
                         }}
                     />
-                </div>
-                <div className="dashboard-content-header2">
+                </Space>
+                <Space className="dashboard-content-header2" wrap>
                     <div className="dashboard-content-header2-left">
                         {addPermission && <Button type="primary" onClick={() => setAddForm(true)}>
                             Tạo
@@ -497,23 +498,23 @@ export default function Services() {
                             buttonContent={`Xoá ${hasSelected ? selectedRowKeys.length : ''} dịch vụ`}
                         >
                         </Notification>}
-                        {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>}
+                        {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                     </div>
 
                     <div className="dashboard-content-header2-right">
-                        <div className="dashboard-content-search">
-                            <input
-                                type='text'
-                                onChange={e => __handleSearch(e)}
-                                placeholder='Tên voucher..'
-                                className="dashboard-content-input"
-                            />
-                        </div>
+                        {/* <Space className="dashboard-content-search"> */}
+                        <Input
+                            type='text'
+                            onChange={e => __handleSearch(e)}
+                            placeholder='Tên voucher..'
+                            className="dashboard-content-input"
+                        />
+                        {/* </Space> */}
 
                     </div>
 
-                </div>
-                <div className="dashboard-content-header3">
+                </Space>
+                <Space className="dashboard-content-header3">
                     <Button
                         size='large'
                         type="default"
@@ -542,14 +543,81 @@ export default function Services() {
 
                         ]}
                     />
-                </div>
+                </Space>
 
-                <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
+                <Table className='displayDataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
                     onClick: () => handleTableRowClick(record),
                 })} />
 
+
+                <List
+                    pagination={{
+                        align: "end",
+                        position: "bottom"
+                    }}
+                    className='displayDataTable--responsive'
+                    bordered
+                    itemLayout='vertical'
+                    dataSource={dataListShow}
+                    renderItem={(item) => (
+                        <List.Item
+                            key={item.id}
+                            extra={
+                                <Space>
+                                    {deletePermission && <Popconfirm
+                                        className="ant-popconfirm"
+                                        title="Xoá dịch vụ"
+                                        description="Bạn có chắc chắn xoá không ?"
+                                        onConfirm={() => {
+                                            handleDelete(item.id)
+                                        }}
+                                        okText="Xoá"
+                                        cancelText="Huỷ"
+                                        placement='bottomLeft'
+                                    >
+                                        <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
+                                    </Popconfirm>}
+                                    <Space size="small">
+                                        {editPermission && <Link to={"updatevoucher"} state={item}>
+                                            <Button
+                                                title='Sửa đổi'
+                                                size={"large"} >
+                                                <FontAwesomeIcon icon={faPenToSquare} />
+                                            </Button>
+                                        </Link>}
+                                    </Space>
+
+                                </Space>
+                            }
+                        >
+                            <List.Item.Meta
+                                title={
+                                    <a
+                                        style={{ color: "#1677ff" }} onClick={() => {
+                                            setRecord(item)
+                                            setAddFormInformationService(!addFormInformationService)
+                                        }
+                                        }
+                                    >
+                                        {item.typeName}
+                                    </a>
+                                }
+                                description={<span>
+                                    Giá trị: {item?.percentageDiscount ? `${item?.percentageDiscount}%` : `${item?.valueDiscount.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`}
+                                    {item?.maximumValueDiscount ? (` ( Tối đa: ${item.maximumValueDiscount?.toLocaleString("vi-VN", { style: "currency", currency: "VND" })} )`) : ""}
+
+                                </span>
+                                }
+                            />
+                            <div className="bonus-content">
+                                <div>Số lượng còn lại: {item?.availableNumberOfVouchers}</div>
+                            </div>
+                        </List.Item>
+                    )}
+                />
+
             </div>
-        </React.Fragment>
+        </React.Fragment >
 
     )
 

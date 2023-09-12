@@ -10,6 +10,10 @@ export default function Profile() {
     var cookies = new Cookies();
     var token = cookies.get("token")?.token;
 
+    useEffect(() => {
+        document.title="Thông tin khách hàng"
+    },[])
+
     return (
         <div className='customer-profile'>
             <div className='dashboard-content-header'>

@@ -1,6 +1,6 @@
 import Recovery from "../../../component/recovery/Recovery";
 import { Button, Space } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import fetch_Api from "../../../utils/api_function";
 import { CustomerListState, UserListState } from "../../../app/type.d";
 import api_links from "../../../utils/api_links";
@@ -12,6 +12,13 @@ export function RecoveryPage() {
     const [type, setType] = useState<string>("")
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const [dataSource, setDataSource] = useState<DataSourceProps>([])
+
+
+    useEffect(() => {
+        document.title="Khôi phục"
+    },[])
+
+
     const recoverCustomers = () => {
         getAllRecoverCustomer()
         setType("customers")

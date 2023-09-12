@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './stylesCustomers.css';
+import './stylesCustomers.scss';
 import Add from './addNew';
 import { CustomerListState } from '../../../app/type.d';
-import { Button, Table, Space, Divider, Select, message, Modal } from 'antd';
+import { Button, Table, Space, Divider, Select, message, Modal, Input, List } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
@@ -110,6 +110,8 @@ export default function Customers() {
     // ];
 
     useEffect(() => {
+
+        document.title = "Khách hàng"
         fetch_Api({
             url: api_links.user.superAdmin.getAllCustomer,
             method: 'GET',
@@ -248,7 +250,7 @@ export default function Customers() {
         }, 1.5)
     }
 
-   
+
 
     return (
         <React.Fragment>
@@ -266,13 +268,13 @@ export default function Customers() {
 
             <div className='user-customerlist'>
                 {!addForm && <>
-                    <div className='dashboard-content-header1'>
-                        <div className='dashboard-content-header2'>
+                    <Space className='dashboard-content-header1'>
+                        <Space className='dashboard-content-header2'>
                             <h2>Danh sách khách hàng</h2>
                             {/*<Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/khach-hang")}>
                                 Trở về
                 </Button>*/}
-                            </div>
+                        </Space>
                         <hr
                             style={{
                                 borderTop: '1px solid black',
@@ -280,8 +282,8 @@ export default function Customers() {
                                 opacity: '.25',
                             }}
                         />
-                    </div>
-                    <div className='dashboard-content-header2'>
+                    </Space>
+                    <Space className='dashboard-content-header2' wrap>
                         <div className='dashboard-content-header2-left'>
                             {addPermission && <Button type="primary" className="btnAdd" onClick={() => setAddForm(!addForm)}>
                                 Thêm
@@ -295,27 +297,27 @@ export default function Customers() {
                                 onClick={() => //openNotification(placement)
                                 { handleDeleteMulti(); setSelectedRowKeys([]) }}
                             >
-                                Xóa
+                                Xóa {`${selectedRowKeys.length ? selectedRowKeys.length : ""} khách hàng`}
                             </Button>}
-                            {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>}
+                            {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                         </div>
 
                         <div className='dashboard-content-header2-right'>
-                            <div className='dashboard-content-search'>
-                                <input
-                                    type='text'
-                                    onChange={e => __handleSearch(e)}
-                                    placeholder='Tên khách hàng..'
-                                    className='dashboard-content-input'
-                                />
-                            </div>
+                            {/* <Space className='dashboard-content-search'> */}
+                            <Input
+                                type='text'
+                                onChange={e => __handleSearch(e)}
+                                placeholder='Tên khách hàng..'
+                                className='dashboard-content-input'
+                            />
+                            {/* </Space> */}
                         </div>
-                    </div>
+                    </Space>
 
-                    <div className='dashboard-content-header3'>
-                        <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
-                            {hasSelected ? `Đã chọn ${selectedRowKeys.length}` : ''}
-                        </span>
+                    <Space className='dashboard-content-header3'>
+                        {/* <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
+                            {hasSelected ? `Đã chọn ` : ''}
+                        </span> */}
                         <Button
                             size='large'
                             type="default"
@@ -340,16 +342,49 @@ export default function Customers() {
                                 { value: 'name', label: 'Tên' },
                             ]}
                         />
+                    </Space>
+
+                    <div className='displayDataTable'>
+                        {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                            : <Table columns={columns} dataSource={dataListShow} />}
                     </div>
 
-                    {/* {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                        : <Table columns={columns} dataSource={dataListShow} />} */}
-                </>}
+                </>
+                }
 
-                {addForm && <><div className='dashboard-content-header2'>
+                <List
+                    bordered
+                    className='displayDataTable--responsive'
+                    itemLayout='vertical'
+                    size='large'
+                    pagination={{
+                        align: "end",
+                        position: "bottom"
+                    }}
+                    dataSource={dataListShow}
+                    renderItem={(item) => (
+                        <List.Item
+                            key={item.id}
+                            extra={
+                                <Space size="small">
+                                    <Button size={"middle"} onClick={() => navigate("detail/" + item.id)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    {deletePermission && <Button size={"middle"} onClick={() => handleDelete1(item.id, item.name)}><FontAwesomeIcon icon={faTrashCan} /></Button>}
+                                </Space>
+                            }
+                        >
+                            <List.Item.Meta
+                                title={<a style={{ color: "#1677ff" }} onClick={() => navigate("detail/" + item.id)}>{item.name}</a>}
+                                description={`Thông tin liên hệ: ${item.contact}`}
+                            />
+                        </List.Item>
+                    )}
+
+                />
+
+                {addForm && <><Space className='dashboard-content-header2'>
                     <h2>Thông tin khách hàng</h2>
                     <Button className="btn btn-primary"
-                        onClick={() => setAddForm(!addForm)}>Cancel</Button></div>
+                        onClick={() => setAddForm(!addForm)}>Cancel</Button></Space>
                     <Add />
 
                 </>}

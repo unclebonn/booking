@@ -37,6 +37,10 @@ export default function BookingInformation({ api_link,isCustomer }: { api_link: 
     var cookies = new Cookies()
     var token = cookies.get("token")?.token;
 
+    useEffect(() => {
+        document.title="Lịch sử mua hàng"
+    },[])
+
     const columns: ColumnsType<DataType> = [
         {
             title: 'ID',

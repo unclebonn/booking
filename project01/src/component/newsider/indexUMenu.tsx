@@ -14,6 +14,10 @@ const { SubMenu } = Menu;
 function UMenuNew() {
   const navigate = useNavigate();
   const location = useLocation();
+  const cookies = new Cookies()
+  const role = cookies.get("token")?.role
+
+
 
 
   const onClick: MenuProps['onClick'] = (e) => {
@@ -113,7 +117,7 @@ function UMenuNew() {
         >
           Vouchers
         </Menu.Item>}
-      {readVoucherTypePermission &&
+      {role?.isManager &&
         <Menu.Item
           key="khoi-phuc"
           icon={<FontAwesomeIcon style={{ marginRight: '10px' }} icon={faMoneyBills} />}

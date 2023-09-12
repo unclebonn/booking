@@ -88,13 +88,13 @@ export default function Service() {
     const [openPopover, setOpenPopOver] = useState(false)
     const serviceNameRef = useRef<InputRef>(undefined!)
     const descriptionRef = useRef<InputRef>(undefined!)
-
     const addPermission = havePermission("Service", "write");
     const deletePermission = havePermission("Service", "delete");
     const restorePermission = havePermission("Service", "restore");
     const editPermission = havePermission("Service", "update");
-
+    const [showupDelete, setShowupDelete] = useState<boolean>(false)
     useEffect(() => {
+        document.title = "Loại dịch vụ"
         getAllService()
             .then((res) => {
                 if (res.status === 200) {
@@ -191,6 +191,7 @@ export default function Service() {
             .then((res) => {
                 if (res.status === 200) {
                     message.success("Xoá thành công")
+                    setShowupDelete(false)
                     getAllService()
                         .then((res) => {
                             setAllData(res.data);
@@ -213,6 +214,10 @@ export default function Service() {
             .catch((reason) => {
                 message.error("Xoá thất bại")
             })
+    }
+
+    const handleShowupDelete = () => {
+        setShowupDelete(!showupDelete)
     }
 
     const handleFinish = (id: number) => {
@@ -262,27 +267,27 @@ export default function Service() {
     //         title: 'Lựa chọn',
     //         dataIndex: 'id',
     //         render: (text, record, index) =>
-    //             <div className="item-content-recover">
+    //             <Space className="item-content-recover">
     //                 <span>{record.id}</span>
-    //             </div>
+    //             </Space>
 
     //     },
     //     {
     //         title: 'Gói dịch vụ',
     //         dataIndex: 'servicePackageName',
     //         render: (text, record, index) =>
-    //             <div className="item-content-recover">
+    //             <Space className="item-content-recover">
     //                 <a style={{ fontWeight: "bold" }}>{record.serviceName}</a>
     //                 <p>Nội dung: {record.description}</p>
-    //             </div>
+    //             </Space>
     //     },
     //     {
     //         title: 'Miêu tả',
     //         dataIndex: 'description',
     //         render: (text, record) =>
-    //             <div className="item-content-recover">
+    //             <Space className="item-content-recover">
     //                 <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
-    //             </div>
+    //             </Space>
     //     },
     // ]
 
@@ -354,6 +359,9 @@ export default function Service() {
                 </Row>
             </Modal>
 
+
+
+            {/* recovery table */}
             {/* <Modal
                 width="40vw"
                 style={{ top: "5vh" }}
@@ -381,8 +389,11 @@ export default function Service() {
                 <Table className='recover-table' columns={columnsRecover} dataSource={dataRecover} />
 
             </Modal> */}
+
+
+
             <div className="user-services">
-                <div className="dashboard-content-header1">
+                <Space className="dashboard-content-header1">
                     <h2>Danh sách loại dịch vụ</h2>
 
                     <hr
@@ -392,29 +403,31 @@ export default function Service() {
                             opacity: '.25',
                         }}
                     />
-                </div>
-                <div className="dashboard-content-header2">
+                </Space>
+
+
+                <Space className="dashboard-content-header2" wrap>
                     <div className="dashboard-content-header2-left">
                         {addPermission && <Button type="primary" onClick={() => setAddForm(true)}>
                             Thêm
                         </Button>}
-                        {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>}
+                        {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                     </div>
 
                     <div className="dashboard-content-header2-right">
-                        <div className="dashboard-content-search">
-                            <input
-                                type='text'
-                                onChange={e => __handleSearch(e)}
-                                placeholder='Loại dịch vụ...'
-                                className="dashboard-content-input"
-                            />
-                        </div>
-
+                        {/* <div className="dashboard-content-search"> */}
+                        <Input
+                            bordered
+                            type='text'
+                            onChange={e => __handleSearch(e)}
+                            placeholder='Loại dịch vụ...'
+                            className="dashboard-content-input"
+                        />
+                        {/* </div> */}
                     </div>
 
-                </div>
-                <div className="dashboard-content-header3">
+                </Space>
+                <Space className="dashboard-content-header3">
                     <Button
                         size='large'
                         type="default"
@@ -438,24 +451,27 @@ export default function Service() {
                             { value: 'name', label: 'Tên' },
                         ]}
                     />
-                </div>
+                </Space>
 
-                <div>
+                <Space>
                     <Space wrap size={[5, 10]}>
                         {data?.map((data) => {
                             return (
                                 <Popover
-                                    afterOpenChange={() => setUpdateBtn(true)}
+
+                                    afterOpenChange={() => {
+                                        setShowupDelete(false)
+                                    }}
                                     key={data.id}
                                     placement="bottomLeft"
                                     title="Thông tin"
                                     trigger="click"
                                     content={
                                         <>
-                                            <Space className="service" style={{ marginLeft: "10px", gap: "0" }} direction="vertical">
-                                                <Space style={{ display: "flex", justifyContent: "space-between" }}>
-                                                    <div>
-                                                        <div>
+                                            <div className="service" style={{ marginLeft: "10px", gap: "0" }} >
+                                                <Space style={{ marginTop: "30px" }} direction="vertical">
+                                                    <Space wrap>
+                                                        <Space>
                                                             <h5 style={{ color: "rgb(71 71 71)" }}>Tên</h5>
                                                             {updateBtn ? <Tag className="tag">
                                                                 <span style={{ color: "black" }}>{service?.serviceName}</span>
@@ -464,8 +480,8 @@ export default function Service() {
                                                                 <Input size="small" ref={serviceNameRef} name="serviceName" defaultValue={service?.serviceName} />
                                                             }
 
-                                                        </div>
-                                                        <div>
+                                                        </Space>
+                                                        <Space>
                                                             <h5 style={{ color: "rgb(71 71 71)" }}>Miêu tả</h5>
                                                             {updateBtn ? <Tag className="tag">
                                                                 <span style={{ color: "black" }}>{service?.description}</span>
@@ -474,56 +490,64 @@ export default function Service() {
                                                                 <Input size="small" ref={descriptionRef} name="description" defaultValue={service?.description} />
                                                             }
 
-                                                        </div>
-                                                        {updateBtn ? "" : <Button size="small" style={{ marginTop: "10px" }} onClick={() => handleFinish(data.id)} type="primary">Cập nhật</Button>}
+                                                        </Space>
 
 
 
-                                                    </div>
+                                                    </Space>
 
-                                                    <div className="service-information">
+                                                    <Space className="service-information">
                                                         <h5 style={{ color: "rgb(71 71 71)" }}>Thẻ</h5>
                                                         <Tag className="tag" color="blue">
-                                                            <span style={{ color: "black" }}>{service?.serviceName}:{service?.description}</span>
+                                                            <span style={{ color: "black" }}>{service?.serviceName}: {service?.description}</span>
                                                         </Tag>
-                                                    </div>
+                                                    </Space>
+                                                    {updateBtn ? "" : <Button size="small" style={{ marginTop: "10px" }} onClick={() => handleFinish(data.id)} type="primary">Cập nhật</Button>}
 
-                                                    <div>
-                                                        {editPermission && <Button onClick={handleUpdate} className="ant-update--service" size={"large"} ><FontAwesomeIcon icon={faPenToSquare} /></Button>}
-                                                    </div>
-                                                    {deletePermission && <div className="service--popover">
-                                                        <Button className="ant-popconfirm--service" size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
-                                                        <div className="deleteForm--service">
-                                                            <div className="form--service">
-                                                                <div>
-                                                                    <span><FontAwesomeIcon style={{ backgroundColor: "#FAAD14", color: "white" }} icon={faExclamationCircle} /> Lưu ý</span>
-                                                                </div>
-                                                                <div>
-                                                                    <span>Bạn có chắc chắn xoá không ?</span>
-                                                                </div>
-                                                                <div className="form--serviceBtn">
-                                                                    <Button onClick={() => handleDelete(data.id)} style={{ backgroundColor: "red" }} type="primary">Xoá</Button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>}
+
+                                                    <Space className="ant-update--service">
+                                                        {editPermission && <Button onClick={handleUpdate} size={"large"} ><FontAwesomeIcon icon={faPenToSquare} /></Button>}
+                                                        <Button onClick={handleShowupDelete} className="ant-popconfirm--service" size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
+                                                    </Space>
+                                                    {deletePermission && showupDelete ?
+                                                        <Space className="service--popover">
+                                                            <Space className="deleteForm--service">
+                                                                <Space direction="vertical" className="form--service">
+                                                                    <Space>
+                                                                        <span><FontAwesomeIcon style={{ backgroundColor: "#FAAD14", color: "white" }} icon={faExclamationCircle} /> Lưu ý</span>
+                                                                    </Space>
+                                                                    <Space>
+                                                                        <span>Bạn có chắc chắn xoá không ?</span>
+                                                                    </Space>
+                                                                    <Space className="form--serviceBtn">
+                                                                        <Button onClick={() => handleDelete(data.id)} style={{ backgroundColor: "red" }} type="primary">Xoá</Button>
+                                                                    </Space>
+                                                                </Space>
+                                                            </Space>
+                                                        </Space>
+                                                        : <div></div>    
+                                                    }
                                                 </Space>
-                                            </Space>
-                                            <Space className="service" align="start" style={{ marginLeft: "10px" }} direction="vertical">
+                                            </div>
+
+
+
+                                            {/* service package */}
+                                            <Space className="service" align="start" style={{ height: "auto", marginLeft: "10px" }} direction="vertical">
                                                 <h5 style={{ margin: "0", color: "rgb(71 71 71)" }}>Các gói dịch vụ đang sử dụng dịch vụ này</h5>
-                                                <Space wrap>
+                                                <Space className="service--wrap" wrap>
                                                     {service?.servicePackages.map((service: ServicePackageState, index: number) => {
                                                         return (
-                                                            <div key={index} className="service--servicepackages">
-                                                                <div>
-                                                                    <h6>Tên</h6>
+                                                            <Space direction="vertical" key={index} className="service--servicepackages">
+                                                                <Space>
+                                                                    <h5>Tên</h5>
                                                                     <p>{service.servicePackageName}</p>
-                                                                </div>
-                                                                <div>
-                                                                    <h6>Miêu tả</h6>
+                                                                </Space>
+                                                                <Space>
+                                                                    <h5>Miêu tả</h5>
                                                                     <p>{service.description}</p>
-                                                                </div>
-                                                            </div>
+                                                                </Space>
+                                                            </Space>
                                                         )
                                                     })}
                                                 </Space>
@@ -538,7 +562,7 @@ export default function Service() {
                             )
                         })}
                     </Space>
-                </div>
+                </Space>
             </div >
         </>
     )

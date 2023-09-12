@@ -27,24 +27,37 @@ interface DataType {
 
 export default function Customers() {
     const [addForm, setAddForm] = useState(false);
-    // const [messageApi, contextHolder] = message.useMessage();
     const [deleteForm, setDeleteForm] = useState(false);
-    // const [messageApi, contextHolder] = message.useMessage();
     const [all_data, setAllData] = useState<CustomerListState>();
     const [search, setSearch] = useState('');
     const [data, setData] = useState(all_data);
-
     const [sortType, setSortType] = useState('name');
     const [ascending, setAscending] = useState(true);
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-
     const navigate = useNavigate();
-
     const addPermission = havePermission("Customer", "write");
     const deletePermission = havePermission("Customer", "delete");
     const allPermission = havePermission("Customer", "all");
     const [api, contextHolder] = notification.useNotification()
     const key = `open${Date.now()}`;
+
+
+    useEffect(() => {
+        document.title="Khách hàng"
+
+        fetch_Api({
+            url: api_links.user.saleAdmin.getUserCustomer,
+            method: 'GET',
+            data: undefined
+        })
+            .then(data => {
+                setAllData(data.data);
+                setData(data.data);
+            })
+
+    }, [addForm, deleteForm]);
+
+
     const columns: ColumnsType<DataType> = [
         {
             title: 'Tên khách hàng',
@@ -85,18 +98,6 @@ export default function Customers() {
         },
     ];
 
-    useEffect(() => {
-        fetch_Api({
-            url: api_links.user.saleAdmin.getUserCustomer,
-            method: 'GET',
-            data: undefined
-        })
-            .then(data => {
-                setAllData(data.data);
-                setData(data.data);
-            })
-
-    }, [addForm, deleteForm]);
 
     const dataListShow: DataType[] = [];
     data?.map((dataTemp, index) => dataListShow.push({
