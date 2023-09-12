@@ -123,6 +123,52 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
 
         },];
 
+    const minicolumns: ColumnsType<BookingState> = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            render: (text, record) =>
+                <Space size="small">
+                    {/*<Button size={"small"} ><FontAwesomeIcon icon={faTrashCan} /></Button>*/}
+                    {text}
+                </Space>
+        },
+        {
+            title: 'Tên',
+            dataIndex: 'bookingTitle',
+            render: (text, record) => <div>
+                {text}<br />
+                Ngày giao dịch: {record.bookingDate.split(' ')[1]}<br />
+                Tổng tiền: {record.totalPrice}<br />
+                {isCustomer ?
+                    <>Khách hàng: {record?.customer?.name}</>
+                    :
+                    <>Giao dịch viên: {record?.salesEmployee?.name}</>
+                }
+            </div>
+        },
+        {
+            title: 'Tình trạng',
+            dataIndex: 'bookingStatus',
+            //width: '50px',
+            filters: [
+                {
+                    text: 'Đã thanh toán',
+                    value: 'Đã thanh toán',
+                },
+                {
+                    text: 'Đang xử lý',
+                    value: 'Đang xử lý',
+                },
+                {
+                    text: 'Đã hủy',
+                    value: 'Đã hủy',
+                },
+            ],
+            onFilter: (value: any, record) => record.bookingStatus.indexOf(value) === 0,
+
+        },];
+
 
     data?.map((dataTemp, index) => {
         const date = new Date(dataTemp.bookingDate);
@@ -238,9 +284,9 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                                 <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
                             </Popconfirm>
                             : <></>}
-                            {editPermission && record?.bookingStatus === "Pending" && <Link to={"../giao-dich/updatebooking"} state={record}>
-                                    <Button size={"large"} style={{width:"100%"}}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                </Link>}
+                        {editPermission && record?.bookingStatus === "Pending" && <Link to={"/dashboard/giao-dich/updatebooking"} state={record}>
+                            <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                        </Link>}
                     </Space.Compact>
                     <Space.Compact className='coupon-con' direction='vertical'>
                         <Divider orientation='left'>Thông tin</Divider>
@@ -307,18 +353,25 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
             </Modal>
 
             <div className="booking-information">
-            {addPermission && <Link to={"../giao-dich/createbooking"}>
-                            <Button style={{ width: "100%" }} type='default' size='large'>
-                                + Thêm booking
-                            </Button>
-                           </Link>}
-
-                <Table columns={isCustomer?columns.filter(col => col.title !== 'Khách hàng'):columns.filter(col => col.title !== 'Giao dịch viên')}
-                    dataSource={dataListShow}
-                    onRow={(record) => ({
-                        onClick: () => handleTableRowClick(record),
-                    })}
-                />
+                {addPermission && <Link to={"/dashboard/giao-dich/createbooking"}>
+                    <Button style={{ width: "100%" }} type='default' size='large'>
+                        + Thêm booking
+                    </Button>
+                </Link>}
+                {window.innerWidth > 600 ?
+                    <Table columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
+                        dataSource={dataListShow}
+                        onRow={(record) => ({
+                            onClick: () => handleTableRowClick(record),
+                        })}
+                    />
+                    :
+                    <Table columns={minicolumns}
+                        dataSource={dataListShow}
+                        onRow={(record) => ({
+                            onClick: () => handleTableRowClick(record),
+                        })}
+                    />}
             </div>
         </React.Fragment>
     );

@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 15px;
     overflow: auto;
-    width: 100%;
+    width: -webkit-fill-available;
 
     .user-services-update--form {
         justify-content: space-between;

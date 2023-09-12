@@ -7,7 +7,7 @@
     display: flex;
     gap: 15px;
     overflow: auto;
-    width: 100%;
+    width: -webkit-fill-available;
     align-items: start;
     justify-content: space-around;
 

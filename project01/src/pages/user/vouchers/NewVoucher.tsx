@@ -8,6 +8,16 @@ import fetch_Api from "../../../utils/api_function";
 import { type } from "os";
 import { ServicePackageListState, ServicePackageState, VoucherTypeState } from "../../../app/type.d";
 
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { offset:2, span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+    },
+};
 
 export default function Newvoucher() {
 
@@ -85,9 +95,12 @@ export default function Newvoucher() {
                     className="newservice-form"
                     form={form}
                     onFinish={handleFinish}
+                    labelAlign="left"
+                    {...layout}
+                    labelWrap
+                    colon={false}
                 >
-                    <Row >
-                        <Col span={10}>
+                   
                             <Form.Item
                                 rules={[
                                     { required: true, message: "Vui lòng nhập tên mã khuyến mãi" },
@@ -98,10 +111,8 @@ export default function Newvoucher() {
                             >
                                 <Input placeholder="Tên mã khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
+                   
                             <Form.Item
                                 rules={[
 
@@ -118,10 +129,7 @@ export default function Newvoucher() {
 
 
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Giá trị"
                                 name="commonPrice"
@@ -130,10 +138,7 @@ export default function Newvoucher() {
                             >
                                 <Input type="number" placeholder="Giá trị của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Số lượng mã khuyến mãi"
                                 name="availableNumberOfVouchers"
@@ -142,10 +147,7 @@ export default function Newvoucher() {
                             >
                                 <Input type="number" placeholder="Số lượng của mã khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Loại giảm giá"
                                 rules={[{ required: true, message: "dfsf" }]}
@@ -160,11 +162,10 @@ export default function Newvoucher() {
                                     ]}
                                 />
                             </Form.Item>
-                        </Col>
-                    </Row>
+                        
                     {typeValue == "percent" ?
-                        <Row style={{ marginLeft: "20px" }}>
-                            <Col span={10}>
+                        /*<Row style={{ marginLeft: "20px" }}>
+                            <Col span={24}>*/
                                 <Form.Item
                                     label="Giảm giá"
                                     name="PercentageDiscount"
@@ -173,22 +174,21 @@ export default function Newvoucher() {
                                 >
                                     <Input type="number" placeholder="Giá trị" addonAfter="%" />
                                 </Form.Item>
-                            </Col>
-                        </Row>
-                        : <Row style={{ marginLeft: "20px" }}>
-                            <Col span={10}>
+                            /*</Col>
+                        </Row>*/
+                        : /*<Row style={{ marginLeft: "20px" }}>
+                            <Col span={24}>
+                            style={{ marginLeft: "20px" }}*/
                                 <Form.Item
-                                    label="Loại giảm giá"
+                                    label="Giảm giá"
                                     name="valueDiscount"
                                     rules={[{ required: true, message: "Vui lòng nhập giá trị của khuyến mãi" }]}
-
                                 >
                                     <Input type="number" placeholder="Giá trị" addonAfter="VNĐ" />
                                 </Form.Item>
-                            </Col>
-                        </Row>}
-                    <Row>
-                        <Col span={10}>
+                           /* </Col>
+                                </Row>*/}
+                    
                             <Form.Item
                                 label="Giá trị tối đa của mã khuyến mãi"
                                 name="maximumValueDiscount"
@@ -197,10 +197,7 @@ export default function Newvoucher() {
                             >
                                 <Input type="number" placeholder="Giá trị tối đa của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Điều kiện"
                                 name="conditionsAndPolicies"
@@ -212,10 +209,7 @@ export default function Newvoucher() {
                             >
                                 <Input.TextArea placeholder="Giá trị của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Gói dịch vụ được áp dụng"
                                 name="ServicePackageIds"
@@ -228,15 +222,11 @@ export default function Newvoucher() {
                                     options={options}
                                 />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item>
                                 <Button htmlType="submit" type="primary">Tạo dịch vụ</Button>
                             </Form.Item>
-                        </Col>
-                    </Row>
+                        
                 </Form>
             </div>
         </div>

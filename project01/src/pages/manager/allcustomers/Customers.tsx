@@ -342,8 +342,8 @@ export default function Customers() {
                         />
                     </div>
 
-                    {/* {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                        : <Table columns={columns} dataSource={dataListShow} />} */}
+                     {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                        : <Table columns={columns} dataSource={dataListShow} />} 
                 </>}
 
                 {addForm && <><div className='dashboard-content-header2'>

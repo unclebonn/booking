@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Button, Col, Descriptions, Divider, List, Modal, Row, Select, Space, Tag, message } from 'antd';
-import { PlusCircleTwoTone, MinusCircleTwoTone, PlusOutlined } from '@ant-design/icons';
+import { PlusCircleTwoTone, MinusCircleTwoTone, PlusOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { CustomerState, RoleListState } from '../../app/type.d';
 import Cookies from 'universal-cookie';
 import api_links from '../../utils/api_links';
@@ -54,7 +54,7 @@ interface DataType {
         id: string,
         normalizedName: string,
         isManager: boolean,
-    }[],  
+    }[],
     permission?: string[] | null,
 };
 
@@ -72,6 +72,7 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
     const [isChangeEmployees, setIsChangeEmployees] = useState(false);
     const [isAddChangeEmployees, setIsAddChangeEmployees] = useState(false);
     const [componentDisabled, setComponentDisabled] = useState<boolean>();
+    const [isMoreDetail, setIsMoreDetail] = useState(false);
 
     useEffect(() => {
         fetch_Api({
@@ -232,10 +233,18 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                         <Descriptions.Item label="Telephone">{data?.phoneNumber}</Descriptions.Item>
                         <Descriptions.Item label="Email">{data?.email}</Descriptions.Item>
                     </Descriptions>
-                    <img src={data?.filePath} />
+                    {isMoreDetail && <img src={data?.filePath} />}
                 </div>
-
-                {data?.roles ?
+                {isMoreDetail ?
+                    <Button type="dashed" onClick={() => setIsMoreDetail(false)} block icon={<UpOutlined />}>
+                        Ẩn bớt
+                    </Button>
+                    :
+                    <Button type="dashed" onClick={() => setIsMoreDetail(true)} block icon={<DownOutlined />}>
+                        Xem thêm
+                    </Button>}
+                {isMoreDetail &&
+                    (data?.roles ?
 
                     <div className="more-information">
                         <Divider orientation="left">Chức vụ&ensp;
@@ -278,7 +287,8 @@ export default function PersonalInformation({ api_link }: { api_link: string }) 
                                         <List.Item style={{ textAlign: "left" }}> {d.name}{d.phoneNumber ? " - " + d.phoneNumber : ""}</List.Item>
                                     ) : <List.Item style={{ textAlign: "left" }}>Không có</List.Item>}
                             </List>}
-                    </div>}
+                    </div>)}
+
             </div>
         </React.Fragment>
     );
