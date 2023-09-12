@@ -89,7 +89,7 @@ export default function NewServicePackage() {
     }, [])
 
     return (
-        <div className="user-services">
+        <div className="user-newServicePackages">
             <div className="user-services--form">
                 <Row>
                     <Col span={24}>

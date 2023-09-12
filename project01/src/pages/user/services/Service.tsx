@@ -406,7 +406,7 @@ export default function Service() {
                 </Space>
 
 
-                <Space className="dashboard-content-header2" wrap>
+                <Space className="dashboard-content-header2">
                     <div className="dashboard-content-header2-left">
                         {addPermission && <Button type="primary" onClick={() => setAddForm(true)}>
                             Thêm
@@ -525,7 +525,7 @@ export default function Service() {
                                                                 </Space>
                                                             </Space>
                                                         </Space>
-                                                        : <div></div>    
+                                                        : <div></div>
                                                     }
                                                 </Space>
                                             </div>

@@ -32,10 +32,7 @@ function App() {
               <Route path="/*" element={<Navigate replace to="dashboard/" />} />
               : <Route path="/*" element={<Navigate replace to="/" />} />
           }
-          {/*<Route path="/" element={<PreLogin />} />*/}
-          {/* <Route path="login/nhanvien" element={<Login />} />
-          <Route path="login/khachhang" element={<Login />} />
-          <Route path="login/*" element={<PreLogin />} /> */}
+          <Route path="login/*" element={<Login />} />
           <Route path="dashboard/*" element={<Dashboard />} />
           <Route path="managerdashboard/*" element={<ManagerDashboard />} />
         </Routes>

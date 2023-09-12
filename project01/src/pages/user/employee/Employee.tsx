@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './stylesEmployee.css';
+//import './stylesEmployee.css';
 import Add from '../addNew/newEmployee';
 import { LoginPermissionState, UserListState } from '../../../app/type.d';
 import { Button, Table, Space, Divider, Select, message, Modal } from 'antd';

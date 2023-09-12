@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './stylesCustomers.scss';
+//import './stylesCustomers.scss';
 import Add from '../addNew/newCustomer';
 import { CustomerListState } from '../../../app/type.d';
 import { Button, Table, Space, Divider, Select, message, Modal, Popconfirm, notification } from 'antd';

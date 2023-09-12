@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faMoneyBills, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { useSubMenu } from "./useSubMenu";
+import './styles.css'
 const { SubMenu } = Menu;
 
 function CMenuNew() {
@@ -31,7 +32,7 @@ function CMenuNew() {
       defaultSelectedKeys={[location.pathname.split('/')[2]]}
       mode="inline"
       openKeys={['service']}
-      style={{
+      /*style={{
         width: '250px',
         minWidth: '215px',
         height: '100vh',
@@ -41,7 +42,8 @@ function CMenuNew() {
         color: '#FFFFFF',
         fontSize: 'medium',
         fontWeight: '600',
-      }}
+      }}*/
+      className='sidebarmenu'
 
     >
       <Menu.Item

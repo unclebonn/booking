@@ -391,12 +391,12 @@ export default function ServicePackage() {
                         <Divider orientation='left'>Thông tin</Divider>
                         <Space direction='vertical' className='userservice-record--information'>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Tên gói dịch vụ: <span style={{color:"black"}}>{record?.servicePackageName}</span></span>
-                                
+                                <span style={{ color: "#0958d9" }}>Tên gói dịch vụ: <span style={{ color: "black" }}>{record?.servicePackageName}</span></span>
+
                             </Space>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Miêu tả:  <span style={{color:"black"}}>{record?.description}</span></span>
-                               
+                                <span style={{ color: "#0958d9" }}>Miêu tả:  <span style={{ color: "black" }}>{record?.description}</span></span>
+
                             </Space>
                             <Divider orientation='left'>Dịch vụ</Divider>
                             <Space wrap direction='horizontal'>
@@ -482,12 +482,12 @@ export default function ServicePackage() {
 
                     <div className="dashboard-content-header2-right">
                         {/* <Space className="dashboard-content-search"> */}
-                        <Input
-                            type='text'
-                            onChange={e => __handleSearch(e)}
-                            placeholder='Gói dịch vụ...'
-                            className="dashboard-content-input"
-                        />
+                            <Input
+                                type='text'
+                                onChange={e => __handleSearch(e)}
+                                placeholder='Gói dịch vụ...'
+                                className="dashboard-content-input"
+                            />
                         {/* </Space> */}
 
                     </div>
