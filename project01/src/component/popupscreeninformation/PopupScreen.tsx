@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectInformation } from "../../pages/login/loginSlice";
-import './popupscreen.css'
+import './popupscreen.scss'
 import { Avatar, Button, Col, Form, Input, InputRef, Modal, Row, Space, message } from "antd";
 import Cookies from "universal-cookie";
 import React, { ChangeEvent, MouseEvent, useRef, useState } from "react";
@@ -131,7 +131,7 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
 
     return (
         <Modal
-            width="50vw"
+            className="popup-userInformation"
             title="Thông tin"
             open={isPopup}
             onCancel={handleCancel}
@@ -147,7 +147,7 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
             <Form
                 form={form}
             >
-                <Space direction="horizontal" align="center" style={{ justifyContent: "space-around" }}>
+                <Space className="userInformation" direction="horizontal" align="center" style={{ justifyContent: "space-around" }}>
                     <Space>
                         <Form.Item
                             name="avatar"
@@ -158,7 +158,7 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
                             </div>
                         </Form.Item>
                     </Space>
-                    <Space direction="vertical">
+                    <Space direction="vertical" className="userInformation-detail">
                         <Row>
                             <Col span={24}>
                                 <Form.Item
@@ -183,8 +183,8 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
                                 </Form.Item>
                             </Col>
                         </Row>
-                        <Row gutter={[10, 0]}>
-                            <Col span={20}>
+                        <Row>
+                            <Col span={24}>
                                 <Form.Item
                                     label="Email"
                                     name="email"
@@ -195,7 +195,7 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
 
                                 </Form.Item>
                             </Col>
-                            {data.emailConfirmed ?
+                            {/* {data.emailConfirmed ?
                                 <Col span={3}>
                                     <FontAwesomeIcon icon={faSquareCheck} size="2x" title="Đã xác thực email" />
                                 </Col>
@@ -204,7 +204,7 @@ export default function PopupScreenInformation({ isPopup, setPopup }: { isPopup?
                                     <FontAwesomeIcon onClick={handleVerifyEmail} className="verifyEmail" icon={faSquare} size="2x" title="Chưa xác thực email" />
                                 </Col>
 
-                            }
+                            } */}
                         </Row>
                         <Row>
                             <Col span={24}>

@@ -23,6 +23,7 @@ const initialState: LoginState = {
     "roleClaims": [],
   },
   "permission": undefined,
+  "errorServer": ""
 };
 
 // Fetch API
@@ -85,6 +86,8 @@ export const loginSlice = createSlice({
 
     // Request error
     builder.addCase(login.rejected, (state, action) => {
+      state.isSuccess = false;
+      state.errorServer = action.error.message
       //state.isLoading = false;
       //state.errorMessage = action.payload.message;
     });
@@ -106,6 +109,7 @@ export const selectSuccess = (state: RootState) => state.login.isSuccess;
 export const selectMessage = (state: RootState) => state.login.message;
 export const selectToken = (state: RootState) => state.login.token;
 export const selectError = (state: RootState) => state.login.errors;
+export const selectErrorServer = (state: RootState) => state.login.errorServer;
 export const selectInformation = (state: RootState) => state.login.userInformation != null ? state.login.userInformation : state.login.customerInformation;
 export const selectRole = (state: RootState) => state.login.role;
 export const selectLogin = (state: RootState) => state.login;

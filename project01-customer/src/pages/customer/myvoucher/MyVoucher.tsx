@@ -14,6 +14,7 @@ export default function MyVoucher() {
     const [voucher, setVoucher] = useState<[]>([]);
     var cookies = new Cookies();
     useEffect(() => {
+        document.title='Voucher của tôi'
         getVoucherCustomer()
             .then((res) => {
                 if (res.status === 200) {

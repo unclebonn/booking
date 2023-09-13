@@ -12,6 +12,7 @@ export type LoginState = {
   "customerInformation"?: CustomerInformationLoginState | null,
   "role": RoleState | null,
   "permission"?: undefined | string[] | null,
+  "errorServer"?: string
 
 };
 export type LoginPermissionState = {
@@ -205,7 +206,7 @@ export type VoucherState = {
   "voucherType": VoucherTypeState,
   "issuedDate": string,
   "expiredDate": string,
-  "actualPrice": number|string,
+  "actualPrice": number | string,
   "usedValueDiscount": number | null,
   "voucherStatus": string,
   "bookings": BookingListState,

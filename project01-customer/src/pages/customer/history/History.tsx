@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './stylesHistory.css';
 import HistoryDisplay from './components/HistoryDisplay';
 import api_links from '../../../utils/api_links';
-import fetch_Api from '../../../utils/api_function';  
-import { BookingListState } from '../../../app/type.d'; 
+import fetch_Api from '../../../utils/api_function';
+import { BookingListState } from '../../../app/type.d';
 
 export default function History() {
     const [book, setBook] = useState<BookingListState>([]);
 
     useEffect(() => {
+        document.title = "Lịch sử mua hàng"
+
         getBookingCustomer()
             .then((res) => {
                 if (res.status === 200) {

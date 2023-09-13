@@ -193,7 +193,7 @@ const Notification: React.FC<NotificationProps> = ({ type, setSelectedRowKeys, s
     return (
         <React.Fragment>
             {contextHolder}
-            <Button disabled={isDisable} type="primary" style={isDisable ? { backgroundColor: "rgba(0,0,0,0.45)" } : { backgroundColor: "red" }} onClick={() => openNotification(placement)}>
+            <Button disabled={isDisable} type="primary" style={isDisable ? { backgroundColor: "rgba(0,0,0,0.45)"} : {backgroundColor: "red" }} onClick={() => openNotification(placement)}>
                 {buttonContent}
             </Button>
         </React.Fragment >

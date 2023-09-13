@@ -1,4 +1,4 @@
-.user-services {
+.user-servicepackage {
     margin: 1em;
     background-color: white;
     border: none;
@@ -42,7 +42,63 @@
     }
 
 
+    .dashboard-content-header2 {
+        // width: 100%;
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: space-between;
+        // gap: 20px;
 
+        .dashboard-content-header2-left {
+            // display: flex;
+            // justify-content: left;
+            // gap: 20px;
+
+
+            // button {
+            //     width: 10vw !important;
+            // }
+        }
+
+        .dashboard-content-header2-right {
+            width: 35vw;
+
+            .dashboard-content-search {
+                // font-weight: 400;
+                // line-height: 1.4em;
+                // letter-spacing: 0.009em;
+                // box-sizing: border-box;
+                // cursor: text;
+                // display: inline-flex;
+                // -webkit-box-align: center;
+                // align-items: center;
+                // position: relative;
+                // background-color: transparent;
+                // font-size: 0.875rem;
+                // border-radius: 2rem;
+                // border: 1px solid gray;
+                // width: 300px;
+
+
+                .dashboard-content-input {
+                    margin: 0px;
+                    display: block;
+                    width: 100%;
+                    font-size: 0.75rem;
+                    padding: 0.625rem;
+                    border-radius: 16px;
+                    border: 1px solid grey !important;
+
+
+                }
+            }
+
+            .dashboard-content-search:focus {
+                outline: #0891e0 auto 1px;
+
+            }
+        }
+    }
 
 
     .dashboard-content-header3 {
@@ -61,108 +117,11 @@
         }
     }
 
-    @media only screen and (max-width: 600px) {
-        .dashboard-content-header2 {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            gap: 20px;
 
-            .dashboard-content-header2-right {
-                justify-content: left;
-                gap: 20px;
+}
 
-                .dashboard-content-search {
-                    font-weight: 400;
-                    line-height: 1.4em;
-                    letter-spacing: 0.009em;
-                    box-sizing: border-box;
-                    cursor: text;
-                    display: inline-flex;
-                    -webkit-box-align: center;
-                    align-items: center;
-                    position: relative;
-                    background-color: transparent;
-                    font-size: 0.875rem;
-                    border-radius: 2rem;
-                    border: 1px solid gray;
-                    width: 90%;
-                }
-            }
-        }
-    }
-
-    @media only screen and (min-width: 600px) {
-    .dashboard-content-header2 {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 20px;
-
-        .dashboard-content-header2-left {
-            display: flex;
-            justify-content: left;
-            gap: 20px;
-
-
-            button {
-                width: 10vw !important;
-            }
-        }
-
-        .dashboard-content-header2-right {
-            display: flex;
-            flex-direction: row;
-            justify-content: right;
-            gap: 20px;
-
-            .dashboard-content-search {
-                font-weight: 400;
-                line-height: 1.4em;
-                letter-spacing: 0.009em;
-                box-sizing: border-box;
-                cursor: text;
-                display: inline-flex;
-                -webkit-box-align: center;
-                align-items: center;
-                position: relative;
-                background-color: transparent;
-                font-size: 0.875rem;
-                border-radius: 2rem;
-                border: 1px solid gray;
-                width: 300px;
-
-
-                .dashboard-content-input {
-                    font-style: inherit;
-                    font-variant: inherit;
-                    font-weight: inherit;
-                    font-stretch: inherit;
-                    line-height: inherit;
-                    font-family: inherit;
-                    letter-spacing: inherit;
-                    border: 0px;
-                    box-sizing: content-box;
-                    background: none transparent;
-                    margin: 0px;
-                    display: block;
-                    min-width: 0px;
-                    width: 100%;
-                    font-size: 0.75rem;
-                    padding: 0.625rem;
-                    border-radius: 16px;
-
-
-                }
-            }
-
-            .dashboard-content-search:focus {
-                outline: #0891e0 auto 1px;
-
-            }
-        }
-    }
-    }
+.listDataTable--responsive {
+    display: none;
 }
 
 .ant-modal .ant-modal-content {
@@ -196,16 +155,66 @@
         font-size: 14px;
         border-radius: 10px;
 
-        // .ant-space-item {
-        //     width: calc(50% - 20px);
-
-        //     .userservice-record--information-voucher {
+    }
+}
 
 
-        //         >.ant-space-item {
-        //             width: 100%;
-        //         }
+@media only screen and (min-width:"280px") and (max-width:"900px") {
+    .dataTable {
+        display: none;
+    }
 
-        //     }
+
+    .user-servicepackage {
+        .listDataTable--responsive {
+            display: block;
+        }
+    }
+
+    .userservice-record--voucher {
+        width: 100%;
+        height: 30vh;
+        overflow-y: scroll;
+
+        >.ant-space-item {
+            box-sizing: border-box;
+            padding: 10px;
+            background-color: #f9d9de;
+            font-size: 14px;
+            border-radius: 10px;
+            width: 100%;
+        }
+    }
+
+}
+
+@media only screen and (min-width:"280px") and (max-width:"423px") {
+    .dashboard-content-input {
+        width: -webkit-fill-available;
+    }
+
+    .dashboard-content-header2 {
+        display: flex;
+
+        .ant-space-item {
+            width: 100% !important;
+
+            .dashboard-content-header2-right {
+                width: 100%;
+            }
+        }
+    }
+
+}
+
+
+@media only screen and (max-width:"912px") {
+
+    .userservice-record {
+        div {
+            >img {
+                width: 200px;
+            }
+        }
     }
 }

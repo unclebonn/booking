@@ -2,7 +2,7 @@ import React, { useState, useEffect, ReactNode, useRef } from 'react';
 import './servicepackage.scss';
 //import Add from './addNew';D
 import { ServiceListState, ServicePackageListState, ServicePackageState, VoucherTypeListState } from '../../../app/type.d';
-import { Avatar, Form, Input, List, Modal, Popconfirm, Select, Space, Tag, message } from 'antd';
+import { Avatar, Form, Grid, Input, List, Modal, Popconfirm, Select, Space, Tag, message } from 'antd';
 import { Button, Table, Divider, Card, Col, Row } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,6 +42,11 @@ export default function ServicePackage() {
     const [addFormInformationService, setAddFormInformationService] = useState(false)
     const [record, setRecord] = useState<DataType>(undefined!)
 
+
+    ///////////////////////////// responsive ////////////////////////////////
+    const [modalResponsive, setModalResponsive] = useState<boolean>(false)
+    const [recordResponsive, setRecordResponsive] = useState<DataType>(undefined!)
+    //////////////////////////////////////////////////////////////////////
     const addPermission = havePermission("ServicePackage", "write");
     const deletePermission = havePermission("ServicePackage", "delete");
     const restorePermission = havePermission("ServicePackage", "restore");
@@ -49,8 +54,12 @@ export default function ServicePackage() {
     //get data from cookie
     var cookies = new Cookies()
     var token = cookies.get("token")?.token;
+
+
+
     // call api to get data
     useEffect(() => {
+        document.title = "Gói dịch vụ"
         getAllServicePackages()
             .then((res) => {
                 if (res.status === 200) {
@@ -93,6 +102,9 @@ export default function ServicePackage() {
             })
     }
 
+
+
+
     // const handleRecover = (recordId: number) => {
     //     const recoverData = dataRecover.filter((data) => data.id !== recordId)
     //     recoverServicePackage(recordId)
@@ -113,7 +125,7 @@ export default function ServicePackage() {
     //         })
     // }
 
-
+    // columns for Service Package Table
     const columns: ColumnsType<DataType> = [
         {
             title: 'Lựa chọn',
@@ -159,6 +171,8 @@ export default function ServicePackage() {
         },
     ];
 
+
+    // columns for Recovery Table
     // const columnsRecover: ColumnsType<DataType> = [
     //     {
     //         title: 'Lựa chọn',
@@ -200,9 +214,6 @@ export default function ServicePackage() {
     };
 
     const hasSelected = selectedRowKeys.length > 0;
-    //===================================================================================================================================
-
-
     const selectedRowData = all_data.filter((row, index) => selectedRowKeys.includes(index))
 
     // put data into table to display
@@ -300,6 +311,8 @@ export default function ServicePackage() {
 
     return (
         <React.Fragment>
+
+            {/* this modal for change to another page */}
             <Modal
                 open={addForm}
                 footer={[]}
@@ -317,6 +330,8 @@ export default function ServicePackage() {
                 </Row>
             </Modal>
 
+
+            {/* recovery table */}
             {/* <Modal
                 width="40vw"
                 style={{ top: "5vh" }}
@@ -345,7 +360,7 @@ export default function ServicePackage() {
 
             </Modal> */}
 
-
+            {/* information modal */}
             <Modal
                 open={addFormInformationService}
                 onCancel={() => setAddFormInformationService(!addFormInformationService)}
@@ -376,12 +391,12 @@ export default function ServicePackage() {
                         <Divider orientation='left'>Thông tin</Divider>
                         <Space direction='vertical' className='userservice-record--information'>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Tên gói dịch vụ: </span>
-                                <span>{record?.servicePackageName}</span>
+                                <span style={{ color: "#0958d9" }}>Tên gói dịch vụ: <span style={{ color: "black" }}>{record?.servicePackageName}</span></span>
+
                             </Space>
                             <Space>
-                                <span style={{ color: "#0958d9" }}>Miêu tả: </span>
-                                <span>{record?.description}</span>
+                                <span style={{ color: "#0958d9" }}>Miêu tả:  <span style={{ color: "black" }}>{record?.description}</span></span>
+
                             </Space>
                             <Divider orientation='left'>Dịch vụ</Divider>
                             <Space wrap direction='horizontal'>
@@ -409,12 +424,32 @@ export default function ServicePackage() {
                 </Space>
             </Modal>
 
+            {/* pop up service package responsive */}
+            <Modal
+                open={modalResponsive}
+                onCancel={() => setModalResponsive(!modalResponsive)}
+                footer={[]}
+            >
+                <Row>
+                    <Col span={24}>
+                        <Divider orientation='left'>Mã khuyến mãi</Divider>
+                        <Space className='userservice-record--voucher' size={[10, 8]} style={{ width: "100%", alignItems: "start" }} direction='horizontal' wrap>
+                            {recordResponsive?.valuableVoucherTypes?.map((voucher) => {
+                                return (
+                                    <Space align='baseline' className='userservice-record--information-voucher' direction='vertical'>
+                                        <span style={{ color: "#0958d9" }}>{voucher?.typeName}</span>
+                                        <span><b>Giá trị: </b>{voucher?.commonPrice}</span>
+                                        <span><b>Điều kiện: </b>{voucher?.conditionsAndPolicies}</span>
+                                    </Space>
+                                )
+                            })}
+                        </Space>
+                    </Col>
+                </Row>
+            </Modal>
 
-
-
-
-            <div className="user-services">
-                <div className="dashboard-content-header1">
+            <div className="user-servicepackage">
+                <Space className="dashboard-content-header1">
                     <h2>Danh sách gói dịch vụ</h2>
 
                     <hr
@@ -424,8 +459,8 @@ export default function ServicePackage() {
                             opacity: '.25',
                         }}
                     />
-                </div>
-                <div className="dashboard-content-header2">
+                </Space>
+                <Space className="dashboard-content-header2" wrap>
                     <div className="dashboard-content-header2-left">
                         {addPermission && <Button type="primary" onClick={() => setAddForm(true)}>
                             Thêm
@@ -442,23 +477,23 @@ export default function ServicePackage() {
                             buttonContent={`Xoá ${hasSelected ? selectedRowKeys.length : ''} dịch vụ`}
                         >
                         </Notification>}
-                        {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>}
+                        {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                     </div>
 
                     <div className="dashboard-content-header2-right">
-                        <div className="dashboard-content-search">
-                            <input
+                        {/* <Space className="dashboard-content-search"> */}
+                            <Input
                                 type='text'
                                 onChange={e => __handleSearch(e)}
                                 placeholder='Gói dịch vụ...'
                                 className="dashboard-content-input"
                             />
-                        </div>
+                        {/* </Space> */}
 
                     </div>
 
-                </div>
-                <div className="dashboard-content-header3">
+                </Space>
+                <Space className="dashboard-content-header3">
                     <Button
                         size='large'
                         type="default"
@@ -482,11 +517,79 @@ export default function ServicePackage() {
                             { value: 'name', label: 'Tên' },
                         ]}
                     />
-                </div>
+                </Space>
 
-                <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
+                <Table className='dataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
                     onClick: () => handleTableRowClick(record),
                 })} />
+
+                <List
+                    bordered
+                    pagination={{
+                        align: "end",
+                        position: "bottom"
+
+                    }}
+                    size='large'
+                    className='listDataTable--responsive'
+                    itemLayout='vertical'
+                    dataSource={dataListShow}
+                    renderItem={(item) => (
+                        <List.Item
+                            extra=
+                            {
+                                <Space>
+                                    {deletePermission && <Popconfirm
+                                        className="ant-popconfirm"
+                                        title="Xoá dịch vụ"
+                                        description="Bạn có chắc chắn xoá không ?"
+                                        onConfirm={() => {
+                                            handleDelete(item.id)
+                                        }}
+                                        okText="Xoá"
+                                        cancelText="Huỷ"
+                                        placement='bottomLeft'
+                                    >
+                                        <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
+                                    </Popconfirm>}
+                                    <Space size="small">
+                                        <Link to={"updateservicepackage"} state={item}>
+                                            <Button
+                                                title='Sửa đổi'
+                                                size={"large"} >
+                                                <FontAwesomeIcon icon={faPenToSquare} />
+                                            </Button>
+                                        </Link>
+                                    </Space>
+                                </Space>
+                            }
+
+
+                            key={item.id}
+                        >
+                            <List.Item.Meta
+                                title={
+                                    <a
+                                        onClick={() => {
+                                            setRecordResponsive(item)
+                                            setModalResponsive(!modalResponsive)
+                                        }}
+                                        style={{ color: "#1677ff" }}>
+                                        {item.servicePackageName}
+                                    </a>
+                                }
+                                description={item.description}
+                            />
+                            {item.services?.map((service) => (
+                                <Tag color='blue'>{service.serviceName}</Tag>
+                            ))}
+                        </List.Item>
+                    )}
+
+
+                />
+
+
 
             </div>
         </React.Fragment>

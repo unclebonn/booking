@@ -13,14 +13,14 @@
     .user-services-update--form {
         justify-content: space-between;
 
-        > .ant-space-item {
+        >.ant-space-item {
             width: 49%;
             box-sizing: border-box;
 
             .user-services-update--form-item {
                 width: 100%;
 
-                > .ant-space-item {
+                >.ant-space-item {
                     width: 100%;
                 }
 
@@ -44,5 +44,57 @@
         }
 
 
+    }
+}
+
+@media only screen and (min-width:"280px") and (max-width:"760px") {
+
+    .user-services-update {
+        margin: 1em;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow: auto;
+        width: 100%;
+
+        .user-services-update--form {
+            justify-content: space-between;
+
+            >.ant-space-item {
+                width: -webkit-fill-available;
+                box-sizing: border-box;
+
+                .user-services-update--form-item {
+                    width: 100%;
+
+                    >.ant-space-item {
+                        width: 100%;
+                    }
+
+                    .newservice-form {
+                        padding: 10px 40px;
+                    }
+
+                    .ant-row {
+
+                        .ant-col-24 {
+
+                            h1 {
+                                font-size: 35px;
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+
+        }
     }
 }

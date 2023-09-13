@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './stylesEmployee.css';
+import './stylesEmployee.scss';
 import Add from './addNew';
 import { UserListState } from '../../../app/type.d';
 import { Button, Table, Space, Divider, Select } from 'antd';

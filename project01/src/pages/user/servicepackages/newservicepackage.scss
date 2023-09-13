@@ -1,4 +1,4 @@
-.user-services {
+.user-newServicePackages {
     margin: 1em;
     background-color: white;
     border: none;
@@ -15,7 +15,6 @@
     }
 
     .ant-row {
-
         .ant-col-24 {
 
             h1 {
@@ -25,4 +24,35 @@
         }
 
     }
+}
+
+@media only screen and (min-width:"280px") and (max-width:"1000px") {
+    .user-newServicePackages {
+        margin: 1em;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow: auto;
+        width: 100%;
+
+        .newservice-form {
+            padding: 10px 40px;
+        }
+
+        .ant-row {
+            .ant-col-10 {
+                --ant-display: block;
+                display: block;
+                display: var(--ant-display);
+                flex: 0 0 100%;
+                max-width: -webkit-fill-available;
+            }
+
+        }
+    }
+
 }

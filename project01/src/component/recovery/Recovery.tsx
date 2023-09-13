@@ -23,8 +23,6 @@ const Recovery: React.FC<RecoveryProps> = ({ isOpen, type, setIsOpen, dataSource
             title="Khôi phục"
             footer={[]}
             onCancel={() => setIsOpen(false)}
-            style={{ top: "5vh" }}
-            width={"50vw"}
 
         >
             <Table
