@@ -1,18 +1,12 @@
 import React, { useEffect } from 'react';
 import './dashboard.css'
-import { Navigate, Link, Router, Route, Routes, useNavigate, BrowserRouter } from 'react-router-dom';
+import { Navigate, Link, Router, Route, Routes, useNavigate, BrowserRouter, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectOpenMenu, setMenuRole } from '../component/header/headerSlice';
 import { selectRole, selectToken } from './login/loginSlice';
 import Header from '../component/header/Header';
 import Cookies from 'universal-cookie';
-import Profile from './customer/profile/Profile';
-import MyService from './customer/myservice/MyService';
-import MyVoucher from './customer/myvoucher/MyVoucher';
-import History from './customer/history/History';
-
 import CMenuNew from '../component/newsider/indexCMenu';
-
 
 export default function Dashboard() {
   useEffect(() => {
@@ -28,8 +22,6 @@ export default function Dashboard() {
     return (<Navigate replace to="/" />)
   }
 
-
-
   return (
     <div className='dashboard-container'>
       <Header />
@@ -40,19 +32,7 @@ export default function Dashboard() {
           //   : <UMenuNew />
           // )
         }
-
-
-        <Routes>
-          <Route path="*" element={<Navigate replace to="/dashboard" />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="myservice" element={<MyService />} />
-          <Route path="myvoucher" element={<MyVoucher />} />
-          <Route path="history" element={< History />} />
-
-
-        </Routes>
-
-
+        <Outlet />
       </div>
     </div>
   );
