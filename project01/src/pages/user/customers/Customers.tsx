@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-//import './stylesCustomers.scss';
+import './stylesCustomers.scss';
 import Add from '../addNew/newCustomer';
 import { CustomerListState } from '../../../app/type.d';
-import { Button, Table, Space, Divider, Select, message, Modal, Popconfirm, notification } from 'antd';
+import { Button, Table, Space, Divider, Select, message, Modal, Input, List } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrashCan } from '@fortawesome/free-regular-svg-icons';
@@ -11,7 +11,6 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import api_links from '../../../utils/api_links';
 import fetch_Api from '../../../utils/api_function';
 import { havePermission } from '../../../utils/permission_proccess';
-import { NotificationPlacement } from 'antd/es/notification/interface';
 
 interface DataType {
     key: React.Key;
@@ -27,36 +26,25 @@ interface DataType {
 
 export default function Customers() {
     const [addForm, setAddForm] = useState(false);
-    const [deleteForm, setDeleteForm] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage();
     const [all_data, setAllData] = useState<CustomerListState>();
     const [search, setSearch] = useState('');
     const [data, setData] = useState(all_data);
+
     const [sortType, setSortType] = useState('name');
     const [ascending, setAscending] = useState(true);
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+    const [record, setRecord] = useState<DataType>(undefined!)
+    const [addFormRecover, setAddFormRecover] = useState(false);
+    const [dataRecover, setDataRecover] = useState<DataType[]>([])
+    const [deleteForm, setDeleteForm] = useState(false);
+
     const navigate = useNavigate();
+
     const addPermission = havePermission("Customer", "write");
     const deletePermission = havePermission("Customer", "delete");
-    const allPermission = havePermission("Customer", "all");
-    const [api, contextHolder] = notification.useNotification()
-    const key = `open${Date.now()}`;
-
-
-    useEffect(() => {
-        document.title="Khách hàng"
-
-        fetch_Api({
-            url: api_links.user.saleAdmin.getUserCustomer,
-            method: 'GET',
-            data: undefined
-        })
-            .then(data => {
-                setAllData(data.data);
-                setData(data.data);
-            })
-
-    }, [addForm, deleteForm]);
-
+    const restorePermission = havePermission("Customer", "restore");
 
     const columns: ColumnsType<DataType> = [
         {
@@ -97,7 +85,51 @@ export default function Customers() {
             ),
         },
     ];
+    // const columnsRecover: ColumnsType<DataType> = [
+    //     {
+    //         title: 'Tên khách hàng',
+    //         dataIndex: 'name',
+    //     },
+    //     {
+    //         title: 'Thông tin',
+    //         dataIndex: 'contact',
+    //         render: (_, record) =>
+    //             <div>
+    //                 {record.citizenId && "CCCD/CMND: " + record.citizenId}<br />
+    //                 {record.phoneNumber ? "ĐT: " + record.phoneNumber : record.email ? "Email: " + record.email : ""}
+    //             </div>
+    //     },
+    //     {
+    //         title: 'Thao tác',
+    //         dataIndex: 'action',
+    //         render: (text, record) =>
+    //             <div className="item-content-recover">
+    //                 <Button type='primary' onClick={() => handleRecover(record.id)} style={{ backgroundColor: "#465d65" }}>Khôi phục</Button>
+    //             </div>
+    //     },
+    // ];
 
+    useEffect(() => {
+
+        document.title = "Khách hàng"
+        fetch_Api({
+            url: api_links.user.saleAdmin.getUserCustomer,
+            method: 'GET',
+            data: undefined
+        })
+            .then(data => {
+                setAllData(data.data);
+                setData(data.data);
+            })
+/*
+        fetch_Api({
+            url: "http://bevm.e-biz.com.vn/api/Customers/all-deleted-customers",
+            method: 'GET',
+        })
+            .then(data => {
+                setDataRecover(data.data);
+            })*/
+    }, [addForm, addFormRecover, deleteForm]);
 
     const dataListShow: DataType[] = [];
     data?.map((dataTemp, index) => dataListShow.push({
@@ -163,28 +195,6 @@ export default function Customers() {
         }
     }
 
-
-    const openNotification = (placement: NotificationPlacement, selectedRowKeys: number) => {
-        api.warning({
-            message: `Lưu ý`,
-            description: `Bạn có chắc chắn xoá ${selectedRowKeys} khách hàng không`,
-            placement: `${placement}`,
-            btn,
-            key
-        })
-    }
-
-    const btn = (
-        <Space>
-            <Button type="default" size="middle" onClick={() => api.destroy()}>
-                Huỷ bỏ
-            </Button>
-            <Button type="primary" size="middle" onClick={() => { handleDeleteMulti(); api.destroy(); setSelectedRowKeys([]) }}>
-                Xoá
-            </Button>
-        </Space>
-    );
-
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         setSelectedRowKeys(newSelectedRowKeys);
     };
@@ -206,17 +216,15 @@ export default function Customers() {
             method: 'delete',
         })
             .then(data => {
-                if (data.status === 200) {
-                    message.destroy('openloading');
-                    message.success({
-                        type: 'success',
-                        content: 'Xóa thành công khách hàng ' + itemName + '!'
-                    }, 1.5)
-                }
+                //console.log(data.data);
+                setDeleteForm(!deleteForm);
             })
-        setDeleteForm(!deleteForm);
 
-
+        message.destroy('openloading');
+        message.success({
+            type: 'success',
+            content: 'Xóa thành công khách hàng ' + itemName + '!'
+        }, 1.5)
     }
 
     function handleDeleteMulti() {
@@ -231,7 +239,7 @@ export default function Customers() {
                 method: 'delete',
             })
                 .then(data => {
-                    ////console.log(data.data);
+                    //console.log(data.data);
                     setDeleteForm(!deleteForm);
                 })
         })
@@ -242,17 +250,31 @@ export default function Customers() {
         }, 1.5)
     }
 
+
+
     return (
-        <div className='user-customerlist'>
-            {!addForm &&
-                <>
-                    <div className='dashboard-content-header1'>
-                        <div className='dashboard-content-header2'>
+        <React.Fragment>
+            {/* <Modal
+                //width="80vw"
+                style={{ top: "5vh" }}
+                open={addFormRecover}
+                title="Khôi phục"
+                onCancel={() => {
+                    setAddFormRecover(!addFormRecover)
+                }}
+                footer={[]}>
+                <Table className='recover-table' columns={columnsRecover} dataSource={dataRecover} />
+            </Modal> */}
+
+            <div className='user-customerlist'>
+                {!addForm && <>
+                    <Space className='dashboard-content-header1'>
+                        <Space className='dashboard-content-header2'>
                             <h2>Danh sách khách hàng</h2>
-                            {allPermission && <Button type="primary" className="btnAdd" onClick={() => navigate("/managerdashboard/khach-hang")}>
-                                Xem tất cả
-                            </Button>}
-                        </div>
+                            {/*<Button type="primary" className="btnAdd" onClick={() => navigate("/dashboard/khach-hang")}>
+                                Trở về
+                </Button>*/}
+                        </Space>
                         <hr
                             style={{
                                 borderTop: '1px solid black',
@@ -260,47 +282,42 @@ export default function Customers() {
                                 opacity: '.25',
                             }}
                         />
-                    </div>
-                    <div className='dashboard-content-header2'>
+                    </Space>
+                    <Space className='dashboard-content-header2' wrap>
                         <div className='dashboard-content-header2-left'>
-                            {contextHolder}
-
-                            {addPermission &&
-                                <Button type="primary" className="btnAdd" onClick={() => setAddForm(!addForm)}>
-                                    Thêm
-                                </Button>}
-                            {deletePermission &&
-
-                                <Button
-                                    onClick={() => openNotification("top", selectedRowKeys.length)}
-                                    disabled={!hasSelected}
-                                    type="primary"
-                                    style={!hasSelected ?
-                                        { backgroundColor: "rgba(0,0,0,0.45)" }
-                                        : { backgroundColor: "red" }}
-                                >
-                                    Xóa   {hasSelected ? `${selectedRowKeys.length}` : ''} khách hàng
-                                </Button>
-
-                            }
+                            {addPermission && <Button type="primary" className="btnAdd" onClick={() => setAddForm(!addForm)}>
+                                Thêm
+                            </Button>}
+                            {deletePermission && <Button
+                                disabled={!hasSelected}
+                                type="primary"
+                                style={!hasSelected ?
+                                    { backgroundColor: "rgba(0,0,0,0.45)" }
+                                    : { backgroundColor: "red" }}
+                                onClick={() => //openNotification(placement)
+                                { handleDeleteMulti(); setSelectedRowKeys([]) }}
+                            >
+                                Xóa {`${selectedRowKeys.length ? selectedRowKeys.length : ""} khách hàng`}
+                            </Button>}
+                            {/* {restorePermission && <Button type='primary' onClick={() => setAddFormRecover(true)} style={{ background: "#465d65" }}>Khôi phục</Button>} */}
                         </div>
 
                         <div className='dashboard-content-header2-right'>
-                            <div className='dashboard-content-search'>
-                                <input
-                                    type='text'
-                                    onChange={e => __handleSearch(e)}
-                                    placeholder='Tên khách hàng...'
-                                    className='dashboard-content-input'
-                                />
-                            </div>
+                            {/* <Space className='dashboard-content-search'> */}
+                            <Input
+                                type='text'
+                                onChange={e => __handleSearch(e)}
+                                placeholder='Tên khách hàng..'
+                                className='dashboard-content-input'
+                            />
+                            {/* </Space> */}
                         </div>
-                    </div>
+                    </Space>
 
-                    <div className='dashboard-content-header3'>
+                    <Space className='dashboard-content-header3'>
                         {/* <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
-                      
-                    </span> */}
+                            {hasSelected ? `Đã chọn ` : ''}
+                        </span> */}
                         <Button
                             size='large'
                             type="default"
@@ -325,20 +342,54 @@ export default function Customers() {
                                 { value: 'name', label: 'Tên' },
                             ]}
                         />
+                    </Space>
+
+                    <div className='displayDataTable'>
+                        {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                            : <Table columns={columns} dataSource={dataListShow} />}
                     </div>
 
-                    {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                        : <Table columns={columns} dataSource={dataListShow} />}
+                </>
+                }
+
+                <List
+                    bordered
+                    className='displayDataTable--responsive'
+                    itemLayout='vertical'
+                    size='large'
+                    pagination={{
+                        align: "end",
+                        position: "bottom"
+                    }}
+                    dataSource={dataListShow}
+                    renderItem={(item) => (
+                        <List.Item
+                            key={item.id}
+                            extra={
+                                <Space size="small">
+                                    <Button size={"middle"} onClick={() => navigate("detail/" + item.id)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    {deletePermission && <Button size={"middle"} onClick={() => handleDelete1(item.id, item.name)}><FontAwesomeIcon icon={faTrashCan} /></Button>}
+                                </Space>
+                            }
+                        >
+                            <List.Item.Meta
+                                title={<a style={{ color: "#1677ff" }} onClick={() => navigate("detail/" + item.id)}>{item.name}</a>}
+                                description={`Thông tin liên hệ: ${item.contact}`}
+                            />
+                        </List.Item>
+                    )}
+
+                />
+
+                {addForm && <><Space className='dashboard-content-header2'>
+                    <h2>Thông tin khách hàng</h2>
+                    <Button className="btn btn-primary"
+                        onClick={() => setAddForm(!addForm)}>Cancel</Button></Space>
+                    <Add />
+
                 </>}
-
-            {addForm && <><div className='dashboard-content-header2'>
-                <h2>Thông tin khách hàng</h2>
-                <Button className="btn btn-primary"
-                    onClick={() => setAddForm(!addForm)}>Cancel</Button></div>
-                <Add />
-
-            </>}
-        </div>
+            </div>
+        </React.Fragment>
 
     )
 };

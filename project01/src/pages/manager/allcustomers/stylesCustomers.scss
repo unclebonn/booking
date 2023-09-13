@@ -85,6 +85,7 @@
 @media only screen and (min-width:"280px") and (max-width:"634px") {
     .user-customerlist {
         width: unset;
+        min-height: -webkit-fill-available;
 
         .displayDataTable {
             display: none;
