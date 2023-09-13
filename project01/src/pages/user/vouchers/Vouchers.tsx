@@ -408,7 +408,7 @@ export default function Services() {
                 footer={[]}
             // width="65vw"
             >
-                <Space size={[25, 0]} direction='horizontal' className='uservoucher-record' align='center'>
+                <Space size={[25, 0]} direction='vertical' className='uservoucher-record' align='start'>
                     <Space.Compact className='coupon-left' direction='vertical'>
                         <div>
                             <img src={record?.image} alt="image" width="100%" />

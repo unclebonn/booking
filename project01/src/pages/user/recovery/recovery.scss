@@ -8,16 +8,59 @@
     flex-direction: column;
     gap: 15px;
     overflow: auto;
-    width: 100%;
+    width: -webkit-fill-available;
 
-    .recover-table {
-        height: 500px;
+    .recoveryTable--responsive {
+        display: none;
+    }
+
+}
+
+.recoveryModal {
+    height: 80vh !important;
+    overflow-y: scroll;
+
+    .ant-modal .ant-modal-content {
+        height: 100%;
+
+       
+    }
+}
+
+.recoveryModal--responsive {
+    height: 80vh !important;
+    overflow-y: scroll;
+
+
+    .ant-modal .ant-modal-content {
+        height: 100%;
+
+        
+    }
+}
+
+
+@media only screen and (min-width:"280px") and (max-width:"465px") {
+    .user-recovery {
+
+        .recoveryTable {
+            display: none;
+        }
+
+        .recoveryTable--responsive {
+            display: flex;
+        }
+    }
+
+    .recoveryModal--responsive {
+        height: 80vh !important;
         overflow-y: scroll;
 
-        .item-content-recover {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+
+        .ant-modal .ant-modal-content {
+            height: 100%;
+
+           
         }
     }
 }

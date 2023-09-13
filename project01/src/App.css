@@ -149,12 +149,25 @@ h6 {
 }
 
 
+.ant-modal {
+  height: 80vh !important;
+  overflow-y: scroll;
+}
+
+/* .ant-modal .ant-modal-content {
+  height: 100%;
+
+}  */
+
+
+
 /* responsive for phone */
-@media only screen and (min-width:280px) and (max-width:480px){
+@media only screen and (min-width:280px) and (max-width:480px) {
   .dashboard-content-header2-right {
     width: 100% !important;
   }
 }
+
 /* @media only screen and (max-width: 600px) {
   .dashboard-content-header2 {
     display: flex;

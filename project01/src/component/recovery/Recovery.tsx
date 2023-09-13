@@ -1,25 +1,22 @@
-import { Modal, message, Table } from "antd"
-import fetch_Api from "../../utils/api_function"
+import { Modal, message, Table, List } from "antd"
 import { useState, useEffect } from "react"
-import { CustomerListState, CustomerState, UserListState, UserState } from "../../app/type.d"
 import tableRecovery from "../../utils/table_recovery"
 import type { ColumnsType } from 'antd/es/table';
+import tableRecovery_Responsive from "../../utils/card_recovery";
+import "../../pages/user/recovery/recovery.scss"
 interface RecoveryProps {
     isOpen: boolean,
     type: string,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    dataSource: DataSourceProps
+    dataSource: any
 }
 
-type DataSourceProps = CustomerListState | UserListState
-type ColumnsRecover = CustomerState | UserState
 
-
-
-const Recovery: React.FC<RecoveryProps> = ({ isOpen, type, setIsOpen, dataSource }) => {
+export const Recovery: React.FC<RecoveryProps> = ({ isOpen, type, setIsOpen, dataSource }) => {
     return (
         <Modal
             open={isOpen}
+            className="recoveryModal"
             title="Khôi phục"
             footer={[]}
             onCancel={() => setIsOpen(false)}
@@ -32,5 +29,18 @@ const Recovery: React.FC<RecoveryProps> = ({ isOpen, type, setIsOpen, dataSource
         </Modal>
     )
 }
+export const RecoveryResponsive: React.FC<RecoveryProps> = ({ isOpen, type, setIsOpen, dataSource }) => {
+    return (
+        <Modal
+            className="recoveryModal--responsive"
+            open={isOpen}
+            title="Khôi phục"
+            footer={[]}
+            onCancel={() => setIsOpen(false)}
 
-export default Recovery
+        >
+            {tableRecovery_Responsive(type, dataSource)}
+        </Modal>
+    )
+}
+

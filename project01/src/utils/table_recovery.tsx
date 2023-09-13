@@ -258,7 +258,7 @@ const tableRecovery = function (type: string) {
                     render: (text, record, index) =>
                         <div className="item-content-recover">
 
-                            <p>Nội dung: {record.conditionsAndPolicies}</p>
+                            <p>Điều kiện: {record.conditionsAndPolicies}</p>
                         </div>
                 },
                 {

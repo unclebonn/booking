@@ -1,4 +1,4 @@
-import Recovery from "../../../component/recovery/Recovery";
+import { Recovery, RecoveryResponsive } from "../../../component/recovery/Recovery";
 import { Button, Space } from "antd"
 import { useEffect, useState } from "react"
 import fetch_Api from "../../../utils/api_function";
@@ -11,14 +11,16 @@ type DataSourceProps = CustomerListState | UserListState
 export function RecoveryPage() {
     const [type, setType] = useState<string>("")
     const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpenResponsive, setIsOpenResponsive] = useState<boolean>(false)
     const [dataSource, setDataSource] = useState<DataSourceProps>([])
 
 
     useEffect(() => {
-        document.title="Khôi phục"
-    },[])
+        document.title = "Khôi phục"
+    }, [])
 
 
+    
     const recoverCustomers = () => {
         getAllRecoverCustomer()
         setType("customers")
@@ -49,6 +51,42 @@ export function RecoveryPage() {
         setType("vouchersCustomer")
         setIsOpen(!isOpen)
     }
+
+
+    
+    ///////////////////////// responsive ///////////////////////////////////
+    const recoverCustomersResponsive = () => {
+        getAllRecoverCustomer()
+        setType("customers")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+    const recoverEmployeesResponsive = () => {
+        getAllRecoverEmployees()
+        setType("employees")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+    const recoverServicePackgesResponsive = () => {
+        getAllDeleteServicePackages()
+        setType("servicePackages")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+    const recoverServicesResponsive = () => {
+        getAllDeleteService()
+        setType("services")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+    const recoverVoucherTypeResponsive = () => {
+        getAllDeleteVoucherType()
+        setType("vouchers")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+    const recoverVouchersCustomerResponsive = () => {
+        getAllDeleteVoucher()
+        setType("vouchersCustomer")
+        setIsOpenResponsive(!isOpenResponsive)
+    }
+
+
 
 
     //////////////////////////// GET API //////////////////////////
@@ -135,7 +173,7 @@ export function RecoveryPage() {
 
     return (
         <div className="user-recovery">
-            <Space direction="vertical" className="modal" style={{ alignItems: "start" }}>
+            <Space wrap direction="horizontal" className="modal recoveryTable" style={{ alignItems: "start" }}>
                 <Button type="primary" onClick={recoverCustomers}>Khôi phục khách hàng</Button>
                 <Button type="primary" onClick={recoverEmployees}>Khôi phục nhân viên</Button>
                 <Button type="primary" onClick={recoverServicePackges}>Khôi phục gói dịch vụ</Button>
@@ -143,6 +181,16 @@ export function RecoveryPage() {
                 <Button type="primary" onClick={recoverVoucherType}>Khôi phục vouchers</Button>
                 <Button type="primary" onClick={recoverVouchersCustomer}>Khôi phục voucher khách hàng</Button>
                 <Recovery type={type} isOpen={isOpen} setIsOpen={setIsOpen} dataSource={dataSource}></Recovery>
+
+            </Space>
+            <Space wrap direction="horizontal" className="modal recoveryTable--responsive" style={{ alignItems: "start" }}>
+                <Button type="primary" onClick={recoverCustomersResponsive}>Khôi phục khách hàng</Button>
+                <Button type="primary" onClick={recoverEmployeesResponsive}>Khôi phục nhân viên</Button>
+                <Button type="primary" onClick={recoverServicePackgesResponsive}>Khôi phục gói dịch vụ</Button>
+                <Button type="primary" onClick={recoverServicesResponsive}>Khôi phục loại dịch vụ</Button>
+                <Button type="primary" onClick={recoverVoucherTypeResponsive}>Khôi phục vouchers</Button>
+                <Button type="primary" onClick={recoverVouchersCustomerResponsive}>Khôi phục voucher khách hàng</Button>
+                <RecoveryResponsive type={type} isOpen={isOpenResponsive} setIsOpen={setIsOpenResponsive} dataSource={dataSource}></RecoveryResponsive>
             </Space>
         </div>
     )

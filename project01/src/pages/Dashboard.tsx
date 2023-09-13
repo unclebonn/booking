@@ -42,7 +42,6 @@ import CustomerDetail from './manager/allcustomers/customer-detail';
 import EmployeeDetail from './manager/allemployee/employee-detail';
 import handlePermission from '../utils/permission_proccess';
 import Unauthorized from './Unauthorized';
-import Recovery from '../component/recovery/Recovery';
 import { RecoveryPage } from './user/recovery/Recovery';
 
 export default function Dashboard() {
