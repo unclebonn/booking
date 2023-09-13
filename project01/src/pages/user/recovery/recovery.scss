@@ -29,7 +29,7 @@
     .ant-modal .ant-modal-content {
         height: 100%;
 
-        
+
     }
 }
 
@@ -47,14 +47,15 @@
     }
 
     .recoveryModal--responsive {
-        height: 80vh !important;
+        display: block;
+        height: 43vh;
         overflow-y: scroll;
 
 
         .ant-modal .ant-modal-content {
             height: 100%;
 
-           
+
         }
     }
 }

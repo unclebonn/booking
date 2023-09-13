@@ -345,8 +345,8 @@ export default function Customers() {
                     </Space>
 
                     <div className='displayDataTable'>
-                        {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                            : <Table columns={columns} dataSource={dataListShow} />}
+                        {deletePermission ? <Table scroll={{ y: 330 }} rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                            : <Table scroll={{ y: 330 }} columns={columns} dataSource={dataListShow} />}
                     </div>
 
                 </>

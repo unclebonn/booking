@@ -1,4 +1,4 @@
-.user-employlist {
+.user-employlist  {
     margin: 1em;
     background-color: white;
     border: none;
@@ -7,9 +7,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    overflow: auto;
+    // overflow: auto;
     width: 100%;
-
 
     .dashboard-content-header2 {
         // width: 100%;
@@ -78,25 +77,44 @@
     text-align: left;
 }
 
-.ant-space {
-    display: flex;
+
+.displayDataTable--responsive {
+    display: none;
 }
 
-.dashboard-content-header2>.dashboard-content-header2-left button {
-    width: 10vw !important;
-}
-
-
-@media only screen and (min-width:"280px") and (max-width:"914px") {
+@media only screen and (min-width:"280px") and (max-width:"856px") {
     .user-employlist {
-        width: unset;
+        width: -webkit-fill-available;
+        height: -webkit-fill-available;
 
         .displayDataTable {
             display: none;
         }
 
         .displayDataTable--responsive {
+            height: 50vh;
             display: block;
+            overflow-y: scroll;
+        }
+    }
+
+
+}
+
+@media only screen and (min-width:"280px") and (max-width:"465px") {
+    .dashboard-content-input {
+        width: -webkit-fill-available;
+    }
+
+    .dashboard-content-header2 {
+        display: flex;
+
+        .ant-space-item {
+            width: 100% !important;
+
+            .dashboard-content-header2-right {
+                width: 100%;
+            }
         }
     }
 

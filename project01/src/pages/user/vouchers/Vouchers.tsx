@@ -155,7 +155,7 @@ export default function Services() {
             render: (img) =>
                 <a>
                     <img
-                        width={300}
+                        width={"280px"}
                         alt="logo"
                         src={img}
                     />
@@ -545,7 +545,7 @@ export default function Services() {
                     />
                 </Space>
 
-                <Table className='displayDataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
+                <Table  scroll={{ y: 330 }} className='displayDataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
                     onClick: () => handleTableRowClick(record),
                 })} />
 

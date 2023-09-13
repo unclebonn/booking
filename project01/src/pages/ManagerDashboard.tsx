@@ -64,25 +64,11 @@ export default function ManagerDashboard() {
         {unauthorized ?
           <Unauthorized />
           : <Routes>
-            <Route path="*" element={<div></div>} />
             <Route path="khach-hang" element={<AllCustomers />} />
             <Route path="khach-hang/detail/:id" element={<CustomerDetail />} />
-            {/*<Route path="goi-dich-vu" element={<AllServicePackages />} />
-          <Route path="goi-dich-vu/tao-moi" element={<NewServicePackage />} />
-          <Route path="goi-dich-vu/cap-nhat" element={<UpdateServicePackage />} />
-          <Route path="loai-dich-vu" element={<AllServices />} />
-          <Route path="loai-dich-vu/tao-moi" element={<NewService />} />
-          <Route path="vouchers" element={<AllVouchers />} />
-          <Route path="vouchers/tao-moi" element={<Newvoucher />} />
-          <Route path="vouchers/cap-nhat" element={<UpdateVoucher />} />*/}
             <Route path="nhan-vien" element={<AllEmployees />} />
             <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />
-            {/*<Route path="nhan-vien/role" element={<Role />} />
-          <Route path="giao-dich" element={<AllBooking />} />*/}
-            {/*<Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
-            <Route path="giao-dich/createbooking" element={<NewBooking />} />
-            <Route path="vouchers-customer/createvoucherextension" element={<VoucherExtension />} />
-          <Route path="vouchers-customer/createvouchercustomer" element={<NewVoucherCustomer />} />*/}
+            
           </Routes>}
       </div>
     </div>

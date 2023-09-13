@@ -144,8 +144,8 @@
 
 
 .modalVoucher {
-    // width: 65vw !important;
-    height: 80vh !important;
+    width: -webkit-fill-available;
+    min-height: -webkit-fill-available;
     
     .ant-modal-content{
         height: 100% !important;
@@ -182,7 +182,8 @@
     }
 
     .modalVoucher {
-        width: unset !important;
+        width: -webkit-fill-available;
+        min-height: -webkit-fill-available;
     }
 
     .user-vouchers {
@@ -192,6 +193,9 @@
 
         .displayDataTable--responsive {
             display: block;
+            display: block;
+            height: 46vh;
+            overflow-y: scroll;
         }
 
     }

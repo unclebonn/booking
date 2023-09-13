@@ -7,8 +7,9 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    overflow: auto;
+    // overflow: auto;
     width: 100%;
+
 
     .dashboard-content-header2 {
         // width: 100%;
@@ -82,18 +83,20 @@
     display: none;
 }
 
-@media only screen and (min-width:"280px") and (max-width:"634px") {
+@media only screen and (min-width:"280px") and (max-width:"856px") {
     .user-customerlist {
-        width: unset;
-        min-height: -webkit-fill-available;
+        width: -webkit-fill-available;
+        height: -webkit-fill-available;
 
         .displayDataTable {
             display: none;
         }
-    }
 
-    .displayDataTable--responsive {
-        display: block;
+        .displayDataTable--responsive {
+            height: 43vh;
+            display: block;
+            overflow-y: scroll;
+        }
     }
 
 

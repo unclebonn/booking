@@ -171,6 +171,8 @@
         
         .listDataTable--responsive {
             display: block;
+            height: 43vh;
+            overflow-y: scroll;
         }
     }
 
