@@ -20,6 +20,17 @@ interface VoucherStatusProps {
     "value": SelectProps["options"]
 }
 
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { span: 8 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+    },
+};
+
 export default function VoucherExtension() {
     const location = useLocation()
     const { id, expiredDate, voucherStatus } = location.state
@@ -106,7 +117,7 @@ export default function VoucherExtension() {
         return fetch_Api(api_link)
     }
     return (
-        <Space direction="horizontal" className="user-voucher-extension">
+        <Space direction={window.innerWidth>600?"horizontal":"vertical"} className="user-voucher-extension">
             <Space direction="vertical">
                 <Row>
                     <Col>
@@ -116,6 +127,9 @@ export default function VoucherExtension() {
                 <Space>
                     <Form
                         onFinish={(handleFinish)}
+                        labelAlign="left"
+                        {...layout}
+                        labelWrap                    
                     >
                         <Row>
                             <Col span={24}>

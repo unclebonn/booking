@@ -150,14 +150,12 @@ h6 {
 
 
 .ant-modal {
-  height: 80vh !important;
+  top: 20px !important;
   overflow-y: scroll;
-}
-
-/* .ant-modal .ant-modal-content {
+} 
+.ant-modal .ant-modal-content {
   height: 100%;
-
-}  */
+} 
 
 
 

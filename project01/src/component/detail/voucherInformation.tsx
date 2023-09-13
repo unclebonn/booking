@@ -54,12 +54,12 @@ const initialState: VoucherState = {
     "customer": {
         "id": '',
         "name": '',
-      },
+    },
     "salesEmployee": {
         "id": '',
         "name": '',
         "phoneNumber": ''
-    } ,
+    },
     "voucherType": {
         "id": 0,
         "typeName": '',
@@ -82,7 +82,7 @@ const initialState: VoucherState = {
     "voucherExtensions": []
 }
 
-export default function VoucherInformation({ api_link,isCustomer }: { api_link: string,isCustomer:boolean }) {
+export default function VoucherInformation({ api_link, isCustomer }: { api_link: string, isCustomer: boolean }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState<VoucherListState>();
@@ -98,7 +98,7 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
 
     var cookies = new Cookies()
     var token = cookies.get("token")?.token;
-{/*<div>{record.expiredDate} 
+    {/*<div>{record.expiredDate} 
                 {record.voucherStatus=="Expired" && <Tag color="volcano" style={{ width: "fit-content" }}>Đã hết hạn</Tag>}
                 {record.voucherStatus=="Out of value" && <Tag color="purple" style={{ width: "fit-content" }}>Hết giá trị sử dụng</Tag>}
             </div>,*/}
@@ -121,10 +121,10 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
             title: 'Ngày hết hạn',
             dataIndex: 'expiredDate',
             render: (text, record) => <div>{record.expiredDate}
-            {record.voucherStatus=="Expired" && <Tag color="volcano" style={{ width: "fit-content" }}>Đã hết hạn</Tag>}
-            {record.voucherStatus=="Out of value" && <Tag color="purple" style={{ width: "fit-content" }}>Hết giá trị sử dụng</Tag>}
+                {record.voucherStatus == "Expired" && <Tag color="volcano" style={{ width: "fit-content" }}>Đã hết hạn</Tag>}
+                {record.voucherStatus == "Out of value" && <Tag color="purple" style={{ width: "fit-content" }}>Hết giá trị sử dụng</Tag>}
             </div>,
-                
+
             filters: [
                 {
                     text: 'Còn hiệu lực',
@@ -139,7 +139,7 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
                     value: "Out of value",
                 },*/
             ],
-            onFilter: (value: any, record) => record.voucherStatus===value,
+            onFilter: (value: any, record) => record.voucherStatus === value,
         },
         {
             title: 'Thành tiền',
@@ -159,14 +159,47 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
 
         },];
 
-        const userColumn = {
-            title: 'Giao dịch viên',
-                dataIndex: 'salesEmployee',
-          };
-          const cusColumn = {
-            title: 'Khách hàng',
-            dataIndex: 'customer',
-          };
+    const minicolumns: ColumnsType<VoucherState> = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            render: (text, record) =>
+                <Space size="small">
+                    {/*<Button size={"small"} ><FontAwesomeIcon icon={faTrashCan} /></Button>*/}
+                    {text}
+                </Space>
+        },
+        {
+            title: 'Thông tin voucher',
+            //dataIndex: 'voucherType',
+            render: (record) => <div>
+                {record.voucherType?.typeName??""}
+                {record.voucherStatus == "Expired" && <Tag color="volcano" style={{ width: "fit-content" }}>Đã hết hạn</Tag>}
+                {record.voucherStatus == "Out of value" && <Tag color="purple" style={{ width: "fit-content" }}>Hết giá trị sử dụng</Tag>}
+                <br />Ngày hết hạn: {record.expiredDate}
+                <br />Tổng tiền: {record.actualPrice}
+                <br />{isCustomer ?
+                    <>Khách hàng: {record?.customer?.name}</>
+                    :
+                    <>Giao dịch viên: {record?.salesEmployee?.name}</>
+                }
+            </div>,
+            filters: [
+                {
+                    text: 'Còn hiệu lực',
+                    value: "Usable",
+                },
+                {
+                    text: 'Đã hết hạn',
+                    value: "Expired",
+                },
+                /*{
+                    text: 'Hết giá trị sử dụng',
+                    value: "Out of value",
+                },*/
+            ],
+            onFilter: (value: any, record) => record.voucherStatus === value,
+        },];
 
     data?.map((dataTemp, index) => {
         const date = new Date(dataTemp.expiredDate);
@@ -290,9 +323,9 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
                         >
                             <Button size={"large"} ><FontAwesomeIcon icon={faTrashCan} /></Button>
                         </Popconfirm>}
-                        {editPermission && <Link to={"../vouchers-customer/createvoucherextension"} state={record}>
-                                    <Button size={"large"} style={{width:"100%"}}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                </Link>}
+                        {editPermission && <Link to={"/dashboard/vouchers-customer/createvoucherextension"} state={record}>
+                            <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                        </Link>}
                     </Space.Compact>
                     <Space.Compact className='coupon-con' direction='vertical'>
                         <Divider orientation='left'>Thông tin</Divider>
@@ -356,21 +389,28 @@ export default function VoucherInformation({ api_link,isCustomer }: { api_link: 
                     </Space.Compact>
                 </Space>
             </Modal>
-        
-        <div className="voucher-information">
-            {addPermission && <Link to={"../vouchers-customer/createvouchercustomer"}>
-                            <Button style={{ width: "100%" }} type='default' size='large'>
-                                + Thêm voucher khách hàng
-                            </Button>
-                           </Link>}
-            {/*<Table columns={isCustomer?[...columns,userColumn]:[...columns,cusColumn]} dataSource={dataListShow} />*/}
-            <Table columns={isCustomer?columns.filter(col => col.title !== 'Khách hàng'):columns.filter(col => col.title !== 'Giao dịch viên')}
+
+            <div className="voucher-information">
+                {addPermission && <Link to={"/dashboard/vouchers-customer/createvouchercustomer"}>
+                    <Button style={{ width: "100%" }} type='default' size='large'>
+                        + Thêm voucher khách hàng
+                    </Button>
+                </Link>}
+                {window.innerWidth>600?
+                <Table columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
                     dataSource={dataListShow}
                     onRow={(record) => ({
                         onClick: () => handleTableRowClick(record),
                     })}
                 />
-        </div>
+                :
+                <Table columns={minicolumns}
+                dataSource={dataListShow}
+                onRow={(record) => ({
+                    onClick: () => handleTableRowClick(record),
+                })}
+            />}
+            </div>
         </React.Fragment>
     );
 };

@@ -8,8 +8,8 @@
     flex-direction: column;
     gap: 15px;
     overflow: auto;
-    /*width: 100%;*/
     width: -webkit-fill-available;
+    min-height: -webkit-fill-available;
 
     .dashboard-content-header2 {
 

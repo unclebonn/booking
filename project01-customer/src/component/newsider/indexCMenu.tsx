@@ -46,14 +46,7 @@ function CMenuNew() {
       className='sidebarmenu'
 
     >
-      <Menu.Item
-        key="profile"
-        icon={<FontAwesomeIcon style={{marginRight:'10px'}} icon={faUser} />}
-        style={{
-          padding: '2em',
-          textAlign:'left',
-        }}
-      >Thông tin cá nhân</Menu.Item>
+     
       <Menu.Item
         key="myvoucher"
         icon={<FontAwesomeIcon style={{marginRight:'10px'}} icon={faMoneyBills} />}
@@ -68,6 +61,14 @@ function CMenuNew() {
           padding: '2em',
           textAlign:'left',
         }}>Lịch sử mua hàng</Menu.Item>
+         <Menu.Item
+        key="profile"
+        icon={<FontAwesomeIcon style={{marginRight:'10px'}} icon={faUser} />}
+        style={{
+          padding: '2em',
+          textAlign:'left',
+        }}
+      >Thông tin cá nhân</Menu.Item>
     </Menu >
     </div>
   );

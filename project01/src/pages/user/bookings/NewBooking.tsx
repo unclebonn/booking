@@ -39,6 +39,16 @@ interface SelectProp extends Array<SelectProp> {
     price: number
 }
 
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { offset: 2, span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+    },
+};
 
 export default function NewBooking() {
     const [form] = Form.useForm()
@@ -471,165 +481,138 @@ export default function NewBooking() {
                     className="newservice-form"
                     onFinish={handleFinish}
                     form={form}
+                    labelAlign="left"
+                    {...layout}
+                    labelWrap
+                    colon={false}
                 >
                     {/* customer */}
-                    <Row >
-                        <Col span={12}>
-                            <Form.Item
-                                rules={[
-                                    { required: true, message: "Vui lòng nhập tên khách hàng" },
-                                ]}
-                                label="Tên khách hàng"
-                                name="CustomerId"
-                            >
-                                <Select
-                                    value={[]}
-                                    showSearch
-                                    onSelect={handleSelectCustomer}
-                                    placeholder="Khách hàng"
-                                    filterOption={(input, option) =>
-                                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                    <Form.Item
+                        rules={[
+                            { required: true, message: "Vui lòng nhập tên khách hàng" },
+                        ]}
+                        label="Tên khách hàng"
+                        name="CustomerId"
+                    >
+                        <Select
+                            value={[]}
+                            showSearch
+                            onSelect={handleSelectCustomer}
+                            placeholder="Khách hàng"
+                            filterOption={(input, option) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                            options={allCustomer.map((cus: CustomerState) => {
+                                return (
+                                    {
+                                        label: `${cus.name}`,
+                                        value: cus.id
                                     }
-                                    options={allCustomer.map((cus: CustomerState) => {
-                                        return (
-                                            {
-                                                label: `${cus.name}`,
-                                                value: cus.id
-                                            }
-                                        )
-                                    })}
-                                ></Select>
+                                )
+                            })}
+                        ></Select>
 
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    </Form.Item>
                     {/* service package */}
-                    <Row >
-                        <Col span={12}>
-                            <Form.Item
-                                rules={[
-                                    { required: true, message: "Vui lòng nhập tên dịch vụ" },
-                                ]}
-                                label="Gói dịch vụ"
-                                name="ServicePackageId"
-                                initialValue={null}
-                            >
+                    <Form.Item
+                        rules={[
+                            { required: true, message: "Vui lòng nhập tên dịch vụ" },
+                        ]}
+                        label="Gói dịch vụ"
+                        name="ServicePackageId"
+                        initialValue={null}
+                    >
 
-                                <Select
-                                    showSearch
-                                    onSelect={handleSelectServicePackage}
-                                    placeholder="Dịch vụ"
-                                    filterOption={(input, option) =>
-                                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        <Select
+                            showSearch
+                            onSelect={handleSelectServicePackage}
+                            placeholder="Dịch vụ"
+                            filterOption={(input, option) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                            options={allservicePackage.map((sp: ServicePackageState) => {
+                                return (
+                                    {
+                                        label: `${sp.servicePackageName}`,
+                                        value: sp.id
                                     }
-                                    options={allservicePackage.map((sp: ServicePackageState) => {
-                                        return (
-                                            {
-                                                label: `${sp.servicePackageName}`,
-                                                value: sp.id
-                                            }
-                                        )
-                                    })}
-                                >
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                                )
+                            })}
+                        >
+                        </Select>
+                    </Form.Item>
                     {/* booking title */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                rules={[
-                                    { min: 5, max: 50, message: "Vui lòng nhập trên 5 hoặc dưới 50 ký tự" },
-                                    { max: 50, required: true, message: "Vui lòng nhập tên booking" }]}
-                                label="Tên booking"
-                                name="BookingTitle"
-                            >
-                                <Input placeholder="Tên booking" />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item
+                        rules={[
+                            { min: 5, max: 50, message: "Vui lòng nhập trên 5 hoặc dưới 50 ký tự" },
+                            { max: 50, required: true, message: "Vui lòng nhập tên booking" }]}
+                        label="Tên booking"
+                        name="BookingTitle"
+                    >
+                        <Input placeholder="Tên booking" />
+                    </Form.Item>
                     {/* booking status */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                rules={[
-                                    { required: true, message: "Vui lòng chọn trạng thái" }
-                                ]}
-                                label="Tình trạng"
-                                name="BookingStatus"
-                            >
-                                <Select
-                                    showSearch
-                                    placeholder="Trạng thái"
-                                    options={[
-                                        { label: "Đang xử lí", value: 1 },
-                                        { label: "Đã thanh toán", value: 2 },
-                                        { label: "Đã huỷ", value: 3 },
-                                    ]}
-                                    filterOption={(input, option) =>
-                                        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                    }
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item
+                        rules={[
+                            { required: true, message: "Vui lòng chọn trạng thái" }
+                        ]}
+                        label="Tình trạng"
+                        name="BookingStatus"
+                    >
+                        <Select
+                            showSearch
+                            placeholder="Trạng thái"
+                            options={[
+                                { label: "Đang xử lí", value: 1 },
+                                { label: "Đã thanh toán", value: 2 },
+                                { label: "Đã huỷ", value: 3 },
+                            ]}
+                            filterOption={(input, option) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        />
+                    </Form.Item>
                     {/* price detail  */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label="Chi tiết giá tiền"
-                                name="PriceDetails"
-                                initialValue={null}
-                            >
-                                <Input placeholder="60000đ/vé - 2 vé" />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item
+                        label="Chi tiết giá tiền"
+                        name="PriceDetails"
+                        initialValue={null}
+                    >
+                        <Input placeholder="60000đ/vé - 2 vé" />
+                    </Form.Item>
                     {/* note */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label="Ghi chú"
-                                name="Note"
-                                initialValue={null}
-                            >
-                                <Input placeholder="2 trẻ 3 lớn" />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item
+                        label="Ghi chú"
+                        name="Note"
+                        initialValue={null}
+                    >
+                        <Input placeholder="2 trẻ 3 lớn" />
+                    </Form.Item>
                     {/* description */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label="Miêu tả"
-                                name="Descriptions"
-                                initialValue={null}
-                            >
-                                <Input placeholder="Miêu tả" />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    <Form.Item
+                        label="Miêu tả"
+                        name="Descriptions"
+                        initialValue={null}
+                    >
+                        <Input placeholder="Miêu tả" />
+                    </Form.Item>
                     {/* start date time */}
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label="Thời gian bắt đầu"
-                                name="StartDateTime"
+                    <Form.Item
+                        label="Thời gian bắt đầu"
+                        name="StartDateTime"
 
-                                rules={[
-                                    { required: true, message: "Vui lòng chọn thời gian bắt đầu" }
-                                ]}
+                        rules={[
+                            { required: true, message: "Vui lòng chọn thời gian bắt đầu" }
+                        ]}
 
-                            >
-                                <RangePicker
-                                    showTime
-                                    onChange={handleDateTime}
-                                    disabledDate={disabledDate}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    >
+                        <RangePicker
+                            showTime
+                            onChange={handleDateTime}
+                            disabledDate={disabledDate}
+                            style={{width:"100%"}}
+                        />
+                    </Form.Item>
                     {/* end date time */}
                     {/* <Row>
                         <Col span={12}>
@@ -645,13 +628,13 @@ export default function NewBooking() {
                     </Row> */}
                     {/* voucher */}
                     {
-                        servicePackage && customerVoucher.length !== 0 ? <Row gutter={[8, 0]}>
-                            <Col span={12}>
+                        servicePackage && customerVoucher.length !== 0 ?
                                 <Form.Item
                                     label="Voucher áp dụng"
                                     name="VoucherIds"
                                     initialValue={[]}
-                                >
+                                ><Row>
+                                    <Col span={20}>
                                     <Select
                                         onChange={handleChangeDiscount}
                                         mode="multiple"
@@ -665,23 +648,25 @@ export default function NewBooking() {
                                             })
                                         })}
                                         placeholder="Voucher áp dụng"
-                                    />
-
+                                    /></Col>
+                                    <Col span={4}>
+                                    <Button style={{width:"100%"}} onClick={() => handleVoucher(customerVoucher, servicePackage.valuableVoucherTypes)}>
+                                        <PlusCircleOutlined style={{ fontSize: "16px" }} />
+                                    </Button></Col></Row>
                                 </Form.Item>
-                            </Col>
-                            <Col span={2}>
-                                <Button onClick={() => handleVoucher(customerVoucher, servicePackage.valuableVoucherTypes)}>
-                                    <PlusCircleOutlined style={{ fontSize: "16px" }} />
-                                </Button>
-                            </Col>
-                        </Row> :
-                            <div></div>
+                                :
+                                <div></div>
                     }
 
-                    {/* price service package */}
-                    <Row>
-                        <Col span={12}>
-                            <div style={{ display: "flex", margin: "0px 0px 20px 0px" }}>
+                                {/* price service package */}
+                                <Form.Item
+                                    label="Tiền gói dịch vụ"
+                                    name=""
+                                    initialValue={null}
+                                >
+                                    <Input required type="number" min={1} onChange={handlePriceServicePackage} />
+                                </Form.Item>
+                                {/*<div style={{ display: "flex", margin: "0px 0px 20px 0px" }}>
                                 <div>
                                     <label htmlFor="name">Tiền gói dịch vụ: </label>
 
@@ -689,47 +674,29 @@ export default function NewBooking() {
                                 <div style={{ flexGrow: 1, marginLeft: "12px" }}>
                                     <Input required type="number" min={1} onChange={handlePriceServicePackage} />
                                 </div>
-                            </div>
-                        </Col>
-                    </Row>
+                            </div>*/}
+                                {/* discount */}
 
-                    {/* discount */}
-                    <Row>
-                        <Col span={2}>
-                            <Form.Item
-                                label="Giảm giá"
+                                <Form.Item
+                                    label="Giảm giá"
 
-                            >
-                            </Form.Item>
-                        </Col>
-                        <Col span={3}>
-                            <h4 style={{ position: "relative", top: "6px" }}>{moneyDiscount?.toLocaleString("vi-VN")} đồng</h4>
-                        </Col>
-                    </Row>
+                                >
+                                    <h4 style={{ position: "relative", top: "6px" }}>{moneyDiscount?.toLocaleString("vi-VN")} đồng</h4>
+                                </Form.Item>
+                                {/* totalPrice */}
+                                <Form.Item
+                                    label="Tổng tiền"
+                                >
+                                    <h4 style={{ position: "relative", top: "6px" }}>{totalMoney.toLocaleString("vi-VN")} đồng</h4>
+                                </Form.Item>
 
-                    {/* totalPrice */}
-                    <Row>
-                        <Col span={2}>
-                            <Form.Item
-                                label="Tổng tiền"
-                            >
-                            </Form.Item>
-                        </Col>
-                        <Col span={3}>
-                            <h4 style={{ position: "relative", top: "6px" }}>{totalMoney.toLocaleString("vi-VN")} đồng</h4>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item>
-                                <Button htmlType="submit" type="primary">Tạo dịch vụ</Button>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                                <Form.Item wrapperCol={{ offset: 8 }}>
+                                    <Button htmlType="submit" type="primary">Tạo dịch vụ</Button>
+                                </Form.Item>
 
-                </Form>
-            </div>
-        </div>
+                            </Form>
+            </div >
+        </div >
     )
 }
 

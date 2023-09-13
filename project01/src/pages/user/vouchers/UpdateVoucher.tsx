@@ -9,7 +9,16 @@ import { VoucherTypeState } from "../../../app/type.d"
 import { useState } from "react"
 import { MessageType } from "antd/es/message/interface"
 
-
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { offset:2, span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+    },
+};
 
 export default function UpdateVoucher() {
     const location = useLocation()
@@ -64,9 +73,12 @@ export default function UpdateVoucher() {
                 <Form
                     className="newservice-form"
                     onFinish={handleFinish}
-                >
-                    <Row >
-                        <Col span={10}>
+                    labelAlign="left"
+                    {...layout}
+                    labelWrap                    
+                    colon={false}
+               >
+                    
                             <Form.Item
                                 rules={[
                                     { required: true, message: "Vui lòng nhập tên mã khuyến mãi" },
@@ -78,10 +90,7 @@ export default function UpdateVoucher() {
                             >
                                 <Input placeholder="Tên mã khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 rules={[
 
@@ -100,10 +109,7 @@ export default function UpdateVoucher() {
 
 
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Giá trị"
                                 name="commonPrice"
@@ -113,10 +119,7 @@ export default function UpdateVoucher() {
                             >
                                 <Input type="number" placeholder="Giá trị của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                       
                             <Form.Item
                                 label="Số lượng mã khuyến mãi"
                                 name="availableNumberOfVouchers"
@@ -126,10 +129,7 @@ export default function UpdateVoucher() {
                             >
                                 <Input type="number" placeholder="Số lượng của mã khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Loại giảm giá"
                             >
@@ -142,11 +142,8 @@ export default function UpdateVoucher() {
                                     ]}
                                 />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    {typeValue == "percent" ?
-                        <Row style={{ marginLeft: "20px" }}>
-                            <Col span={10}>
+                       
+                    {typeValue == "percent" ?            
                                 <Form.Item
                                     label="Giảm giá"
                                     name="PercentageDiscount"
@@ -155,10 +152,7 @@ export default function UpdateVoucher() {
                                 >
                                     <Input type="number" placeholder="Giá trị" addonAfter="%" />
                                 </Form.Item>
-                            </Col>
-                        </Row>
-                        : <Row style={{ marginLeft: "20px" }}>
-                            <Col span={10}>
+                        : 
                                 <Form.Item
                                     label="Loại giảm giá"
                                     name="valueDiscount"
@@ -167,11 +161,8 @@ export default function UpdateVoucher() {
                                 >
                                     <Input type="number" placeholder="Giá trị" addonAfter="VNĐ" />
                                 </Form.Item>
-                            </Col>
-                        </Row>
-                    }
-                    <Row>
-                        <Col span={10}>
+                            }
+                    
                             <Form.Item
                                 label="Giá trị tối đa của mã khuyến mãi"
                                 name="maximumValueDiscount"
@@ -181,10 +172,7 @@ export default function UpdateVoucher() {
                             >
                                 <Input type="number" placeholder="Giá trị tối đa của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                        
                             <Form.Item
                                 label="Điều kiện"
                                 name="conditionsAndPolicies"
@@ -196,15 +184,11 @@ export default function UpdateVoucher() {
                             >
                                 <Input.TextArea placeholder="Giá trị của khuyến mãi" />
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={10}>
+                       
                             <Form.Item>
                                 <Button htmlType="submit" type="primary">Tạo dịch vụ</Button>
                             </Form.Item>
-                        </Col>
-                    </Row>
+                        
                 </Form>
             </div>
         </div>

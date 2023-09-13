@@ -130,7 +130,7 @@ export default function AssignSupportersPopupScreen({ isPopup, setPopup, custome
             title="Thêm"
             open={isPopup}
             onCancel={handleCancel}
-            style={{ minWidth: 450 }}
+            style={{ minWidth: window.innerWidth>600?450:'100%' }}
             footer={[
                 <Button onClick={handleCancel} type="default" key="back">
                     Huỷ
@@ -163,7 +163,7 @@ export default function AssignSupportersPopupScreen({ isPopup, setPopup, custome
                                                 {...field}
                                                 name={[field.name, 'employeefilter']}
                                             >
-                                                <Select style={{ width: 150 }}
+                                                <Select style={{ width: window.innerWidth>480?150:100 }}
                                                     defaultValue="all"
                                                     onChange={(e) => {
                                                         if (e == "all") setFilterNV(nhan_vien);

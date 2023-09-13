@@ -128,7 +128,7 @@ export default function AssignManagerPopupScreen({ isPopup, setPopup, customerId
             title="Thay đổi"
             open={isPopup}
             onCancel={handleCancel}
-            style={{ minWidth: 450 }}
+            style={{ minWidth: window.innerWidth>600?450:'100%' }}
             footer={[
                 <Button onClick={handleCancel} type="default" key="back">
                     Huỷ

@@ -26,6 +26,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
+        <Route path="dashboard/*" element={<Dashboard />} />
+          <Route path="managerdashboard/*" element={<ManagerDashboard />} />
           <Route path="/" element={<Login />} />
           {
             cookies.get("token")?.token !== undefined ?
@@ -33,8 +35,7 @@ function App() {
               : <Route path="/*" element={<Navigate replace to="/" />} />
           }
           <Route path="login/*" element={<Login />} />
-          <Route path="dashboard/*" element={<Dashboard />} />
-          <Route path="managerdashboard/*" element={<ManagerDashboard />} />
+          
         </Routes>
       </div >
     </BrowserRouter >

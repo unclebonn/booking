@@ -10,7 +10,16 @@ import fetch_Api from "../../../utils/api_function"
 
 
 
-
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { offset:2, span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+    },
+};
 
 interface BookingProps {
     totalPrice: string,
@@ -75,9 +84,11 @@ export default function UpdateBooking() {
             </Row>
             <Form
                 onFinish={handleFinish}
+                labelAlign="left"
+                {...layout}
+                labelWrap                    
+                colon={false}
             >
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             label="Tên booking"
                             name="bookingTitle"
@@ -88,10 +99,6 @@ export default function UpdateBooking() {
                         >
                             <Input />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             rules={[
                                 { required: true, message: "Vui lòng chọn trạng thái" }
@@ -114,10 +121,6 @@ export default function UpdateBooking() {
                                 }
                             />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             label="Chi tiết giá tiền"
                             name="priceDetails"
@@ -125,10 +128,6 @@ export default function UpdateBooking() {
                         >
                             <Input />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             label="Miêu tả"
                             name="descriptions"
@@ -136,10 +135,6 @@ export default function UpdateBooking() {
                         >
                             <Input />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             label="Ngày bắt đầu"
                             name="startDateTime"
@@ -147,10 +142,6 @@ export default function UpdateBooking() {
                         >
                             <Input disabled />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
                         <Form.Item
                             label="Ngày kết thúc"
                             name="endDateTime"
@@ -161,25 +152,19 @@ export default function UpdateBooking() {
                         >
                             <DatePicker defaultValue={dayjs(endDateTime)} showTime onChange={handleEndTime} />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={2}>
                         <Form.Item
                             label="Tổng tiền"
                             name="totalPrice"
                         >
-                        </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                        <Input disabled defaultValue={totalPrice.toLocaleString('vi-VN', {
+                            <Input disabled defaultValue={totalPrice.toLocaleString('vi-VN', {
                             style: 'currency',
                             currency: 'VND',
                         })} />
-                    </Col>
-                </Row>
-
+                        </Form.Item>
+                        
+                        <Form.Item wrapperCol={{offset:8}}>
                 <Button htmlType="submit" type="primary" >Cập nhật</Button>
+                </Form.Item>
 
             </Form>
         </div>

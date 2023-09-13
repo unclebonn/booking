@@ -6,7 +6,16 @@ import { useEffect, useState } from "react"
 import { CustomerListState, CustomerState, VoucherTypeListState, VoucherTypeState } from "../../../app/type.d"
 import { RangePickerProps } from "antd/es/date-picker"
 
-
+const layout = {
+    labelCol: {
+        xs: { span: 24 },
+        sm: { offset:2, span: 6 },
+    },
+    wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 12 },
+    },
+};
 
 
 interface NewVoucherForCustomerProps {
@@ -117,9 +126,12 @@ export default function NewVoucherCustomer() {
             </Row>
             <Form
                 onFinish={handleFinish}
+                labelAlign="left"
+                {...layout}
+                labelWrap 
+                colon={false}
             >
-                <Row>
-                    <Col span={10}>
+                
                         <Form.Item
 
                             label="Khách hàng"
@@ -144,10 +156,7 @@ export default function NewVoucherCustomer() {
                                 })}
                             />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
+                   
                         <Form.Item
                             label="Voucher"
                             name="voucherTypeId"
@@ -170,10 +179,7 @@ export default function NewVoucherCustomer() {
                                 })}
                             />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
+                    
                         <Form.Item
                             label="Thời gian hết hạn"
                             name="expiredDate"
@@ -183,10 +189,7 @@ export default function NewVoucherCustomer() {
                         >
                             <DatePicker showTime onChange={handleEndTime} />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
+                    
                         <Form.Item
                             label="Giá voucher"
                             name="actualPurchasePrice"
@@ -196,16 +199,12 @@ export default function NewVoucherCustomer() {
                         >
                             <Input type="number" />
                         </Form.Item>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span={10}>
+
                         <Form.Item
                         >
                             <Button htmlType="submit" type="primary">Tạo</Button>
                         </Form.Item>
-                    </Col>
-                </Row>
+
             </Form>
         </div>
     )

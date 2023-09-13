@@ -79,10 +79,10 @@ export default function ManagerDashboard() {
             <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />
             {/*<Route path="nhan-vien/role" element={<Role />} />
           <Route path="giao-dich" element={<AllBooking />} />*/}
-            <Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
+            {/*<Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
             <Route path="giao-dich/createbooking" element={<NewBooking />} />
             <Route path="vouchers-customer/createvoucherextension" element={<VoucherExtension />} />
-          <Route path="vouchers-customer/createvouchercustomer" element={<NewVoucherCustomer />} />
+          <Route path="vouchers-customer/createvouchercustomer" element={<NewVoucherCustomer />} />*/}
           </Routes>}
       </div>
     </div>

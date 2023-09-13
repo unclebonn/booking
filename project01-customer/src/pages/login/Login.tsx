@@ -87,7 +87,7 @@ export default function Login() {
 
   // Navigate to dashboard page if login successful
   if (cookies.get("token")?.token !== undefined) {
-    navigate('/dashboard/khach-hang');
+    navigate('/dashboard/myvoucher');
     //return 
   }
 
