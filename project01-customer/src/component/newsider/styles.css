@@ -5,7 +5,8 @@
 .sidebarmenu {
     width: 250px;
     min-width: 230px;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     position: sticky;
     background: linear-gradient(#b0bdc3, #487f9e, #91d5ff);
     border-bottom-right-radius: 50px;
