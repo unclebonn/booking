@@ -137,7 +137,8 @@ export default function SupportedUserInformation({ api_link }: { api_link: strin
             title: '',
             dataIndex: 'filePath',
             align:'center',
-            render: (record) =>
+            width: '20px',
+            render: (text,record) =>
             record.filePath&&<Avatar size="large" src={record.filePath} />
 },
         {

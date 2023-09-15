@@ -137,13 +137,13 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
             title: 'Tên',
             dataIndex: 'bookingTitle',
             render: (text, record) => <div>
-                {text}<br />
-                Ngày giao dịch: {record.bookingDate.split(' ')[1]}<br />
-                Tổng tiền: {record.totalPrice}<br />
+                <span style={{ color: "#0958d9", fontWeight: "bold" }}>{text}</span><br />
+                <span style={{ fontWeight: "bold" }}>Ngày giao dịch:</span><br /> {record.bookingDate.split(' ')[1]}<br />
+                <span style={{ fontWeight: "bold" }}>Tổng tiền:</span><br /> {record.totalPrice}<br />
                 {isCustomer ?
-                    <>Khách hàng: {record?.customer?.name}</>
+                    <><span style={{ fontWeight: "bold" }}>Khách hàng:</span><br /> {record?.customer?.name}</>
                     :
-                    <>Giao dịch viên: {record?.salesEmployee?.name}</>
+                    <><span style={{ fontWeight: "bold" }}>Giao dịch viên:</span><br /> {record?.salesEmployee?.name}</>
                 }
             </div>
         },
@@ -266,7 +266,7 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                 <Space size={[25, 0]} direction='horizontal' className='uservoucher-record' align='center'>
                     <Space.Compact className='coupon-left' direction='vertical'>
                         <div>
-                            <img src={"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"} alt="image" width="250px" />
+                            <img src={record?.filePath} alt="image" width="250px" />
                         </div>
                         {(deletePermission && record?.bookingStatus === "Pending") ?
                             <Popconfirm
@@ -347,6 +347,27 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                                     </Col>
                                 </Row>
                             </Space>
+                            <div className="booking-information-mini" >
+                            {(deletePermission && record?.bookingStatus === "Pending") ?
+                            <Popconfirm
+                                className="ant-popconfirm"
+                                title="Xoá dịch vụ"
+                                description="Bạn có chắc chắn xoá không ?"
+                                onConfirm={() => {
+                                    handleDelete(record.id)
+                                    setAddFormInformationService(!addFormInformationService)
+                                }}
+                                okText="Xoá"
+                                cancelText="Huỷ"
+                                placement='bottomLeft'
+                            >
+                                <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faTrashCan} /></Button>
+                            </Popconfirm>
+                            : <></>}
+                        {editPermission && record?.bookingStatus === "Pending" && <Link to={"/dashboard/giao-dich/updatebooking"} state={record}>
+                            <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                        </Link>}
+                            </div>
                         </Space>
                     </Space.Compact>
                 </Space>
@@ -358,20 +379,20 @@ export default function BookingInformation({ api_link, isCustomer }: { api_link:
                         + Thêm booking
                     </Button>
                 </Link>}
-                {window.innerWidth > 600 ?
-                    <Table columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
+                    <Table className="booking-information-full"
+                    columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
                         dataSource={dataListShow}
                         onRow={(record) => ({
                             onClick: () => handleTableRowClick(record),
                         })}
                     />
-                    :
-                    <Table columns={minicolumns}
+                    <Table className="booking-information-mini"
+                    columns={minicolumns}
                         dataSource={dataListShow}
                         onRow={(record) => ({
                             onClick: () => handleTableRowClick(record),
                         })}
-                    />}
+                    />
             </div>
         </React.Fragment>
     );

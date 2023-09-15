@@ -211,6 +211,7 @@ export type VoucherState = {
   "voucherStatus": string,
   "bookings": BookingListState,
   "voucherExtensions": VoucherExtensionListState,
+  "filePath"?: string,
 }
 
 export type VoucherListState = VoucherState[];
@@ -274,7 +275,8 @@ export type BookingState = {
   "note": string,
   "descriptions": string,
   "startDateTime": string,
-  "endDateTime": string
+  "endDateTime": string,
+  "filePath"?: string,
 };
 
 export type BookingListState = BookingState[];

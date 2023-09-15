@@ -173,15 +173,15 @@ export default function VoucherInformation({ api_link, isCustomer }: { api_link:
             title: 'Thông tin voucher',
             //dataIndex: 'voucherType',
             render: (record) => <div>
-                {record.voucherType?.typeName??""}
+                <span style={{ color: "#0958d9", fontWeight: "bold" }}>{record.voucherType?.typeName ?? ""}</span>
                 {record.voucherStatus == "Expired" && <Tag color="volcano" style={{ width: "fit-content" }}>Đã hết hạn</Tag>}
                 {record.voucherStatus == "Out of value" && <Tag color="purple" style={{ width: "fit-content" }}>Hết giá trị sử dụng</Tag>}
-                <br />Ngày hết hạn: {record.expiredDate}
-                <br />Tổng tiền: {record.actualPrice}
+                <br /><span style={{ fontWeight: "bold" }}>Ngày hết hạn:</span><br /> {record.expiredDate}
+                <br /><span style={{ fontWeight: "bold" }}>Tổng tiền:</span><br /> {record.actualPrice}
                 <br />{isCustomer ?
-                    <>Khách hàng: {record?.customer?.name}</>
+                    <><span style={{ fontWeight: "bold" }}>Khách hàng:</span><br /> {record?.customer?.name}</>
                     :
-                    <>Giao dịch viên: {record?.salesEmployee?.name}</>
+                    <><span style={{ fontWeight: "bold" }}>Giao dịch viên:</span><br /> {record?.salesEmployee?.name}</>
                 }
             </div>,
             filters: [
@@ -238,7 +238,7 @@ export default function VoucherInformation({ api_link, isCustomer }: { api_link:
             url: api_link + '/' + id,
             method: 'GET',
         }).then(data => {
-            //console.log(data.data)
+            console.log(data.data)
             setData(data.data);
         })
     }, [id]);
@@ -307,7 +307,7 @@ export default function VoucherInformation({ api_link, isCustomer }: { api_link:
                 <Space size={[25, 0]} direction='horizontal' className='uservoucher-record' align='center'>
                     <Space.Compact className='coupon-left' direction='vertical'>
                         <div>
-                            <img src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" alt="image" width="250px" />
+                            <img src={record?.filePath} alt="image" width="250px" />
                         </div>
                         {deletePermission && <Popconfirm
                             className="ant-popconfirm"
@@ -385,6 +385,25 @@ export default function VoucherInformation({ api_link, isCustomer }: { api_link:
                                 </Row>
 
                             </Space>
+                            <div className="voucher-information-mini" >
+                            {deletePermission && <Popconfirm
+                                className="ant-popconfirm"
+                                title="Xoá dịch vụ"
+                                description="Bạn có chắc chắn xoá không ?"
+                                onConfirm={() => {
+                                    handleDelete(record.id)
+                                    setAddFormInformationService(!addFormInformationService)
+                                }}
+                                okText="Xoá"
+                                cancelText="Huỷ"
+                                placement='bottomLeft'
+                            >
+                                <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faTrashCan} /></Button>
+                            </Popconfirm>}
+                            {editPermission && <Link to={"/dashboard/vouchers-customer/createvoucherextension"} state={record}>
+                                <Button size={"large"} style={{ width: "100%" }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                            </Link>}
+                            </div>
                         </Space>
                     </Space.Compact>
                 </Space>
@@ -396,21 +415,21 @@ export default function VoucherInformation({ api_link, isCustomer }: { api_link:
                         + Thêm voucher khách hàng
                     </Button>
                 </Link>}
-                {window.innerWidth>600?
-                <Table columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
-                    dataSource={dataListShow}
-                    onRow={(record) => ({
-                        onClick: () => handleTableRowClick(record),
-                    })}
-                />
-                :
-                <Table columns={minicolumns}
-                dataSource={dataListShow}
-                onRow={(record) => ({
-                    onClick: () => handleTableRowClick(record),
-                })}
-            />}
-            </div>
+                <div className="voucher-information-full" >
+                    <Table columns={isCustomer ? columns.filter(col => col.title !== 'Khách hàng') : columns.filter(col => col.title !== 'Giao dịch viên')}
+                        dataSource={dataListShow}
+                        onRow={(record) => ({
+                            onClick: () => handleTableRowClick(record),
+                        })}
+                    /></div>
+                <div className="voucher-information-mini" >
+                    <Table columns={minicolumns}
+                        dataSource={dataListShow}
+                        onRow={(record) => ({
+                            onClick: () => handleTableRowClick(record),
+                        })}
+                    /></div>
+                </div>
         </React.Fragment>
     );
 };
