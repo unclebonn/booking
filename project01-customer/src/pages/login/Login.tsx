@@ -63,7 +63,9 @@ export default function Login() {
 
   useEffect(() => {
     document.title="Quản lý thành viên"
-  },[])
+    if (cookies.get("token")?.token !== undefined) {
+      navigate('/dashboard/myvoucher');
+}},[])
 
   const errorMessage = () => {
     if (errorMessage2) {

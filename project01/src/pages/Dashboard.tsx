@@ -98,14 +98,14 @@ export default function Dashboard() {
           }
           {unauthorized ?
             <Unauthorized />
-            :
-            <Outlet />}
+        :
+          <Outlet />}
           {/*<Routes>
              <Route path="profile" element={< Profile />} />
             <Route path="myservice" element={<MyService />} />
             <Route path="myvoucher" element={<MyVoucher />} />
             <Route path="history" element={< History />} /> */}
-          {/*<Route path="khach-hang" element={<Customers />} />
+            {/*<Route path="khach-hang" element={<Customers />} />
             <Route path="khach-hang/detail/:id" element={<CustomerDetail />} />
             <Route path="goi-dich-vu" element={<ServicePackage />} />
             <Route path="goi-dich-vu/createservicepackage" element={<NewServicePackage />} />
@@ -115,20 +115,20 @@ export default function Dashboard() {
             <Route path="vouchers" element={<Vouchers />} />
             <Route path="vouchers/createvoucher" element={<Newvoucher />} />
             <Route path="vouchers/updatevoucher" element={<UpdateVoucher />} />*/}
-          {/*<Route path="vouchers-customer" element={<VoucherCustomer />} />
+            {/*<Route path="vouchers-customer" element={<VoucherCustomer />} />
             <Route path="vouchers-customer/createvoucherextension" element={<VoucherExtension />} />
             <Route path="vouchers-customer/createvouchercustomer" element={<NewVoucherCustomer />} />
             <Route path="nhan-vien" element={<Employees />} />
             <Route path="nhan-vien/role" element={<Role />} />
             <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />*/}
-          {/*<Route path="employee" element={<Employees />} />
+            {/*<Route path="employee" element={<Employees />} />
           <Route path="employee/role" element={<Role />} />
           <Route path="employee/detail/:id" element={<EmployeeDetail />} />
         <Route path="giao-dich" element={<Booking />} />
             <Route path="giao-dich/updatebooking" element={<UpdateBooking />} />
             <Route path="giao-dich/createbooking" element={<NewBooking />} />
             <Route path="khoi-phuc" element={<RecoveryPage />} />*/}
-          {/*<Route path="*" element={<Navigate replace to="/dashboard" />} />
+            {/*<Route path="*" element={<Navigate replace to="/dashboard" />} />
           </Routes>*/}
 
         </div>
