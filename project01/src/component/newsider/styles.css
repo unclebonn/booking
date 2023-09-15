@@ -5,7 +5,8 @@
 .sidebarmenu {
     width: 250px;
     min-width: 230px;
-    height: calc(100vh - 58.800px);
+    min-height: 100vh;
+    height: auto;
     position: sticky;
     background: linear-gradient(#b0bdc3, #487f9e, #91d5ff);
     border-bottom-right-radius: 50px;
@@ -18,12 +19,12 @@
 @media only screen and (max-width: 600px) {
     .sidebarmenu {
         width: 100%;
-        height: auto;
+        min-height: unset;
         background: linear-gradient(#b0bdc3, #487f9e, #91d5ff);
         border-bottom-right-radius: 30px;
         border-bottom-left-radius: 30px;
         color: #FFFFFF;
-        font-size: medium;
+        font-size: small;
         font-weight: 600;
         position: sticky;
         z-index: 1;

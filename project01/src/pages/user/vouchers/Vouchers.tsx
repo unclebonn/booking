@@ -155,7 +155,7 @@ export default function Services() {
             render: (img) =>
                 <a>
                     <img
-                        width={"280px"}
+                        width={300}
                         alt="logo"
                         src={img}
                     />
@@ -408,10 +408,10 @@ export default function Services() {
                 footer={[]}
             // width="65vw"
             >
-                <Space size={[25, 0]} direction='vertical' className='uservoucher-record' align='start'>
+                <Space size={[25, 0]} direction='horizontal' className='uservoucher-record' align='start'>
                     <Space.Compact className='coupon-left' direction='vertical'>
                         <div>
-                            <img src={record?.image} alt="image" width="100%" />
+                            <img src={record?.image} alt="image" width="300px" />
                         </div>
                         {deletePermission && <Popconfirm
                             className="ant-popconfirm"
@@ -545,7 +545,7 @@ export default function Services() {
                     />
                 </Space>
 
-                <Table  scroll={{ y: 330 }} className='displayDataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
+                <Table className='displayDataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
                     onClick: () => handleTableRowClick(record),
                 })} />
 

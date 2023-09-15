@@ -7,9 +7,9 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    // overflow: auto;
-    width: 100%;
-
+    overflow: auto;
+    width: -webkit-fill-available;
+    box-sizing: border-box;
 
     .dashboard-content-header2 {
         // width: 100%;
@@ -83,20 +83,18 @@
     display: none;
 }
 
-@media only screen and (min-width:"280px") and (max-width:"856px") {
+@media only screen and (min-width:"280px") and (max-width:"812px") {
     .user-customerlist {
         width: -webkit-fill-available;
-        height: -webkit-fill-available;
+        min-height: -webkit-fill-available;
 
         .displayDataTable {
             display: none;
         }
+    }
 
-        .displayDataTable--responsive {
-            height: 43vh;
-            display: block;
-            overflow-y: scroll;
-        }
+    .displayDataTable--responsive {
+        display: block;
     }
 
 

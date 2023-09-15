@@ -22,8 +22,8 @@
 }
 
 .recoveryModal--responsive {
-    height: 80vh !important;
-    overflow-y: scroll;
+    height: 80vh ;
+    overflow-y: scroll !important;
 
 
     .ant-modal .ant-modal-content {
@@ -34,7 +34,10 @@
 }
 
 
-@media only screen and (min-width:"280px") and (max-width:"465px") {
+@media only screen and (min-width:"280px") and (max-width:"637px") {
+    .ant-modal{
+        top: 50px !important;
+    }
     .user-recovery {
 
         .recoveryTable {
@@ -42,14 +45,15 @@
         }
 
         .recoveryTable--responsive {
+            overflow: scroll;
             display: flex;
         }
     }
 
     .recoveryModal--responsive {
         display: block;
-        height: 43vh;
-        overflow-y: scroll;
+        height: 65vh !important;
+        overflow-y: scroll !important;
 
 
         .ant-modal .ant-modal-content {

@@ -134,7 +134,7 @@ export default function ServicePackage() {
             render: (img) =>
                 <a>
                     <img
-                        width={280}
+                        width={300}
                         alt="logo"
                         src={img}
                     />
@@ -519,7 +519,7 @@ export default function ServicePackage() {
                     />
                 </Space>
 
-                <Table  scroll={{ y: 330 }} className='dataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
+                <Table className='dataTable' rowSelection={rowSelection} columns={columns} dataSource={dataListShow} onRow={(record) => ({
                     onClick: () => handleTableRowClick(record),
                 })} />
 

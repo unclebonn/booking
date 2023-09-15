@@ -4,6 +4,8 @@ import tableRecovery from "../../utils/table_recovery"
 import type { ColumnsType } from 'antd/es/table';
 import tableRecovery_Responsive from "../../utils/card_recovery";
 import "../../pages/user/recovery/recovery.scss"
+
+
 interface RecoveryProps {
     isOpen: boolean,
     type: string,

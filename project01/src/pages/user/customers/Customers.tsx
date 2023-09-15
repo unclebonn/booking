@@ -351,7 +351,7 @@ export default function Customers() {
 
                 </>
                 }
-
+{!addForm && 
                 <List
                     bordered
                     className='displayDataTable--responsive'
@@ -379,7 +379,7 @@ export default function Customers() {
                         </List.Item>
                     )}
 
-                />
+                />}
 
                 {addForm && <><Space className='dashboard-content-header2'>
                     <h2>Thông tin khách hàng</h2>

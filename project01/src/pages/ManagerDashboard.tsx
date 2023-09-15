@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './dashboard.css'
-import { Navigate, Link, Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Link, Router, Route, Routes, useNavigate, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectOpenMenu, setMenuRole } from '../component/header/headerSlice';
 import { selectRole, selectToken } from './login/loginSlice';
@@ -63,13 +63,8 @@ export default function ManagerDashboard() {
         {isMenu && <UMenuNew />}
         {unauthorized ?
           <Unauthorized />
-          : <Routes>
-            <Route path="khach-hang" element={<AllCustomers />} />
-            <Route path="khach-hang/detail/:id" element={<CustomerDetail />} />
-            <Route path="nhan-vien" element={<AllEmployees />} />
-            <Route path="nhan-vien/detail/:id" element={<EmployeeDetail />} />
-            
-          </Routes>}
+          : <Outlet/>
+          }
       </div>
     </div>
   );

@@ -315,9 +315,8 @@ export default function Customers() {
                     </Space>
 
                     <Space className='dashboard-content-header3'>
-                        {/* <span style={{ textAlign: 'left', fontSize: 'initial', alignSelf: 'center', width: '100%' }}>
-                            {hasSelected ? `Đã chọn ` : ''}
-                        </span> */}
+
+
                         <Button
                             size='large'
                             type="default"
@@ -345,41 +344,41 @@ export default function Customers() {
                     </Space>
 
                     <div className='displayDataTable'>
-                        {deletePermission ? <Table scroll={{ y: 330 }} rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
-                            : <Table scroll={{ y: 330 }} columns={columns} dataSource={dataListShow} />}
+                        {deletePermission ? <Table rowSelection={rowSelection} columns={columns} dataSource={dataListShow} />
+                            : <Table columns={columns} dataSource={dataListShow} />}
                     </div>
 
                 </>
                 }
+                {!addForm &&
+                    <List
+                        bordered
+                        className='displayDataTable--responsive'
+                        itemLayout='vertical'
+                        size='large'
+                        pagination={{
+                            align: "end",
+                            position: "bottom"
+                        }}
+                        dataSource={dataListShow}
+                        renderItem={(item) => (
+                            <List.Item
+                                key={item.id}
+                                extra={
+                                    <Space size="small">
+                                        <Button size={"middle"} onClick={() => navigate("detail/" + item.id)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                        {deletePermission && <Button size={"middle"} onClick={() => handleDelete1(item.id, item.name)}><FontAwesomeIcon icon={faTrashCan} /></Button>}
+                                    </Space>
+                                }
+                            >
+                                <List.Item.Meta
+                                    title={<a style={{ color: "#1677ff" }} onClick={() => navigate("detail/" + item.id)}>{item.name}</a>}
+                                    description={`Thông tin liên hệ: ${item.contact}`}
+                                />
+                            </List.Item>
+                        )}
 
-                <List
-                    bordered
-                    className='displayDataTable--responsive'
-                    itemLayout='vertical'
-                    size='large'
-                    pagination={{
-                        align: "end",
-                        position: "bottom"
-                    }}
-                    dataSource={dataListShow}
-                    renderItem={(item) => (
-                        <List.Item
-                            key={item.id}
-                            extra={
-                                <Space size="small">
-                                    <Button size={"middle"} onClick={() => navigate("detail/" + item.id)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    {deletePermission && <Button size={"middle"} onClick={() => handleDelete1(item.id, item.name)}><FontAwesomeIcon icon={faTrashCan} /></Button>}
-                                </Space>
-                            }
-                        >
-                            <List.Item.Meta
-                                title={<a style={{ color: "#1677ff" }} onClick={() => navigate("detail/" + item.id)}>{item.name}</a>}
-                                description={`Thông tin liên hệ: ${item.contact}`}
-                            />
-                        </List.Item>
-                    )}
-
-                />
+                    />}
 
                 {addForm && <><Space className='dashboard-content-header2'>
                     <h2>Thông tin khách hàng</h2>
